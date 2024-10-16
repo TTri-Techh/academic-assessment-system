@@ -1,32 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <title>Scholar - Online School HTML5 Template</title>
+  <title>Academic Assessment System</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css"/>
-<!--
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
+  <link rel="stylesheet" href="assets/css/owl.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
 
-TemplateMo 586 Scholar
-
-https://templatemo.com/tm-586-scholar
-
--->
-  </head>
+</head>
 
 <body>
 
@@ -46,29 +40,29 @@ https://templatemo.com/tm-586-scholar
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="index.php" class="logo">
-                        <h1>Scholar</h1>
-                    </a>
-                    <!-- ***** Logo End ***** -->
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="index.php" class="logo">
+              <h1>AAS</h1>
+            </a>
+            <!-- ***** Logo End ***** -->
 
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                      <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                      <li class="scroll-to-section"><a href="#">About</a></li>
-                      <li class="scroll-to-section"><a href="#contact">Contact</a></li>
-                      <li class="scroll-to-section"><a href="#">For Teachers</a></li>
-                  </ul>   
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
-            </div>
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+              <li class="scroll-to-section"><a href="#">About</a></li>
+              <li class="scroll-to-section"><a href="#contact">Contact</a></li>
+              <li class="scroll-to-section"><a href="teacher/login.php">For Teachers</a></li>
+            </ul>
+            <a class='menu-trigger'>
+              <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
         </div>
+      </div>
     </div>
   </header>
   <!-- ***** Header Area End ***** -->
@@ -82,10 +76,10 @@ https://templatemo.com/tm-586-scholar
               <div class="header-text">
                 <span class="category">For Primary Levels</span>
                 <h2>Academic Assessment System</h2>
-                <p>Fuck you!</p>
+                <p>Academic Assessment System for Basic Education primary school.....</p>
                 <div class="buttons">
                   <div class="main-button">
-                    <a href="#">Request Demo</a>
+                    <a href="student/login.php">Login as student</a>
                   </div>
                   <div class="icon-button">
                     <a href="#"><i class="fa fa-play"></i> What's Scholar?</a>
@@ -172,7 +166,7 @@ https://templatemo.com/tm-586-scholar
     </div>
   </div>
 
-  <section class="section courses" id="courses" >
+  <section class="section courses" id="courses">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -202,7 +196,9 @@ https://templatemo.com/tm-586-scholar
             <div class="thumb">
               <a href="#"><img src="assets/images/course-01.jpg" alt=""></a>
               <span class="category">Webdesign</span>
-              <span class="price"><h6><em>$</em>160</h6></span>
+              <span class="price">
+                <h6><em>$</em>160</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Stella Blair</span>
@@ -215,7 +211,9 @@ https://templatemo.com/tm-586-scholar
             <div class="thumb">
               <a href="#"><img src="assets/images/course-02.jpg" alt=""></a>
               <span class="category">Development</span>
-              <span class="price"><h6><em>$</em>340</h6></span>
+              <span class="price">
+                <h6><em>$</em>340</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Cindy Walker</span>
@@ -228,7 +226,9 @@ https://templatemo.com/tm-586-scholar
             <div class="thumb">
               <a href="#"><img src="assets/images/course-03.jpg" alt=""></a>
               <span class="category">Wordpress</span>
-              <span class="price"><h6><em>$</em>640</h6></span>
+              <span class="price">
+                <h6><em>$</em>640</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">David Hutson</span>
@@ -241,7 +241,9 @@ https://templatemo.com/tm-586-scholar
             <div class="thumb">
               <a href="#"><img src="assets/images/course-04.jpg" alt=""></a>
               <span class="category">Development</span>
-              <span class="price"><h6><em>$</em>450</h6></span>
+              <span class="price">
+                <h6><em>$</em>450</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Stella Blair</span>
@@ -254,7 +256,9 @@ https://templatemo.com/tm-586-scholar
             <div class="thumb">
               <a href="#"><img src="assets/images/course-05.jpg" alt=""></a>
               <span class="category">Wordpress</span>
-              <span class="price"><h6><em>$</em>320</h6></span>
+              <span class="price">
+                <h6><em>$</em>320</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">Sophia Rose</span>
@@ -267,7 +271,9 @@ https://templatemo.com/tm-586-scholar
             <div class="thumb">
               <a href="#"><img src="assets/images/course-06.jpg" alt=""></a>
               <span class="category">Webdesign</span>
-              <span class="price"><h6><em>$</em>240</h6></span>
+              <span class="price">
+                <h6><em>$</em>240</h6>
+              </span>
             </div>
             <div class="down-content">
               <span class="author">David Hutson</span>
@@ -288,7 +294,7 @@ https://templatemo.com/tm-586-scholar
               <div class="col-lg-3 col-md-6">
                 <div class="counter">
                   <h2 class="timer count-title count-number" data-to="150" data-speed="1000"></h2>
-                   <p class="count-text ">Happy Students</p>
+                  <p class="count-text ">Happy Students</p>
                 </div>
               </div>
               <div class="col-lg-3 col-md-6">
@@ -387,5 +393,6 @@ https://templatemo.com/tm-586-scholar
   <script src="assets/js/counter.js"></script>
   <script src="assets/js/custom.js"></script>
 
-  </body>
+</body>
+
 </html>
