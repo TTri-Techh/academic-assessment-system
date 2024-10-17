@@ -1,40 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+require '../../vendor/autoload.php';
+include('../components/header.php');
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Responsive HTML Admin Dashboard Template based on Bootstrap 5">
-    <meta name="author" content="NobleUI">
-    <meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+use app\controllers\AdminAuthController;
 
-    <title>Login | Student</title>
+$adminAuthController = new AdminAuthController();
+if ($adminAuthController->isAuthenticated()) {
+    header("Location: index.php");
+    exit();
+}
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
-    <!-- End fonts -->
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['password'] = $_POST['password'];
 
-    <!-- core:css -->
-    <link rel="stylesheet" href="../../../assets/vendors/core/core.css">
-    <!-- endinject -->
+    if ($adminAuthController->login($_SESSION['email'], $_SESSION['password'])) {
+        header("Location: index.php?login=success");
+        exit();
+    } else {
+        $error = "Invalid email or password";
+    }
+}
 
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
+?>
 
-    <!-- inject:css -->
-    <link rel="stylesheet" href="../../../assets/fonts/feather-font/css/iconfont.css">
-    <link rel="stylesheet" href="../../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
-    <!-- endinject -->
 
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="../../../assets/css/demo1/style.min.css">
-    <!-- End layout styles -->
-
-    <link rel="shortcut icon" href="../../../assets/images/favicon.png" />
-</head>
+<?php if (isset($_GET['logout']) && $_GET['logout'] === 'success'): ?>
+    <script>
+        // show logged in success msg
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "Logged out!",
+                text: "You are successfully logged out!",
+                icon: "success"
+            });
+        })
+        if (window.location.search.includes('logout=success')) {
+            // Clear the query parameters after showing the alert
+            const url = new URL(window.location);
+            url.search = ''; // Remove all query parameters
+            window.history.replaceState({}, document.title, url);
+        }
+    </script>
+<?php endif ?>
 
 <body>
     <div class="main-wrapper">
@@ -55,17 +63,27 @@
                                     <div class="auth-form-wrapper px-4 py-5">
                                         <a href="#" class="noble-ui-logo d-block mb-2">Welcome<span> Back</span></a>
                                         <h5 class="text-muted fw-normal mb-4">Log in to admin account.</h5>
-                                        <form class="forms-sample">
+                                        <form class="forms-sample" method="POST">
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                                <input type="email" name="email" class="form-control" id="email" value="<?= $_SESSION['email'] ?? "" ?>" placeholder="Enter email" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="password" autocomplete="current-password" placeholder="Enter password">
+                                                <input type="password" name="password" class="form-control" id="password" value="<?= $_SESSION['password'] ?? "" ?>" autocomplete="current-password" placeholder="Enter password" required>
                                             </div>
+                                            <?php if (isset($error)): ?>
+
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    <?php echo $error; ?>
+
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                                                </div>
+
+                                            <?php endif; ?>
+
                                             <div>
-                                                <a href="../../index.php" class="btn btn-primary me-2 mb-2 mb-md-0 text-white">Login</a>
+                                                <input type="submit" value="Login" class="btn btn-primary me-2 mb-2 mb-md-0 text-white">
                                             </div>
                                         </form>
                                     </div>
@@ -78,22 +96,10 @@
             </div>
         </div>
     </div>
-
-    <!-- core:js -->
-    <script src="../../../assets/vendors/core/core.js"></script>
-    <!-- endinject -->
-
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-
-    <!-- inject:js -->
-    <script src="../../../assets/vendors/feather-icons/feather.min.js"></script>
-    <!-- <script src="../../../assets/js/template.js"></script> -->
-    <!-- endinject -->
-
-    <!-- Custom js for this page -->
-    <!-- End custom js for this page -->
-
+    <!--  JavaScript -->
+    <?php
+    include('../components/script.php');
+    ?>
 </body>
 
 </html>

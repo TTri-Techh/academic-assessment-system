@@ -5,6 +5,8 @@
 <!-- Plugin js for this page -->
 <script src="../assets/vendors/flatpickr/flatpickr.min.js"></script>
 <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
+<script src="../assets/vendors/sweetalert2/sweetalert2.min.js"></script>
+
 <!-- End plugin js for this page -->
 
 <!-- inject:js -->

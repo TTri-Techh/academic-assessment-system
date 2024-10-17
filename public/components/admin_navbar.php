@@ -213,8 +213,8 @@
                                 <img class="wd-80 ht-80 rounded-circle" src="../assets/images/faces/face1.jpg" alt="">
                             </div>
                             <div class="text-center">
-                                <p class="tx-16 fw-bolder">Amiah Burton</p>
-                                <p class="tx-12 text-muted">amiahburton@gmail.com</p>
+                                <p class="tx-16 fw-bolder">Admin</p>
+                                <p class="tx-12 text-muted"><?= $_SESSION['admin_email'] ?></p>
                             </div>
                         </div>
                         <ul class="list-unstyled p-1">
@@ -237,7 +237,7 @@
                                 </a>
                             </li>
                             <li class="dropdown-item py-2">
-                                <a href="javascript:;" class="text-body ms-0">
+                                <a href="logout.php" class="text-body ms-0">
                                     <i class="me-2 icon-md" data-feather="log-out"></i>
                                     <span>Log Out</span>
                                 </a>
