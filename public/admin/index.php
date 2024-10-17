@@ -1,6 +1,36 @@
 <?php
+
+require '../../vendor/autoload.php';
 include('../components/header.php');
+
+use app\controllers\AdminAuthController;
+
+$adminAuthController = new AdminAuthController();
+if (!$adminAuthController->isAuthenticated()) {
+  header("Location:login.php");
+  exit();
+}
+
 ?>
+
+<?php if (isset($_GET['login']) && $_GET['login'] === 'success'): ?>
+  <script>
+    // show logged in success msg
+    document.addEventListener('DOMContentLoaded', function() {
+      Swal.fire({
+        title: "Congratulation!",
+        text: "You are successfully logged in!",
+        icon: "success"
+      });
+    })
+    if (window.location.search.includes('login=success')) {
+      // Clear the query parameters after showing the alert
+      const url = new URL(window.location);
+      url.search = ''; // Remove all query parameters
+      window.history.replaceState({}, document.title, url);
+    }
+  </script>
+<?php endif ?>
 
 <body>
   <div class="main-wrapper">
