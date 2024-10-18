@@ -3,8 +3,11 @@ require '../../vendor/autoload.php';
 include('../components/header.php');
 
 use app\controllers\AdminAuthController;
+use core\helpers\AlertHelper;
 
 $adminAuthController = new AdminAuthController();
+
+// Redirect to dashboard page if authenticated
 if ($adminAuthController->isAuthenticated()) {
     header("Location: index.php");
     exit();
@@ -22,27 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
+    AlertHelper::showAlert('Logged out!', 'You are successfully logged out!', 'success');
+}
+
 ?>
-
-
-<?php if (isset($_GET['logout']) && $_GET['logout'] === 'success'): ?>
-    <script>
-        // show logged in success msg
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                title: "Logged out!",
-                text: "You are successfully logged out!",
-                icon: "success"
-            });
-        })
-        if (window.location.search.includes('logout=success')) {
-            // Clear the query parameters after showing the alert
-            const url = new URL(window.location);
-            url.search = ''; // Remove all query parameters
-            window.history.replaceState({}, document.title, url);
-        }
-    </script>
-<?php endif ?>
 
 <body>
     <div class="main-wrapper">

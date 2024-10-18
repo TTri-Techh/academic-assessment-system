@@ -17,7 +17,7 @@ class AdminModel
     /**
      * Method findByEmail
      *
-     * @param string $email $email [Admin's email]
+     * @param string $email [Admin's email]
      *
      * @return object
      */
