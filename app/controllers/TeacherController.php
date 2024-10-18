@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\models\TeacherModel;
 use core\db\MySQL;
-use core\helpers\AlertHelper;
 
 class TeacherController
 {
@@ -23,7 +22,7 @@ class TeacherController
      *
      * @param array $data [a teacher's data]
      *
-     * @return void
+     * @return string
      */
     public function register($data)
     {
@@ -44,11 +43,13 @@ class TeacherController
         $result = $this->teacherModel->register($data);
 
         if ($result) {
-            $response = "Teacher registered successfully as " . $username;
-            AlertHelper::showAlert('Registration Succeed', $response, 'success');
+            $_SESSION['response'] = "Teacher registered successfully as " . $username;
+            header("Location: register-teachers.php?register=success");
         } else {
-            AlertHelper::showAlert('Registration Failed.', 'Something went wrong.', 'error');
+            $_SESSION['response'] = "Something went wrong.";
+            header("Location: register-teachers.php?register=fail");
         }
+        exit();
     }
     /**
      * Generate a username for teacher
@@ -60,5 +61,62 @@ class TeacherController
     public function generateUsername($name)
     {
         return strtolower(str_replace(' ', '', $name));
+    }
+
+    /**
+     * Method getAllTeachers
+     *
+     * @return object [Teacher object with allTeachers]
+     */
+    public function getAllTeachers()
+    {
+        return $this->teacherModel->getAllTeachers();
+    }
+    /**
+     * Method getTeacherById
+     *
+     * @param int $id [ teacher's id ]
+     *
+     * @return object [ teacher data]
+     */
+    public function getTeacherById($id)
+    {
+        return $this->teacherModel->getTeacherById($id);
+    }
+    // public function getFilteredRecords($start, $length, $search)
+    // {
+    //     return $this->teacherModel->getFilteredRecords($start, $length, $search);
+    // }    
+    /**
+     * Method updateTeacherById
+     *
+     * @param array $data [Teacher's data]
+     *
+     * @return void
+     */
+    public function updateTeacherById($data)
+    {
+        $result = $this->teacherModel->updateTeacherById($data);
+        if ($result) {
+            header("Location:view-teachers.php?update=success");
+            exit();
+        } else {
+            header("Location:view-teachers.php?update=fail");
+            exit();
+        }
+    }
+
+    /**
+     * Method deleteTeacherById
+     *
+     * @param $id $id [teacher's id to be deleted]
+     *
+     * @return void
+     */
+    public function deleteTeacherById($id)
+    {
+        $result = $this->teacherModel->deleteTeacherById($id);
+        header("Location: view-teachers.php");
+        exit();
     }
 }

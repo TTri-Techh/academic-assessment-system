@@ -23,4 +23,21 @@ class AlertHelper
             }
     </script>";
     }
+
+    public static function confirmDelete($id, $text, $urlToRedirect)
+    {
+        return "
+            Swal.fire({
+                title: 'Are you sure?',
+                text: '$text',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '$urlToRedirect$id';
+                }
+            });
+        ";
+    }
 }
