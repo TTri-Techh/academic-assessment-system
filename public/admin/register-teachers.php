@@ -5,6 +5,7 @@ include('../components/header.php');
 
 use app\controllers\AdminAuthController;
 use app\controllers\TeacherController;
+use core\helpers\AlertHelper;
 
 // Redirect to login page if not authenticated
 $adminAuthController = new AdminAuthController();
@@ -14,14 +15,20 @@ if (!$adminAuthController->isAuthenticated()) {
 }
 
 $teacherController = new TeacherController();
-
 if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit_btn'])) {
     $teacherController->register($_POST);
+}
+
+if (isset($_GET['register']) && $_GET['register'] === 'success') {
+    AlertHelper::showAlert('Registration Succeed', $_SESSION['response'], 'success');
+} elseif (isset($_GET['register']) && $_GET['register'] === 'fail') {
+    AlertHelper::showAlert('Failed to register.', $_SESSION['response'], 'error');
 }
 
 ?>
 
 <body>
+
     <div class="main-wrapper">
 
         <!-- Sidebar & Navbar -->
@@ -42,7 +49,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit_btn'])) {
                 <div class="mt-3 col-lg-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">ဆရာ/ဆရာမများ၏ အချက်အလက်များဖြည့်သွင်းရန်</h4>
+                            <h4 class="card-title">ဆရာ/ဆရာမ၏ အချက်အလက်များဖြည့်သွင်းရန်</h4>
                             <form id="signupForm" method="POST" action="">
                                 <div class="mb-3">
                                     <label for="name" class="form-label">အမည်</label>
@@ -58,7 +65,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit_btn'])) {
                                 </div> -->
                                 <div class="mb-3">
                                     <label for="phone" class="form-label">ဖုန်းနံပါတ်</label>
-                                    <input id="phone" class="form-control" name="phone" type="phone" placeholder="phone" max="11" required>
+                                    <input id="phone" class="form-control" name="phone" type="tel" placeholder="phone" max="11" pattern="[0-9]{2}[0-9]{9}" required>
                                 </div>
                                 <!-- <div class="mb-3">
                                     <label for="password" class="form-label">လျှို့ဝှက်စကားလုံး</label>
