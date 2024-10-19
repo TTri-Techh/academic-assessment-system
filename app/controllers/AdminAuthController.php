@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\AdminModel;
-
+use core\db\MySQL;
 
 class AdminAuthController
 {
@@ -11,7 +11,9 @@ class AdminAuthController
 
     public function __construct()
     {
-        $this->admin = new AdminModel();
+        $database = new MySQL();
+        $db = $database->connect();
+        $this->admin = new AdminModel($db);
         session_start();
     }
 

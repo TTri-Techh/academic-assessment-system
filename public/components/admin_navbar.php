@@ -33,12 +33,12 @@
                             </div>
                         </div>
                         <ul class="list-unstyled p-1">
-                            <li class="dropdown-item py-2">
-                                <a href="logout.php" class="text-body ms-0">
+                            <a href="logout.php" class="text-body ms-0">
+                                <li class="dropdown-item py-2">
                                     <i class="me-2 icon-md" data-feather="log-out"></i>
                                     <span>Log Out</span>
-                                </a>
-                            </li>
+                                </li>
+                            </a>
                         </ul>
                     </div>
                 </li>

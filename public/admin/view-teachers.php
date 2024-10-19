@@ -24,9 +24,8 @@ $teachers = $teacherController->getAllTeachers();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
     $teacherController->updateTeacherById($_POST);
-}
-if (isset($_GET['update']) && $_GET['update'] === 'success') {
-    AlertHelper::showAlert('Updated!', 'Updated a teacher\'s data successfully.', 'success');
+} elseif (isset($_GET['update']) && $_GET['update'] === 'success') {
+    AlertHelper::showAlert('Updated!', 'Updated a teacher data successfully.', 'success');
 } elseif (isset($_GET['update']) && $_GET['update'] === 'fail') {
     AlertHelper::showAlert('Failed to update.', 'Something went wrong.', 'error');
 } elseif (isset($_GET['delete']) && $_GET['delete'] === 'true') {
