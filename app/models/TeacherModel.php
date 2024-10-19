@@ -165,7 +165,7 @@ class TeacherModel
     public function getTeacherById($id)
     {
         try {
-            $query = "SELECT * FROM {$this->table} WHERE id= :id";
+            $query = "SELECT id, name, username, password, phone, status FROM {$this->table} WHERE id= :id";
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id', $id);
             $stmt->execute();
@@ -180,7 +180,7 @@ class TeacherModel
      *
      * @param array $data [TeacherData]
      *
-     * @return void
+     * @return bool|string
      */
     public function updateTeacherById($data)
     {

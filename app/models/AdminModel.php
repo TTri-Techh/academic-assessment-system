@@ -2,17 +2,17 @@
 
 namespace app\models;
 
-use core\db\MySQL;
 use PDO;
 use PDOException;
 
 class AdminModel
 {
     private $db;
+    private $table = 'admins';
 
-    public function __construct()
+    public function __construct($db)
     {
-        $this->db = (new MySQL)->connect();
+        $this->db = $db;
     }
     /**
      * Method findByEmail

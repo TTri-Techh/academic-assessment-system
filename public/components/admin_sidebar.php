@@ -5,7 +5,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar">
     <div class="sidebar-header">
-        <a href="#" class="sidebar-brand">
+        <a href="index.php" class="sidebar-brand">
             AAS<span> admin</span>
         </a>
         <div class="sidebar-toggler not-active">

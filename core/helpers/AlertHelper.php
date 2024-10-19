@@ -8,21 +8,21 @@ class AlertHelper
     {
         echo "
         <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                title: '$title',
-                text: '$message',
-                icon: '$icon'
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: '$title',
+                    text: '$message',
+                    icon: '$icon'
+                }).then(() => {
+                    // Clear the query parameters after showing the alert
+                    const url = new URL(window.location.href);
+                    url.search = ''; 
+                    window.history.replaceState({}, document.title, url);
                 });
-                });
-                
-                if (window.location.search) {
-            const url = new URL(window.location);
-            url.search = ''; // Clear query parameters
-            window.history.replaceState({}, document.title, url);
-            }
-    </script>";
+            });
+        </script>";
     }
+
 
     public static function confirmDelete($id, $text, $urlToRedirect)
     {
