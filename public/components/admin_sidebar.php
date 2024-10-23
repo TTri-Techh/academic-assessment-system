@@ -89,9 +89,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <div class="collapse" id="classes-pages">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="classes.php"
-                                class="nav-link <?php echo ($currentPage == 'view-students.php') ? 'active' : ''; ?>">
-                                Manage Classes
+                            <a href="assign-classes.php"
+                                class="nav-link <?php echo ($currentPage == 'assign-classes.php') ? 'active' : ''; ?>">
+                                Assign Classes
                             </a>
                         </li>
 

@@ -12,9 +12,9 @@
     <title>Academic Assessment System for Primary Levels</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin> -->
+    <link href="../assets/fonts/google-font/roboto.css" rel="stylesheet">
     <!-- End fonts -->
 
     <!-- core:css -->

@@ -7,7 +7,7 @@
         </a>
         <div class="navbar-content">
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="flag-icon flag-icon-us mt-1" title="us"></i> <span class="ms-1 me-1 d-none d-md-inline-block">English</span>
                     </a>
@@ -15,9 +15,7 @@
                         <a href="javascript:;" class="dropdown-item py-2"><i class="flag-icon flag-icon-us" title="us" id="us"></i> <span class="ms-1"> English </span></a>
                         <a href="javascript:;" class="dropdown-item py-2"><i class="flag-icon flag-icon-mm" title="mm" id="mm"></i> <span class="ms-1"> Myanmar </span></a>
                     </div>
-                </li>
-
-
+                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="wd-30 ht-30 rounded-circle" src="../assets/images/faces/profile.png" alt="profile">

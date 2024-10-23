@@ -13,3 +13,12 @@
 > admin =>
 > admin@gmail.com,
 > 12345678
+
+> teacher default password => 12345
+
+## Admin
+
+- Register teachers
+- View teachers information
+- View Student information
+- Manage classes (Assign classes for teachers)

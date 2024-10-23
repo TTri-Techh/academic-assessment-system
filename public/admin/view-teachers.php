@@ -14,13 +14,7 @@ if (!$adminAuthController->isAuthenticated()) {
     exit();
 }
 
-// Get pagination parameters from DataTables
-// $start = $_GET['start'] ?? 0;
-// $length = $_GET['length'] ?? 10;
-// $search = $_GET['search']['value'] ?? '';
 $teachers = $teacherController->getAllTeachers();
-// $teachers = $teacherController->getFilteredRecords($start, $length, $search);
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
     $teacherController->updateTeacherById($_POST);
@@ -68,8 +62,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
                                             <th>စဉ်</th>
                                             <th>အမည်</th>
                                             <th>အသုံးပြုသူအမည်</th>
-                                            <th>ဖုန်း</th>
+                                            <th>မိဘအမည်</th>
+                                            <th>ရာထူး</th>
+                                            <th>ပညာအရည်အချင်း</th>
+                                            <th>မွေးသက္ကရာဇ်</th>
+                                            <th class="text-primary">စတင်ဝင်ရောက်သည့်အချိန် <br> ပညာရေးဌာန</th>
+                                            <th class="text-primary"> <br> လက်ရှိရာထူး</th>
+                                            <th class="text-primary"> <br> လက်ရှိကျောင်း</th>
+                                            <th>B.E.D ပြီးမပြီး</th>
+                                            <th>ဖောင်ကြီး ပြီးမပြီး</th>
+                                            <th>တက်ရောက်ပြီးသင်တန်း</th>
                                             <th>Status</th>
+                                            <th>ဖုန်း/နေရပ်လိပ်စာ</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -78,24 +82,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
                                         <?php foreach ($teachers as $teacher) : ?>
                                             <tr>
                                                 <td><?= $count ?></td>
-                                                <td><?= htmlspecialchars($teacher['name']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['name_mm']) ?></td>
                                                 <td><?= htmlspecialchars($teacher['username']) ?></td>
-                                                <td><?= htmlspecialchars($teacher['phone']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['father_name']) ?> <br> <?= htmlspecialchars($teacher['mother_name']) ?> </td>
+                                                <td><?= htmlspecialchars($teacher['rank']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['education']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['dob']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['start_edu_at']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['start_current_rank_at']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['start_current_school_at']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['bed_status']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['phaung_gyi_status']) ?></td>
+                                                <td><?= htmlspecialchars($teacher['completed_course']) ?></td>
                                                 <td><span class="badge <?= $teacher['status'] == 'active' ? 'bg-success' : 'bg-danger' ?> "><?= htmlspecialchars($teacher['status']) ?></span></td>
+                                                <td><?= htmlspecialchars($teacher['phone']) ?> <br> <?= htmlspecialchars($teacher['address']) ?></td>
                                                 <td class="d-flex align-items-center">
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal"
-                                                        data-id="<?= $teacher['id'] ?>"
-                                                        data-name="<?= htmlspecialchars($teacher['name']) ?>"
-                                                        data-phone="<?= htmlspecialchars($teacher['phone']) ?>"
-                                                        data-password="<?= htmlspecialchars($teacher['password']) ?>"
-                                                        data-status="<?= htmlspecialchars($teacher['status']) ?>">
-                                                        <a class="" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i></a>
-                                                    </button>
+                                                    <!-- </button> -->
+                                                    <a class="" href="edit-teacher.php?id=<?= htmlspecialchars($teacher['id']) ?>"><i data-feather="edit-2" class="icon-sm me-2"></i></a>
                                                     <a class="" href="javascript:;" onclick="<?= AlertHelper::confirmDelete($teacher['id'], 'Do you want to delete this teacher?', 'view-teachers.php?delete=true&id='); ?>">
                                                         <i data-feather="trash" class="icon-sm me-2 text-danger"></i>
                                                     </a>
-
                                                 </td>
 
                                             </tr>
@@ -111,82 +117,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
             </div>
             <!-- End Data Table -->
 
-            <!-- Start Edit Model -->
-            <!-- Modal -->
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit Teacher's Data</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <form action="" method="POST">
-                                <div class="row">
-                                    <input type="hidden" name="id" id="modal-teacher-id">
-
-                                    <div class="col-sm-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Name</label>
-                                            <input type="text" name="name" class="form-control" placeholder="Enter name" id="modal-teacher-name">
-                                        </div>
-                                    </div><!-- Col -->
-                                    <div class="col-sm-6">
-                                        <label class="form-label">Status</label>
-                                        <select class="form-select" name="status" id="modal-teacher-status">
-                                            <option value="active">Active</option>
-                                            <option value="inactive">Inactive</option>
-                                        </select>
-                                    </div><!-- Col -->
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Phone</label>
-                                            <input type="tel" name="phone" class="form-control" placeholder="Enter phone number" id="modal-teacher-phone" pattern="[0-9]{2}[0-9]{9}">
-                                        </div>
-                                    </div><!-- Col -->
-                                    <div class="col-sm-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Password</label>
-                                            <input type="text" name="password" class="form-control" autocomplete="off" placeholder="Password" id="modal-teacher-password">
-                                        </div>
-                                    </div><!-- Col -->
-                                </div><!-- Row -->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="update-btn" class="btn btn-primary submit">Save changes</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- End Edit Model -->
-
         </div>
     </div>
 </body>
-<script>
-    const editModal = document.getElementById('editModal');
-    editModal.addEventListener('show.bs.modal', function(event) {
-        const button = event.relatedTarget; // Button that triggered the modal
-        const teacherId = button.getAttribute('data-id');
-        const teacherName = button.getAttribute('data-name');
-        const teacherPhone = button.getAttribute('data-phone');
-        const teacherPassword = button.getAttribute('data-password');
-        const teacherStatus = button.getAttribute('data-status');
-
-        // Populate the modal inputs
-        document.getElementById('modal-teacher-id').value = teacherId;
-        document.getElementById('modal-teacher-name').value = teacherName;
-        document.getElementById('modal-teacher-phone').value = teacherPhone;
-        document.getElementById('modal-teacher-password').value = teacherPassword;
-        document.getElementById('modal-teacher-status').value = teacherStatus.toLowerCase(); // Set the chosen status
-
-    });
-</script>
 <?php
 include('../components/script.php');
 ?>
