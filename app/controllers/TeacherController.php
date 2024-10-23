@@ -15,8 +15,6 @@ class TeacherController
         $db = $database->connect();
         $this->teacherModel = new TeacherModel($db);
     }
-
-
     /**
      * Register a teacher
      *
@@ -26,7 +24,7 @@ class TeacherController
      */
     public function register($data)
     {
-        $username = $this->generateUsername($data['name']) ?? '';
+        $username = $this->generateUsername($data['name_eng']) ?? '';
         // Ensure unique username by appending numbers if necessary
         $originalUsername = $username;
         $counter = 1;
@@ -34,11 +32,24 @@ class TeacherController
             $username = $originalUsername . $counter;
             $counter++;
         }
-
+        // 16 rows of data
         $data = [
-            'name' => $data['name'] ?? '',
+            'name_eng' => $data['name_eng'] ?? '',
+            'name_mm' => $data['name_mm'] ?? '',
             'username' => $username,
+            'father_name' => $data['father_name'] ?? '',
+            'mother_name' => $data['mother_name'] ?? '',
+            'education' => $data['education'] ?? '',
+            'rank' => $data['rank'] ?? '',
+            'dob' => $data['dob'] ?? '',
+            'start_edu_at' => $data['start_edu_at'] ?? '',
+            'start_current_rank_at' => $data['start_current_rank_at'] ?? '',
+            'start_current_school_at' => $data['start_current_school_at'] ?? '',
             'phone' => $data['phone'] ?? '',
+            'address' => $data['address'] ?? '',
+            'bed_status' => $data['bed_status'] ?? '',
+            'phaung_gyi_status' => $data['phaung_gyi_status'] ?? '',
+            'completed_course' => $data['completed_course'] ?? '',
         ];
         $result = $this->teacherModel->register($data);
 
@@ -62,7 +73,24 @@ class TeacherController
     {
         return strtolower(str_replace(' ', '', $name));
     }
-
+    /**
+     * Method getALlTeachersIDAndName
+     *
+     * @return object 
+     */
+    public function getAllTeachersClass()
+    {
+        return $this->teacherModel->getAllTeachersClass();
+    }
+    /**
+     * Method get a teacher class name
+     *
+     * @return object 
+     */
+    public function getTeacherClassNameById($id)
+    {
+        return $this->teacherModel->getTeacherClassNameById($id);
+    }
     /**
      * Method getAllTeachers
      *
@@ -83,10 +111,26 @@ class TeacherController
     {
         return $this->teacherModel->getTeacherById($id);
     }
-    // public function getFilteredRecords($start, $length, $search)
-    // {
-    //     return $this->teacherModel->getFilteredRecords($start, $length, $search);
-    // }    
+    /**
+     * Method update (assign) teacher class
+     *
+     * @param int $id [teacher id]
+     * 
+     * @param int $classId [teacher's class id]
+     *
+     * @return bool|string
+     */
+    public function updateTeacherClassById($id, $classId)
+    {
+        $result = $this->teacherModel->updateTeacherClassById($id, $classId);
+        if ($result) {
+            header("Location:assign-classes.php?update=success");
+            exit();
+        } else {
+            header("Location:assign-classes.php?update=fail");
+            exit();
+        }
+    }
     /**
      * Method updateTeacherById
      *
@@ -105,7 +149,6 @@ class TeacherController
             exit();
         }
     }
-
     /**
      * Method deleteTeacherById
      *
