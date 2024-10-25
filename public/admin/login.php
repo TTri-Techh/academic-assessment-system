@@ -4,6 +4,7 @@ include('../components/header.php');
 
 use app\controllers\AdminAuthController;
 use core\helpers\AlertHelper;
+session_start();
 
 $adminAuthController = new AdminAuthController();
 
@@ -53,24 +54,31 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                         <form class="forms-sample" method="POST">
                                             <div class="mb-3">
                                                 <label for="email" class="form-label">Email</label>
-                                                <input type="email" name="email" class="form-control" id="email" value="<?= $_SESSION['email'] ?? "" ?>" placeholder="Enter email" required>
+                                                <input type="email" name="email" class="form-control" id="email"
+                                                    value="<?= $_SESSION['email'] ?? "" ?>" placeholder="Enter email"
+                                                    required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" name="password" class="form-control" id="password" value="<?= $_SESSION['password'] ?? "" ?>" autocomplete="current-password" placeholder="Enter password" required>
+                                                <input type="password" name="password" class="form-control"
+                                                    id="password" value="<?= $_SESSION['password'] ?? "" ?>"
+                                                    autocomplete="current-password" placeholder="Enter password"
+                                                    required>
                                             </div>
                                             <?php if (isset($error)): ?>
 
                                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                                     <?php echo $error; ?>
 
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="btn-close"></button>
                                                 </div>
 
                                             <?php endif; ?>
 
                                             <div>
-                                                <input type="submit" value="Login" class="btn btn-primary me-2 mb-2 mb-md-0 text-white">
+                                                <input type="submit" value="Login"
+                                                    class="btn btn-primary me-2 mb-2 mb-md-0 text-white">
                                             </div>
                                         </form>
                                     </div>

@@ -5,6 +5,8 @@ namespace app\controllers;
 use app\models\TeacherModel;
 use core\db\MySQL;
 
+
+
 class TeacherController
 {
     private $teacherModel;
@@ -14,7 +16,35 @@ class TeacherController
         $database = new MySQL();
         $db = $database->connect();
         $this->teacherModel = new TeacherModel($db);
+
     }
+
+    public function login($username, $password)
+    {
+        $teacher = $this->teacherModel->findByUsername($username);
+        if ($teacher) {
+            $_SESSION['teacher_id'] = $teacher->id;
+            $_SESSION['teacher_username'] = $teacher->username;
+            return true;
+        }
+        return false;
+    }
+
+    public function isAuthenticated()
+    {
+        return isset($_SESSION['teacher_id']);
+    }
+
+
+    public function logout()
+    {
+        session_unset();
+        session_destroy();
+        header("Location: /Resource-hub-for-primary-teacher/public/teacher/login.php?logout=success");
+        exit();
+    }
+
+
     /**
      * Register a teacher
      *
