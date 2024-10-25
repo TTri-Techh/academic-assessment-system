@@ -8,6 +8,7 @@ use app\controllers\ClassController;
 use app\controllers\TeacherController;
 use core\helpers\AlertHelper;
 
+
 $adminAuthController = new AdminAuthController();
 $teacherController = new TeacherController();
 $classController = new ClassController();
@@ -71,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
                                     </thead>
                                     <tbody>
                                         <?php $count = 1; ?>
-                                        <?php foreach ($teachers as $teacher) : ?>
+                                        <?php foreach ($teachers as $teacher): ?>
                                             <?php
                                             $teacherId = $teacher['id'];
                                             $teacherClassData = $teacherController->getTeacherClassNameById($teacherId);
@@ -80,13 +81,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
                                             <tr>
                                                 <td><?= $count ?></td>
                                                 <td><?= htmlspecialchars($teacher['name_mm']) ?></td>
-                                                <td><?= is_null($teacher['class_id']) ? 'အတန်းမသတ်မှတ်ရသေးပါ။' : $teacherClassData->class_name ?></td>
+                                                <td><?= is_null($teacher['class_id']) ? 'အတန်းမသတ်မှတ်ရသေးပါ။' : $teacherClassData->class_name ?>
+                                                </td>
                                                 <td class="d-flex align-items-center">
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal"
-                                                        data-id="<?= $teacher['id'] ?>"
+                                                    <button type="button" class="btn" data-bs-toggle="modal"
+                                                        data-bs-target="#editModal" data-id="<?= $teacher['id'] ?>"
                                                         data-class-id="<?= $teacher['class_id'] ?>"
-                                                        data-name="<?= htmlspecialchars($teacher['name_mm']) ?>"> <a class="" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i></a>
+                                                        data-name="<?= htmlspecialchars($teacher['name_mm']) ?>"> <a
+                                                            class="" href="javascript:;"><i data-feather="edit-2"
+                                                                class="icon-sm me-2"></i></a>
                                                     </button>
 
                                                 </td>
@@ -111,7 +115,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="editModalLabel">အတန်းသတ်မှတ်ခြင်း</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="btn-close"></button>
                         </div>
                         <div class="modal-body">
 
@@ -122,7 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">အမည်</label>
-                                            <input type="text" name="name" class="form-control" id="modal-teacher-name" readonly>
+                                            <input type="text" name="name" class="form-control" id="modal-teacher-name"
+                                                readonly>
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
@@ -150,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
 </body>
 <script>
     const editModal = document.getElementById('editModal');
-    editModal.addEventListener('show.bs.modal', function(event) {
+    editModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget; // Button that triggered the modal
         const teacherId = button.getAttribute('data-id');
         const teacherName = button.getAttribute('data-name');
