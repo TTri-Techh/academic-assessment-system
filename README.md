@@ -10,15 +10,27 @@
 
 [Database](/core/db/academic-assessment-system.sql)
 
+## Login Credentials
+
 > admin =>
 > admin@gmail.com,
 > 12345678
 
-> teacher default password => 12345
+> teacher default password => 123456
+
+> teacher reset password => 12345678 (for common password)
 
 ## Admin
 
-- Register teachers
-- View teachers information
-- View Student information
-- Manage classes (Assign classes for teachers)
+- Register teachers ✅
+- View teachers information ✅
+- View Student information ❌
+- Manage classes (Assign classes for teachers) ✅
+
+## Teacher
+
+| Feature                   | KG  | G1  | G2  | G3  | G4  | G5  |
+| ------------------------- | --- | --- | --- | --- | --- | --- |
+| View students information | ✅  | ❌  | ❌  | ❌  | ❌  | ❌  |
+| View assessment results   | ✅  | ❌  | ❌  | ❌  | ❌  | ❌  |
+| Update assessment results | ✅  | ❌  | ❌  | ❌  | ❌  | ❌  |

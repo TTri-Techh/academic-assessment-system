@@ -15,6 +15,19 @@ class TeacherModel
         $this->db = $db;
     }
 
+    public function getTeacherByUsername($username)
+    {
+        try {
+            $query = "SELECT * FROM {$this->table} WHERE username = :username";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
     /**
      * Register a teacher 
      *
@@ -220,6 +233,37 @@ class TeacherModel
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    /**
+     * Method to get a teacher's password status
+     *
+     * @return object
+     */
+    public function getATeacherPaswordStatus($username)
+    {
+        try {
+            $query = "SELECT COALESCE(password_status, 0) AS password_status FROM {$this->table} WHERE username = :username";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            $result = $stmt->fetchColumn();
+            return $result ? 1 : 0;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function updatePassword($username, $password)
+    {
+        try {
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $query = "UPDATE {$this->table} SET password = :password, password_status = 1 WHERE username = :username";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':password', $hashedPassword);
+            $stmt->bindParam(':username', $username);
+            return $stmt->execute();
         } catch (PDOException $e) {
             return $e->getMessage();
         }

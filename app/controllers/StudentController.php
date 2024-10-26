@@ -15,12 +15,11 @@ class StudentController
         $database = new MySQL();
         $db = $database->connect();
         $this->studentModel = new StudentModel($db);
-
     }
 
     public function register($data)
     {
-        $username = $this->generateUsername($data['name_eng']) ?? '';
+        $username = $this->generateUsername($data['name_en']) ?? '';
         // Ensure unique username by appending numbers if necessary
         $originalUsername = $username;
         $counter = 1;
@@ -31,8 +30,9 @@ class StudentController
         // 16 rows of data
         $data = [
             'enrollment_no' => $data['enrollment_no'] ?? '',
+            'class_id' => $data['class_id'] ?? '',
             'name_en' => $data['name_en'] ?? '',
-            'name_my' => $data['name_my'] ?? '',
+            'name_mm' => $data['name_mm'] ?? '',
             'username' => $username,
             'dob' => $data['dob'] ?? '',
             'father_name' => $data['father_name'] ?? '',
@@ -40,7 +40,7 @@ class StudentController
             'guardian' => $data['guardian'] ?? '',
             'parent_job' => $data['parent_job'] ?? '',
             'address' => $data['address'] ?? '',
-            'phone_number' => $data['phone_number'] ?? '',
+            'phone' => $data['phone'] ?? '',
         ];
         $result = $this->studentModel->register($data);
 
@@ -59,8 +59,30 @@ class StudentController
         return strtolower(str_replace(' ', '', $name));
     }
 
-    public function getAllTeachers()
+    public function getAllStudents()
     {
         return $this->studentModel->getAllStudents();
+    }
+    public function getStudentById($id)
+    {
+        return $this->studentModel->getStudentById($id);
+    }
+    public function updateStudentById($data)
+    {
+        $result = $this->studentModel->updateStudentById($data);
+        if ($result) {
+            header("Location:view-students.php?update=success");
+            exit();
+        } else {
+            header("Location:view-students.php?update=fail");
+            exit();
+        }
+    }
+
+    public function deleteStudentById($id)
+    {
+        return $this->studentModel->deleteStudentById($id);
+        header("Location: view-students.php");
+        exit();
     }
 }

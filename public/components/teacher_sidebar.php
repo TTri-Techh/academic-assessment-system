@@ -42,9 +42,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="view-teachers.php"
+                            <a href="view-students.php"
                                 class="nav-link <?php echo ($currentPage == 'view-students.php') ? 'active' : ''; ?>">
-                                View Teachers
+                                View students
                             </a>
                         </li>
 
@@ -52,6 +52,27 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </div>
             </li>
             <!--End For Teacher -->
+
+            <!-- For Assessment  -->
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#assessment-pages" role="button" aria-expanded="false"
+                    aria-controls="assessment-pages">
+                    <i class="link-icon" data-feather="file-text"></i>
+                    <span class="link-title">Assessment</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="assessment-pages">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="assessment.php"
+                                class="nav-link <?php echo ($currentPage == 'assessment.php') ? 'active' : ''; ?>">
+                                Assessment
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <!--End For Assessment -->
 
             <!-- For Students -->
             <!-- <li class="nav-item">
@@ -65,13 +86,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="view-students.php"
-                                class="nav-link <?php // echo ($currentPage == 'view-students.php') ? 'active' : ''; ?>">
+                                class="nav-link <?php // echo ($currentPage == 'view-students.php') ? 'active' : ''; 
+                                                ?>">
                                 View Students
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="students-result.php"
-                                class="nav-link <?php // echo ($currentPage == 'students-result.php') ? 'active' : ''; ?>">
+                                class="nav-link <?php // echo ($currentPage == 'students-result.php') ? 'active' : ''; 
+                                                ?>">
                                 Students' Results
                             </a>
                         </li>
@@ -93,7 +116,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="assign-classes.php"
-                                class="nav-link <?php // echo ($currentPage == 'assign-classes.php') ? 'active' : ''; ?>">
+                                class="nav-link <?php // echo ($currentPage == 'assign-classes.php') ? 'active' : ''; 
+                                                ?>">
                                 Assign Classes
                             </a>
                         </li>

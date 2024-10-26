@@ -6,6 +6,8 @@ include('../components/header.php');
 use app\controllers\AdminAuthController;
 use core\helpers\AlertHelper;
 
+// session_start();
+
 // Redirect to login page if not authenticated
 $adminAuthController = new AdminAuthController();
 if (!$adminAuthController->isAuthenticated()) {

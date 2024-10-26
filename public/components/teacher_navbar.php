@@ -27,8 +27,10 @@
                                 <img class="wd-80 ht-80 rounded-circle" src="../assets/images/faces/profile.png" alt="">
                             </div>
                             <div class="text-center">
-                                <p class="tx-16 fw-bolder">Teacher</p>
-                                <p class="tx-12 text-muted"><?= $_SESSION['teacher_username'] ?></p>
+                                <p class="tx-16 fw-bolder"><?= $_SESSION['teacher_name'] ?></p>
+                                <p class="tx-12 text-muted p-2"><?= $_SESSION['teacher_username'] ?></p>
+                                <p class="tx-12 text-muted">သင်ကြားသည့်အတန်း - <span class="fw-bolder text-primary"><?= $_SESSION['class_name'] ?></span></p>
+
                             </div>
                         </div>
                         <ul class="list-unstyled p-1">
