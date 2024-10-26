@@ -8,7 +8,6 @@ use PDOException;
 class AdminModel
 {
     private $db;
-    private $table = 'admins';
 
     public function __construct($db)
     {
@@ -24,7 +23,7 @@ class AdminModel
     public function findByEmail($email)
     {
         try {
-            $query = 'SELECT * FROM admins where email = :email';
+            $query = 'SELECT * from admins where email = :email';
             $stmt = $this->db->prepare($query);
             $stmt->execute([
                 'email' => $email,

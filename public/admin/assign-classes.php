@@ -24,14 +24,6 @@ $classes = $classController->getAllClasses();
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
     $teacherController->updateTeacherClassById($_POST['id'], $_POST['class_id']);
 }
-//  elseif (isset($_GET['update']) && $_GET['update'] === 'success') {
-//     AlertHelper::showAlert('Updated!', 'Updated a teacher data successfully.', 'success');
-// } elseif (isset($_GET['update']) && $_GET['update'] === 'fail') {
-//     AlertHelper::showAlert('Failed to update.', 'Something went wrong.', 'error');
-// } elseif (isset($_GET['delete']) && $_GET['delete'] === 'true') {
-//     $id = (int)$_GET['id'];
-//     $teacherController->deleteTeacherById($id);
-// }
 ?>
 
 
@@ -156,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
 </body>
 <script>
     const editModal = document.getElementById('editModal');
-    editModal.addEventListener('show.bs.modal', function (event) {
+    editModal.addEventListener('show.bs.modal', function(event) {
         const button = event.relatedTarget; // Button that triggered the modal
         const teacherId = button.getAttribute('data-id');
         const teacherName = button.getAttribute('data-name');

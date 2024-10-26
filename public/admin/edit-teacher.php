@@ -5,7 +5,6 @@ include('../components/header.php');
 
 use app\controllers\AdminAuthController;
 use app\controllers\TeacherController;
-session_start();
 
 // Redirect to login page if not authenticated
 $adminAuthController = new AdminAuthController();
@@ -21,7 +20,6 @@ $teacher = $teacherController->getTeacherById($id);
 
 
 if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit_btn'])) {
-    var_dump($_POST);
     $teacherController->updateTeacherById($_POST);
 }
 ?>

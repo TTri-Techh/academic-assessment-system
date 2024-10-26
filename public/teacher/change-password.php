@@ -2,34 +2,30 @@
 require '../../vendor/autoload.php';
 include('../components/header.php');
 
-use app\controllers\AdminAuthController;
-use core\helpers\AlertHelper;
+use app\controllers\TeacherController;
 
-// session_start();
-
-$adminAuthController = new AdminAuthController();
+$teacherController = new TeacherController();
 
 // Redirect to dashboard page if authenticated
-if ($adminAuthController->isAuthenticated()) {
+if ($teacherController->isAuthenticated()) {
     header("Location: index.php");
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['password'] = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update-btn'])) {
+    $_SESSION['teacher_new_password'] = $_POST['password'];
+    $_SESSION['teacher_confrim_password'] = $_POST['confrim_password'];
 
-    if ($adminAuthController->login($_SESSION['email'], $_SESSION['password'])) {
+    if ($_SESSION['teacher_new_password'] !== $_SESSION['teacher_confrim_password']) {
+        $error = "Password does not match";
+    } elseif ($teacherController->updatePassword($_SESSION['teacher_username'], $_SESSION['teacher_new_password'])) {
         header("Location: index.php?login=success");
         exit();
     } else {
-        $error = "Invalid email or password";
+        $error = "Invalid password";
     }
 }
 
-if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
-    AlertHelper::showAlert('Logged out!', 'You are successfully logged out!', 'success');
-}
 
 ?>
 
@@ -50,20 +46,20 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                 </div>
                                 <div class="col-md-8 ps-md-0">
                                     <div class="auth-form-wrapper px-4 py-5">
-                                        <a href="#" class="noble-ui-logo d-block mb-2">Welcome<span> Back</span></a>
-                                        <h5 class="text-muted fw-normal mb-4">Log in to admin account.</h5>
+                                        <h3 class="text-muted fw-normal mb-4">Change Password.</h3>
                                         <form class="forms-sample" method="POST">
                                             <div class="mb-3">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="email" name="email" class="form-control" id="email"
-                                                    value="<?= $_SESSION['email'] ?? "" ?>" placeholder="Enter email"
+                                                <label for="password" class="form-label">New Password</label>
+                                                <input type="password" name="password" class="form-control"
+                                                    id="password" value="<?= $_SESSION['teacher_new_password'] ?? "" ?>"
+                                                    autocomplete="current-password" placeholder="Enter new password"
                                                     required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="password" class="form-label">Password</label>
-                                                <input type="password" name="password" class="form-control"
-                                                    id="password" value="<?= $_SESSION['password'] ?? "" ?>"
-                                                    autocomplete="current-password" placeholder="Enter password"
+                                                <label for="confrim_password" class="form-label">Comfrim Password</label>
+                                                <input type="password" name="confrim_password" class="form-control"
+                                                    id="confrim_password" value="<?= $_SESSION['teacher_confrim_password'] ?? "" ?>"
+                                                    autocomplete="current-password" placeholder="Enter new password"
                                                     required>
                                             </div>
                                             <?php if (isset($error)): ?>
@@ -78,7 +74,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                             <?php endif; ?>
 
                                             <div>
-                                                <input type="submit" value="Login"
+                                                <input type="submit" value="Change Password" name="update-btn"
                                                     class="btn btn-primary me-2 mb-2 mb-md-0 text-white">
                                             </div>
                                         </form>

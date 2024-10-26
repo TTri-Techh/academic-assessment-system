@@ -13,15 +13,15 @@ if ($teacherController->isAuthenticated()) {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $_SESSION['username'] = $_POST['username'];
-    $_SESSION['password'] = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login-btn'])) {
+    $_SESSION['teacher_username'] = $_POST['username'];
+    $_SESSION['teacher_password'] = $_POST['password'];
 
-    if ($teacherController->login($_SESSION['username'], $_SESSION['password'])) {
-        header("Location: index.php?login=success");
-        exit();
+    if ($teacherController->login($_SESSION['teacher_username'], $_SESSION['teacher_password'])) {
+        // header("Location: index.php?login=success");
+        // exit();
     } else {
-        $error = "Invalid email or password";
+        $error = "Invalid username or password";
     }
 }
 
@@ -54,29 +54,29 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
                                             <div class="mb-3">
                                                 <label for="username" class="form-label">Username</label>
                                                 <input type="text" name="username" class="form-control" id="username"
-                                                    value="<?= $_SESSION['username'] ?? "" ?>"
+                                                    value="<?= $_SESSION['teacher_username'] ?? "" ?>"
                                                     placeholder="Enter username" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
                                                 <input type="password" name="password" class="form-control"
-                                                    id="password" value="<?= $_SESSION['password'] ?? "" ?>"
+                                                    id="password" value="<?= $_SESSION['teacher_password'] ?? "" ?>"
                                                     autocomplete="current-password" placeholder="Enter password"
                                                     required>
                                             </div>
                                             <?php if (isset($error)): ?>
 
-                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                                <?php echo $error; ?>
+                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    <?php echo $error; ?>
 
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                    aria-label="btn-close"></button>
-                                            </div>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="btn-close"></button>
+                                                </div>
 
                                             <?php endif; ?>
 
                                             <div>
-                                                <input type="submit" value="Login"
+                                                <input type="submit" value="Login" name="login-btn"
                                                     class="btn btn-primary me-2 mb-2 mb-md-0 text-white">
                                             </div>
                                         </form>

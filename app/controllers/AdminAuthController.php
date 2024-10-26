@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\AdminModel;
 use core\db\MySQL;
+use core\helpers\Helper;
 
 class AdminAuthController
 {
@@ -14,6 +15,7 @@ class AdminAuthController
         $database = new MySQL();
         $db = $database->connect();
         $this->admin = new AdminModel($db);
+        Helper::startSession();
     }
 
 
@@ -28,7 +30,8 @@ class AdminAuthController
     public function login($email, $password)
     {
         $admin = $this->admin->findByEmail($email, $password);
-        if ($admin && password_verify($password, hash: $admin->password)) {
+        var_dump($admin);
+        if ($admin && password_verify($password, $admin->password)) {
             $_SESSION['admin_id'] = $admin->id;
             $_SESSION['admin_email'] = $admin->email;
             return true;
@@ -56,7 +59,7 @@ class AdminAuthController
     {
         session_unset();
         session_destroy();
-        header("Location: /Resource-hub-for-primary-teacher/public/admin/login.php?logout=success");
+        header("Location:  /admin/login.php?logout=success");
         exit();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+
 use PDO;
 use PDOException;
 
@@ -17,27 +18,28 @@ class StudentModel
     public function register($data)
     {
         try {
+            extract($data);
             $query = "INSERT INTO {$this->table}
-            (enrollment_no, name_en, name_my, username,dob,father_name,mother_name,guardian,parent_job,address,phone_number) 
-            VALUES(:enrollment_no, :name_en, :name_my, :username, :dob, :father_name, :mother_name, :guardian , :parent_job, :address, :phone_number)";
+            (enrollment_no,class_id, name_en, name_mm, username,dob,father_name,mother_name,guardian,parent_job,address,phone) 
+            VALUES(:enrollment_no, :class_id, :name_en, :name_mm, :username, :dob, :father_name, :mother_name, :guardian , :parent_job, :address, :phone)";
             $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':enrollment_no', $data['enrollment_no']);
-            $stmt->bindParam(':name_en', $data['name_en']);
-            $stmt->bindParam(':name_my', $data['name_my']);
-            $stmt->bindParam(':username', $data['username']);
-            $stmt->bindParam(':dob', $data['dob']);
-            $stmt->bindParam(':father_name', $data['father_name']);
-            $stmt->bindParam(':mother_name', $data['mother_name']);
-            $stmt->bindParam(':guardian', $data['guardian']);
-            $stmt->bindParam(':parent_job', $data['parent_job']);
-            $stmt->bindParam(':address', $data['address']);
-            $stmt->bindParam(':phone_number', $data['phone_number']);
+            $stmt->bindParam(':enrollment_no', $enrollment_no);
+            $stmt->bindParam(':class_id', $class_id);
+            $stmt->bindParam(':name_en', $name_en);
+            $stmt->bindParam(':name_mm', $name_mm);
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':dob', $dob);
+            $stmt->bindParam(':father_name', $father_name);
+            $stmt->bindParam(':mother_name', $mother_name);
+            $stmt->bindParam(':guardian', $guardian);
+            $stmt->bindParam(':parent_job', $parent_job);
+            $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':phone', $phone);
             if ($stmt->execute()) {
                 return true;
             } else {
                 return false;
             }
-
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -58,10 +60,58 @@ class StudentModel
     public function getAllStudents()
     {
         try {
-            $query = "SELECT id,enrollment_no,name_my,dob,father_name,mother_name,guardian,parent_job,address,phone_number FROM {$this->table} ";
+            $query = "SELECT id, enrollment_no, name_mm, username, dob, father_name, mother_name, guardian, parent_job, address, phone FROM {$this->table} ";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getStudentById($id)
+    {
+        try {
+            $query = "SELECT * FROM {$this->table} WHERE id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function updateStudentById($data)
+    {
+        try {
+            extract($data);
+            $query = "UPDATE {$this->table} SET enrollment_no = :enrollment_no, name_en = :name_en, name_mm = :name_mm, dob = :dob, father_name = :father_name, mother_name = :mother_name, guardian = :guardian, parent_job = :parent_job, address = :address, phone = :phone WHERE id = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':enrollment_no', $enrollment_no);
+            $stmt->bindParam(':name_en', $name_en);
+            $stmt->bindParam(':name_mm', $name_mm);
+            $stmt->bindParam(':dob', $dob);
+            $stmt->bindParam(':father_name', $father_name);
+            $stmt->bindParam(':mother_name', $mother_name);
+            $stmt->bindParam(':guardian', $guardian);
+            $stmt->bindParam(':parent_job', $parent_job);
+            $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':phone', $phone);
+            $stmt->bindParam(':id', $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function deleteStudentById($id)
+    {
+        try {
+            $query = "DELETE FROM {$this->table} WHERE id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$id]);
+            return true;
         } catch (PDOException $e) {
             return $e->getMessage();
         }

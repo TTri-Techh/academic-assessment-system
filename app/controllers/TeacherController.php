@@ -4,8 +4,7 @@ namespace app\controllers;
 
 use app\models\TeacherModel;
 use core\db\MySQL;
-
-
+use core\helpers\Helper;
 
 class TeacherController
 {
@@ -16,23 +15,60 @@ class TeacherController
         $database = new MySQL();
         $db = $database->connect();
         $this->teacherModel = new TeacherModel($db);
-
+        Helper::startSession();
     }
 
     public function login($username, $password)
     {
-        $teacher = $this->teacherModel->findByUsername($username);
-        if ($teacher) {
-            $_SESSION['teacher_id'] = $teacher->id;
-            $_SESSION['teacher_username'] = $teacher->username;
-            return true;
+        $teacher = $this->teacherModel->getTeacherByUsername($username);
+
+        if (!$teacher) {
+            return false; // သို့မဟုတ် error message တစ်ခုခု return လုပ်နိုင်ပါတယ်
         }
-        return false;
+
+        $passwordStatus = $teacher->password_status;
+        $_SESSION['teacher_password_status'] = $passwordStatus;
+        $_SESSION['class_id'] = $teacher->class_id;
+        $_SESSION['teacher_name'] = $this->getTeacherClassNameById($teacher->id)->name_mm;
+        $_SESSION['class_name'] = $this->getTeacherClassNameById($teacher->id)->class_name;
+
+
+        if ($passwordStatus === 1) {
+            if (password_verify($password, $teacher->password)) {
+                $_SESSION['teacher_id'] = $teacher->id;
+                $_SESSION['teacher_username'] = $teacher->username;
+                header("Location: index.php?login=success");
+                exit();
+            } else {
+                return false; // Password မှားနေတယ်
+            }
+        } elseif ($passwordStatus === 0) {
+            if ($password === $teacher->password) { // အရင် password ကို plain text အနေနဲ့ သိမ်းထားတယ်ဆိုရင်
+                $_SESSION['teacher_id'] = $teacher->id;
+                $_SESSION['teacher_username'] = $teacher->username;
+                header("Location: /teacher/change-password.php?username=$username");
+                exit();
+            } else {
+                return false; // Password မှားနေတယ်
+            }
+        } else {
+            return false; // မမှန်တဲ့ password status
+        }
+    }
+    public function updatePassword($username, $password)
+    {
+        $result = $this->teacherModel->updatePassword($username, $password);
+        if ($result) {
+            $_SESSION['teacher_password_status'] = 1;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function isAuthenticated()
     {
-        return isset($_SESSION['teacher_id']);
+        return isset($_SESSION['teacher_id']) && isset($_SESSION['teacher_password_status']) && $_SESSION['teacher_password_status'] == 1;
     }
 
 
@@ -40,7 +76,7 @@ class TeacherController
     {
         session_unset();
         session_destroy();
-        header("Location: /Resource-hub-for-primary-teacher/public/teacher/login.php?logout=success");
+        header("Location: /teacher/login.php?logout=success");
         exit();
     }
 
