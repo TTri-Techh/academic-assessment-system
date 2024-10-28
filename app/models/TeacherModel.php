@@ -123,32 +123,6 @@ class TeacherModel
         }
     }
 
-    // public function getTeachersByPage($page, $limit){
-    //     try {
-    //         $offset = ($page - 1) * $limit;
-    //         $query = "SELECT * FROM {$this->table} LIMIT $limit OFFSET $offset";
-    //         $stmt = $this->db->prepare($query);
-    //         $stmt->execute();
-    //         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     } catch (PDOException $e) {
-    //         return $e->getMessage();
-    //     }
-    // }
-    // Fetch filtered/paginated records
-    // public function getFilteredRecords($start, $length, $search)
-    // {
-    //     try {
-    //         $query = "SELECT * FROM {$this->table} WHERE name LIKE '%{$search}%' OR username LIKE '%{$search}%' LIMIT {$length} OFFSET {$start}";
-    //         $stmt = $this->db->prepare($query);
-    //         $stmt->execute();
-    //         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     } catch (PDOException $e) {
-    //         return $e->getMessage();
-    //     }
-    // }
-
-
-
     /**
      * Method getAllTeachers
      *

@@ -56,6 +56,30 @@ class StudentModel
             return $e->getMessage();
         }
     }
+    public function updatePassword($username, $password)
+    {
+        try {
+            // Password hash လုပ်
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // Query ကို ပြင်ဆင်
+            $query = "UPDATE {$this->table} SET password = :password, password_status = 1 WHERE username = :username";
+            $stmt = $this->db->prepare($query);
+
+            // Parameters များ bind လုပ်
+            $stmt->bindParam(':password', $hashedPassword);
+            $stmt->bindParam(':username', $username);
+
+            // Query execute လုပ်ပြီး result စစ်ဆေး
+            if ($stmt->execute()) {
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            // Error message ပြန်ထုတ်
+            return "Password update error: " . $e->getMessage();
+        }
+    }
 
     public function getAllStudents()
     {
@@ -79,6 +103,19 @@ class StudentModel
             return $e->getMessage();
         }
     }
+    public function getStudentByUsername($username)
+    {
+        try {
+            $query = "SELECT * FROM {$this->table} WHERE username = :username";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getStudentsByClassId($class_id)
     {
         try {
@@ -86,6 +123,22 @@ class StudentModel
             $stmt = $this->db->prepare($query);
             $stmt->execute([$class_id]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getStudentClassNameById($id)
+    {
+        try {
+            $query = "SELECT name_mm, class_id, classes.class_name_mm as class_name 
+                FROM {$this->table}
+                LEFT JOIN classes ON students.class_id = classes.id
+                WHERE students.id= :id
+                ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         } catch (PDOException $e) {
             return $e->getMessage();
         }
