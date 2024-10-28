@@ -139,7 +139,6 @@ $monthlyChapter = $monthlyAssessmentController->getMonthlyChapter([
                                 <option value="3" <?php echo ($month_no == 3) ? 'selected' : ''; ?>>October,November</option>
                                 <option value="4" <?php echo ($month_no == 4) ? 'selected' : ''; ?>>December,January</option>
                             </select>
-                            <button type="submit" class="btn btn-primary">စစ်ဆေးရန်</button>
                         </div>
                     </form>
                 </div>
@@ -274,6 +273,10 @@ $monthlyChapter = $monthlyAssessmentController->getMonthlyChapter([
             const alert = document.querySelector('.alert');
             if (alert) {
                 alert.remove();
+                const urlParams = new URLSearchParams(window.location.search);
+                // Remove success parameter if it exists
+                urlParams.delete('success');
+                window.location.href = window.location.pathname + '?' + urlParams.toString();
             }
         }, 3000);
     </script>

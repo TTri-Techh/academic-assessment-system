@@ -81,8 +81,7 @@ $students = $studentController->getStudentsByClassId($_SESSION['class_id']); // 
                                                 </td>
                                                 <td class="d-flex align-items-center">
                                                     <a class=""
-                                                        href="g0-assessment.php?id=<?= htmlspecialchars($student['id']) ?>">
-                                                        <!-- <i data-feather="edit-2" class="icon-sm me-2"></i> -->
+                                                        href="kg-assessment.php?id=<?= htmlspecialchars($student['id']) ?>">
                                                         ထည့်သွင်းရန်
                                                     </a>
                                                 </td>

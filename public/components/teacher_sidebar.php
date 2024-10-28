@@ -1,6 +1,15 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
+$current_subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : null;
 
+// echo '<pre>';
+// var_dump([
+//     'currentPage' => $currentPage,
+//     'current_subject_id' => $current_subject_id,
+//     'type_current_subject_id' => gettype($current_subject_id),
+//     'REQUEST_URI' => $_SERVER['REQUEST_URI']
+// ]);
+// echo '</pre>';
 ?>
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar">
@@ -85,32 +94,32 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <div class="collapse" id="chapterly-assessment">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="chapterly-assessment.php"
-                                    class="nav-link <?php echo ($currentPage == 'chapterly-assessment.php') ? 'active' : ''; ?>">
+                                <a href="chapterly-assessment.php?subject_id=1&chapter_id=1"
+                                    class="nav-link <?php echo ($currentPage === 'chapterly-assessment.php?subject_id=1&chapter_id=1') ? 'active' : ''; ?>">
                                     Myanmar
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="chapterly-assessment.php"
-                                    class="nav-link <?php echo ($currentPage == 'chapterly-assessment.php') ? 'active' : ''; ?>">
+                                <a href="chapterly-assessment.php?subject_id=2&chapter_id=1"
+                                    class="nav-link <?php echo ($currentPage === 'chapterly-assessment.php?subject_id=2&chapter_id=1') ? 'active' : ''; ?>">
                                     English
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="chapterly-assessment.php"
-                                    class="nav-link <?php echo ($currentPage == 'chapterly-assessment.php') ? 'active' : ''; ?>">
+                                <a href="chapterly-assessment.php?subject_id=3&chapter_id=1"
+                                    class="nav-link <?php echo ($currentPage === 'chapterly-assessment.php?subject_id=3&chapter_id=1') ? 'active' : ''; ?>">
                                     Mathematics
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="chapterly-assessment.php"
-                                    class="nav-link <?php echo ($currentPage == 'chapterly-assessment.php') ? 'active' : ''; ?>">
+                                <a href="chapterly-assessment.php?subject_id=4&chapter_id=1"
+                                    class="nav-link <?php echo ($currentPage === 'chapterly-assessment.php?subject_id=4&chapter_id=1') ? 'active' : ''; ?>">
                                     Science
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="chapterly-assessment.php"
-                                    class="nav-link <?php echo ($currentPage == 'chapterly-assessment.php') ? 'active' : ''; ?>">
+                                <a href="chapterly-assessment.php?subject_id=5&chapter_id=1"
+                                    class="nav-link <?php echo ($currentPage === 'chapterly-assessment.php?subject_id=5&chapter_id=1') ? 'active' : ''; ?>">
                                     Social Studies
                                 </a>
                             </li>
@@ -130,31 +139,31 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <ul class="nav sub-menu">
                             <li class="nav-item">
                                 <a href="monthly-assessment.php?subject_id=1&month_no=1"
-                                    class="nav-link <?php echo ($currentPage == 'monthly-assessment.php?subject_id=1&month_no=1') ? 'active' : ''; ?>">
+                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 1) ? 'active' : ''; ?>">
                                     Myanmar
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="monthly-assessment.php?subject_id=2&month_no=1"
-                                    class="nav-link <?php echo ($currentPage == 'monthly-assessment.php?subject_id=2&month_no=1') ? 'active' : ''; ?>">
+                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 2) ? 'active' : ''; ?>">
                                     English
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="monthly-assessment.php?subject_id=3&month_no=1"
-                                    class="nav-link <?php echo ($currentPage == 'monthly-assessment.php?subject_id=3&month_no=1') ? 'active' : ''; ?>">
+                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 3) ? 'active' : ''; ?>">
                                     Mathematics
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="monthly-assessment.php?subject_id=4&month_no=1"
-                                    class="nav-link <?php echo ($currentPage == 'monthly-assessment.php?subject_id=4&month_no=1') ? 'active' : ''; ?>">
+                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 4) ? 'active' : ''; ?>">
                                     Science
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="monthly-assessment.php?subject_id=5&month_no=1"
-                                    class="nav-link <?php echo ($currentPage == 'monthly-assessment.php?subject_id=5&month_no=1') ? 'active' : ''; ?>">
+                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 5) ? 'active' : ''; ?>">
                                     Social Studies
                                 </a>
                             </li>

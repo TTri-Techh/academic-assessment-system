@@ -1,4 +1,4 @@
-# Academic Assessment System for Primary Levels
+# Myanmar's Academic Assessment System for Primary Levels
 
 ### **Run** the project using this command
 
@@ -24,13 +24,20 @@
 
 - Register teachers ✅
 - View teachers information ✅
-- View Student information ❌
+- View students information & results ❌
 - Manage classes (Assign classes for teachers) ✅
 
 ## Teacher
 
-| Feature                   | KG  | G1  | G2  | G3  | G4  | G5  |
-| ------------------------- | --- | --- | --- | --- | --- | --- |
-| View students information | ✅  | ❌  | ❌  | ❌  | ❌  | ❌  |
-| View assessment results   | ✅  | ❌  | ❌  | ❌  | ❌  | ❌  |
-| Update assessment results | ✅  | ❌  | ❌  | ❌  | ❌  | ❌  |
+| Features                             | KG  | G1  | G2  | G3  | G4  | G5  |
+| ------------------------------------ | --- | --- | --- | --- | --- | --- |
+| View students information            | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
+| View & update assessment by chapters | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
+| View & update assessment by months   | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
+| View & update monthly tests          | -   | -   | -   | -   | ❌  | ❌  |
+| Calculate & announce QCPR            | -   | ❌  | ❌  | ❌  | ❌  | ❌  |
+
+## Student
+
+- Login ❌
+- View QCPR ❌

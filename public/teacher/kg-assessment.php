@@ -151,14 +151,40 @@ $g0Assessment = $g0AssessmentController->getG0AssessmentByStudentId($student->id
             </div>
             </form>
             <!-- End Form -->
+            <div class="card rounded-5">
+                <div class="card-body">
+                    <div class="card-title">
+                        <p class="fw-bold text-primary">မှတ်ချက် ။ ။ သတ်မှတ်ထားသော ကာလအတွင်း ကလေးရရှိသော သင်ယူမှုရလဒ်အဆင့်ကိုရွေးပါ။ </p>
+                    </div>
+                    <ul type='none'>
+                        <li>1. ကလေးသည် ဤသင်ယူမှုရလဒ်နှင့်ပတ်သက်၍ စတင်လေ့လာသင်ယူနေလျှင် <span class="text-primary"> အဆင့်(1) </span>ကိုရွေးပါ။</li>
+                        <li>2. ကလေးသည် ဤသင်ယူမှုရလဒ်နှင့်ပတ်သက်၍ ကောင်းစွာလေ့လာသင်ယူနေလျှင် <span class="text-primary"> အဆင့်(2) </span>ကိုရွေးပါ။</li>
+                        <li>3. ကလေးသည် ဤသင်ယူမှုရလဒ်နှင့်ပတ်သက်၍ လေ့လာသင်ယူရာတွင် တိုးတက်မှုရှိလျှင် <span class="text-primary"> အဆင့်(3) </span>ကိုရွေးပါ။</li>
+                        <li>4. ကလေးသည် ဤသင်ယူမှုရလဒ်ကို သင်ယူပြီးမြောက်လျှင် <span class="text-primary"> အဆင့်(4) </span>ကိုရွေးပါ။</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     </div>
     </div>
 
-</body>
 
-<!--  JavaScript -->
+    <!--  JavaScript -->
+    <script>
+        // Auto hide success message after 2 seconds
+        setTimeout(function() {
+            const alert = document.querySelector('.alert');
+            if (alert) {
+                alert.remove();
+                const urlParams = new URLSearchParams(window.location.search);
+                // Remove success parameter if it exists
+                urlParams.delete('success');
+                window.location.href = window.location.pathname + '?' + urlParams.toString();
+            }
+        }, 2000);
+    </script>
+</body>
 <?php
 include('../components/script.php');
 ?>
