@@ -6,7 +6,6 @@ include('../components/header.php');
 use app\controllers\AdminAuthController;
 use app\controllers\ClassController;
 use app\controllers\TeacherController;
-use core\helpers\AlertHelper;
 
 
 $adminAuthController = new AdminAuthController();
@@ -20,6 +19,15 @@ if (!$adminAuthController->isAuthenticated()) {
 
 $teachers = $teacherController->getAllTeachersClass();
 $classes = $classController->getAllClasses();
+
+if (empty($teachers)) {
+    $_SESSION['error'] = "ဆရာ/ဆရာမများ ဦးစွာထည့်သွင်းပါ။";
+    echo "<script>
+        alert('ဆရာ/ဆရာမများ ဦးစွာထည့်သွင်းပါ။');
+        window.location.href = 'register-teachers.php';
+    </script>";
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
     $teacherController->updateTeacherClassById($_POST['id'], $_POST['class_id']);

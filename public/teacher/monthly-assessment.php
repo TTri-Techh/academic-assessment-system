@@ -24,6 +24,15 @@ $students = $studentController->getStudentsByClassId($_SESSION['class_id']); // 
 $subjectName = $subjectController->getSubjectNameById($subject_id);
 $month_no = $_GET['month_no'] ?? 1;
 
+if (empty($students)) {
+    $_SESSION['error'] = "ကျောင်းသား/သူများ ဦးစွာထည့်သွင်းပါ။";
+    echo "<script>
+        alert('ကျောင်းသား/သူများ ဦးစွာထည့်သွင်းပါ။');
+        window.location.href = 'register-students.php';
+    </script>";
+    exit;
+}
+
 $checkAssessmentData = [
     'subject_id' => $subject_id,
     'class_id' => $_SESSION['class_id'],

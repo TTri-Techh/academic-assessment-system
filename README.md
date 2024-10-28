@@ -34,7 +34,7 @@
 | View students information            | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 | View & update assessment by chapters | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 | View & update assessment by months   | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
-| View & update monthly tests          | -   | -   | -   | -   | ❌  | ❌  |
+| View & update monthly tests          | -   | -   | -   | -   | ✅  | ✅  |
 | Calculate & announce QCPR            | -   | ❌  | ❌  | ❌  | ❌  | ❌  |
 
 ## Student

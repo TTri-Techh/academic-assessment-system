@@ -16,6 +16,14 @@ if (!$teacherController->isAuthenticated()) {
 
 $students = $studentController->getStudentsByClassId($_SESSION['class_id']); // get all students by class id
 
+if (empty($students)) {
+    $_SESSION['error'] = "ကျောင်းသား/သူများ ဦးစွာထည့်သွင်းပါ။";
+    echo "<script>
+        alert('ကျောင်းသား/သူများ ဦးစွာထည့်သွင်းပါ။');
+        window.location.href = 'register-students.php';
+    </script>";
+    exit;
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
     $studentController->updateStudentById($_POST);
 } elseif (isset($_GET['update']) && $_GET['update'] === 'success') {

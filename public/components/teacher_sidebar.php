@@ -82,7 +82,7 @@ $current_subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : nu
                         </ul>
                     </div>
                 </li>
-            <?php elseif ($_SESSION['class_id'] == 1 || $_SESSION['class_id'] == 2 || $_SESSION['class_id'] == 3): ?>
+            <?php elseif ($_SESSION['class_id'] != 0): ?>
                 <!-- For Assessment by Chapter -->
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#chapterly-assessment" role="button" aria-expanded="false"
@@ -170,16 +170,18 @@ $current_subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : nu
                         </ul>
                     </div>
                 </li>
-                <!-- End For Assessment by Month -->
-            <?php elseif ($_SESSION['class_id'] == 4 || $_SESSION['class_id'] == 5): ?>
-                <!-- For Monthly Test -->
-                <li class="nav-item">
-                    <a href="monthly-test.php?subject_id=1"
-                        class="nav-link <?php echo ($currentPage == 'monthly-test.php?subject_id=1') ? 'active' : ''; ?>">
-                        Monthly Test
-                    </a>
-                </li>
                 <!-- End For Monthly Test -->
+                <?php if ($_SESSION['class_id'] == 4 || $_SESSION['class_id'] == 5): ?>
+                    <!-- For Monthly Test -->
+                    <li class="nav-item">
+                        <a href="monthly-test.php"
+                            class="nav-link <?php echo ($currentPage == 'monthly-test.php') ? 'active' : ''; ?>">
+                            <i class="link-icon" data-feather="file-text"></i>
+                            <span class="link-title">Monthly Test</span>
+                        </a>
+                    </li>
+                    <!-- End For Monthly Test -->
+                <?php endif; ?>
             <?php endif; ?>
             <!--End For Assessment -->
         </ul>
