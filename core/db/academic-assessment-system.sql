@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Oct 26, 2024 at 07:09 PM
+-- Generation Time: Oct 28, 2024 at 07:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,6 +40,72 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`id`, `email`, `password`, `created_at`) VALUES
 (1, 'admin@gmail.com', '$2y$10$4nygqGIwY8hMcRDmtGmBpum5IkQmoSmPf4lbYJV7gY648N9SVEUca', '2024-10-17 12:19:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chapterly_assessment`
+--
+
+CREATE TABLE `chapterly_assessment` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `chapter_id` int(11) NOT NULL,
+  `chapter_no` int(11) DEFAULT NULL,
+  `mark` varchar(4) DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `month_no` varchar(11) DEFAULT NULL,
+  `year` year(4) NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chapterly_assessment`
+--
+
+INSERT INTO `chapterly_assessment` (`id`, `student_id`, `teacher_id`, `subject_id`, `class_id`, `chapter_id`, `chapter_no`, `mark`, `remark`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
+(11, 5, 2, 1, 1, 1, 1, 'A', 'အရမ်းချစ်တတ်', NULL, '2024', '2024-10-28 12:01:51', '2024-10-28 12:01:51'),
+(12, 6, 2, 1, 1, 1, 1, 'E', 'လိုသေးတယ်', NULL, '2024', '2024-10-28 12:01:51', '2024-10-28 12:01:51'),
+(13, 5, 2, 1, 1, 2, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:05:03', '2024-10-28 12:05:03'),
+(14, 6, 2, 1, 1, 2, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:05:03', '2024-10-28 12:05:03'),
+(15, 5, 2, 2, 1, 3, 1, 'A', '', NULL, '2024', '2024-10-28 12:05:20', '2024-10-28 12:05:20'),
+(16, 6, 2, 2, 1, 3, 1, 'S', '', NULL, '2024', '2024-10-28 12:05:20', '2024-10-28 12:05:20'),
+(17, 5, 2, 2, 1, 4, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:06:03', '2024-10-28 12:06:03'),
+(18, 6, 2, 2, 1, 4, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:06:03', '2024-10-28 12:06:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chapters`
+--
+
+CREATE TABLE `chapters` (
+  `id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `chapter` text DEFAULT NULL,
+  `chapter_no` int(11) DEFAULT NULL,
+  `learning_outcomes` text DEFAULT NULL,
+  `check_points` text DEFAULT NULL,
+  `month_no` varchar(11) DEFAULT NULL,
+  `year` year(4) NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chapters`
+--
+
+INSERT INTO `chapters` (`id`, `subject_id`, `class_id`, `chapter`, `chapter_no`, `learning_outcomes`, `check_points`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'အခန်း(၁)', 1, 'ချစ်တတ်ရန်', 'ချစ်သလား?', NULL, '2024', '2024-10-28 12:01:51', '2024-10-28 12:49:50'),
+(2, 1, 1, NULL, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:05:03', '2024-10-28 12:05:03'),
+(3, 2, 1, 'Unit-1', 1, 'Fuck', 'knows how to fuck', NULL, '2024', '2024-10-28 12:05:20', '2024-10-28 12:10:23'),
+(4, 2, 1, NULL, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:06:03', '2024-10-28 12:06:03');
 
 -- --------------------------------------------------------
 
@@ -93,9 +159,9 @@ CREATE TABLE `g0_students_assessment` (
 --
 
 INSERT INTO `g0_students_assessment` (`id`, `student_id`, `teacher_id`, `subject_id`, `subject_result_id`, `mark_1`, `mark_2`, `mark_3`, `mark_4`, `year`, `created_at`, `updated_at`) VALUES
-(1, 4, 1, 1, 1, 1, 1, 1, 4, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
-(2, 4, 1, 1, 2, 1, 0, 0, 0, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
-(3, 4, 1, 2, 3, 0, 0, 0, 0, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
+(1, 4, 1, 1, 1, 1, 2, 1, 4, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
+(2, 4, 1, 1, 2, 1, 2, 0, 0, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
+(3, 4, 1, 2, 3, 1, 0, 0, 0, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
 (4, 4, 1, 2, 4, 0, 0, 0, 0, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
 (5, 4, 1, 2, 7, 0, 0, 0, 0, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
 (6, 4, 1, 2, 8, 0, 0, 0, 0, '2024', '2024-10-26 22:27:05', '2024-10-26 22:27:05'),
@@ -175,6 +241,73 @@ INSERT INTO `g0_subject_results` (`id`, `result_name`, `subject_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `monthly_assessment`
+--
+
+CREATE TABLE `monthly_assessment` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `monthly_chapter_id` int(11) NOT NULL,
+  `mark` varchar(4) DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `month_no` varchar(11) DEFAULT NULL,
+  `year` year(4) NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `monthly_assessment`
+--
+
+INSERT INTO `monthly_assessment` (`id`, `student_id`, `teacher_id`, `subject_id`, `class_id`, `monthly_chapter_id`, `mark`, `remark`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
+(1, 5, 2, 1, 1, 1, 'A', 'sooo goat like me', '1', '2024', '2024-10-28 10:57:27', '2024-10-28 10:57:27'),
+(2, 6, 2, 1, 1, 1, 'E', 'so bad', '1', '2024', '2024-10-28 10:57:27', '2024-10-28 10:57:27'),
+(3, 5, 2, 1, 1, 2, NULL, NULL, '2', '2024', '2024-10-28 10:57:31', '2024-10-28 10:57:31'),
+(4, 6, 2, 1, 1, 2, NULL, NULL, '2', '2024', '2024-10-28 10:57:31', '2024-10-28 10:57:31'),
+(5, 5, 2, 1, 1, 3, 'A', '', '3', '2024', '2024-10-28 10:57:41', '2024-10-28 10:57:41'),
+(6, 6, 2, 1, 1, 3, '', '', '3', '2024', '2024-10-28 10:57:41', '2024-10-28 10:57:41'),
+(7, 5, 2, 1, 1, 4, NULL, NULL, '4', '2024', '2024-10-28 11:04:48', '2024-10-28 11:04:48'),
+(8, 6, 2, 1, 1, 4, NULL, NULL, '4', '2024', '2024-10-28 11:04:48', '2024-10-28 11:04:48'),
+(9, 5, 2, 2, 1, 5, NULL, NULL, '1', '2024', '2024-10-28 11:31:03', '2024-10-28 11:31:03'),
+(10, 6, 2, 2, 1, 5, NULL, NULL, '1', '2024', '2024-10-28 11:31:03', '2024-10-28 11:31:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monthly_chapters`
+--
+
+CREATE TABLE `monthly_chapters` (
+  `id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `chapter` text DEFAULT NULL,
+  `learning_outcomes` text DEFAULT NULL,
+  `check_points` text DEFAULT NULL,
+  `month_no` varchar(11) DEFAULT NULL,
+  `year` year(4) NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `monthly_chapters`
+--
+
+INSERT INTO `monthly_chapters` (`id`, `subject_id`, `class_id`, `chapter`, `learning_outcomes`, `check_points`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Ch-1', '', '', '1', '2024', '2024-10-28 10:57:27', '2024-10-28 12:11:01'),
+(2, 1, 1, NULL, NULL, NULL, '2', '2024', '2024-10-28 10:57:31', '2024-10-28 10:57:31'),
+(3, 1, 1, 'Ch-13', '', '', '3', '2024', '2024-10-28 10:57:39', '2024-10-28 10:57:54'),
+(4, 1, 1, NULL, NULL, NULL, '4', '2024', '2024-10-28 11:04:48', '2024-10-28 11:04:48'),
+(5, 2, 1, NULL, NULL, NULL, '1', '2024', '2024-10-28 11:31:02', '2024-10-28 11:31:02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `students`
 --
 
@@ -202,7 +335,31 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `class_id`, `enrollment_no`, `name_en`, `name_mm`, `username`, `password`, `password_status`, `dob`, `father_name`, `mother_name`, `guardian`, `parent_job`, `phone`, `address`, `created_at`) VALUES
-(4, 0, 'Qui nostrud acc', 'Dillon Benton', 'Evan Leach', 'dillonbenton', '123456', 0, '2016-04-03', 'Ina Chan', 'Daryl Murphy', 'Labore eum ipsa ill', 'Aspernatur alias cor', '09398475454', 'Cupiditate aut est ', '2024-10-26 16:41:04');
+(4, 0, 'Qui nostrud acc', 'Dillon Benton', 'Evan Leach', 'dillonbenton', '123456', 0, '2016-04-03', 'Ina Chan', 'Daryl Murphy', 'Labore eum ipsa ill', 'Aspernatur alias cor', '09398475454', 'Cupiditate aut est ', '2024-10-26 16:41:04'),
+(5, 1, '0002', 'Kyaw Kyaw', 'ကျော်ကျော်', 'kyawkyaw', '123456', 0, '2017-08-28', 'Nayda Rose', 'Brett Farley', 'Rerum duis voluptas ', 'Quia et ex quam odio', '09398475454', 'Sit architecto ea s', '2024-10-28 00:01:50'),
+(6, 1, '0003', 'Khant Si Thu', 'Garrett Chan', 'khantsithu', '123456', 0, '2019-11-24', 'Bertha Nixon', 'Ayanna Strong', 'Ea tempore inventor', 'Neque suscipit offic', '09398475454', 'Maiores aliquid illo', '2024-10-28 01:29:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `id` int(11) NOT NULL,
+  `subject_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `subject_name`) VALUES
+(1, 'မြန်မာစာ'),
+(2, 'အင်္ဂလိပ်စာ'),
+(3, 'သင်္ချာ'),
+(4, 'သိပ္ပံ'),
+(5, 'လူမှုရေး');
 
 -- --------------------------------------------------------
 
@@ -242,7 +399,7 @@ CREATE TABLE `teachers` (
 
 INSERT INTO `teachers` (`id`, `name_eng`, `name_mm`, `username`, `father_name`, `mother_name`, `education`, `rank`, `class_id`, `dob`, `start_edu_at`, `start_current_rank_at`, `start_current_school_at`, `password`, `password_status`, `phone`, `status`, `address`, `bed_status`, `phaung_gyi_status`, `completed_course`, `created_at`, `updated_at`) VALUES
 (1, 'U KO KO Gyi', 'ဦးကိုကိုကြီး', 'ukokogyi', 'ဦးမောင်မောင်ကြီး', 'ဒေါ်ဒေါ်ကြီး', 'B.Sc(Phys)', 'မူပြ', 0, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$eRtzhx7oYsIIsdTfifmnQ.Ao72Xx1decj9X/hhn0/Y1Cdf8R55gVK', 1, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 14:01:12', '2024-10-23 14:01:12'),
-(2, 'Linda Acevedo', 'Holmes Patton', 'lindaacevedo', 'Desiree Bolton', 'Aladdin Gill', 'Veritatis id rerum e', 'Qui est sit commodo ', 1, '1995-02-09', '2001-06-15', '1991-03-15', '2005-01-28', '$2y$10$OHX953Iluf5/0CgW2gC63.gXuUK6uV4.D4yANXdtYjpjokIYxIZqK', 1, '09398475454', 'active', 'Qui ex officia elit', 'ပြီး', 'မပြီး', 'Dolorem laborum nost', '2024-10-23 14:01:28', '2024-10-23 14:01:28'),
+(2, 'Daw Phyu Phyu Win', 'ဒေါ်ဖြူဖြူဝင်း', 'dawphyuphyuwin', 'Desiree Bolton', 'Aladdin Gill', 'Veritatis id rerum e', 'Qui est sit commodo ', 1, '1995-02-09', '2001-06-15', '1991-03-15', '2005-01-28', '$2y$10$JsHoccDY0fNJMKOSYHS4LuJ4rTLbHgv9jeWzsYWo6kHEJqdAQ2kZG', 1, '09398475454', 'active', 'Qui ex officia elit', 'ပြီး', 'မပြီး', 'Dolorem laborum nost', '2024-10-23 14:01:28', '2024-10-23 14:01:28'),
 (3, 'south paw', 'Claudia Yates', 'cassandrablake1', 'Robin Gill', 'Rajah Morton', 'Minima corporis dele', 'Molestiae commodi ei', 0, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$riEGrhh2txP4e02VgXNMUuMd7mCX3SudY7AXWdF0Cbzvt/KLVLE8q', 1, '09398475454', 'inactive', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 16:35:12', '2024-10-23 16:35:12');
 
 --
@@ -254,6 +411,25 @@ INSERT INTO `teachers` (`id`, `name_eng`, `name_mm`, `username`, `father_name`, 
 --
 ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chapterly_assessment`
+--
+ALTER TABLE `chapterly_assessment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `teacher_id` (`teacher_id`),
+  ADD KEY `monthly_assessment_ibfk_5` (`class_id`),
+  ADD KEY `monthly_assessment_ibfk_4` (`chapter_id`);
+
+--
+-- Indexes for table `chapters`
+--
+ALTER TABLE `chapters`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `class_id` (`class_id`);
 
 --
 -- Indexes for table `classes`
@@ -285,11 +461,36 @@ ALTER TABLE `g0_subject_results`
   ADD KEY `subject_id` (`subject_id`);
 
 --
+-- Indexes for table `monthly_assessment`
+--
+ALTER TABLE `monthly_assessment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `teacher_id` (`teacher_id`),
+  ADD KEY `monthly_assessment_ibfk_5` (`class_id`),
+  ADD KEY `monthly_assessment_ibfk_4` (`monthly_chapter_id`);
+
+--
+-- Indexes for table `monthly_chapters`
+--
+ALTER TABLE `monthly_chapters`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `class_id` (`class_id`);
+
+--
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`id`),
   ADD KEY `class_id` (`class_id`);
+
+--
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `teachers`
@@ -309,6 +510,18 @@ ALTER TABLE `teachers`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `chapterly_assessment`
+--
+ALTER TABLE `chapterly_assessment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `chapters`
+--
+ALTER TABLE `chapters`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `classes`
@@ -335,10 +548,28 @@ ALTER TABLE `g0_subject_results`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT for table `monthly_assessment`
+--
+ALTER TABLE `monthly_assessment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `monthly_chapters`
+--
+ALTER TABLE `monthly_chapters`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `teachers`
@@ -349,6 +580,16 @@ ALTER TABLE `teachers`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `chapterly_assessment`
+--
+ALTER TABLE `chapterly_assessment`
+  ADD CONSTRAINT `chapterly_assessment_ibfk_1` FOREIGN KEY (`chapter_id`) REFERENCES `chapters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `chapterly_assessment_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `chapterly_assessment_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `chapterly_assessment_ibfk_4` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `chapterly_assessment_ibfk_5` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `g0_students_assessment`
@@ -364,6 +605,23 @@ ALTER TABLE `g0_students_assessment`
 --
 ALTER TABLE `g0_subject_results`
   ADD CONSTRAINT `g0_subject_results_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `g0_subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monthly_assessment`
+--
+ALTER TABLE `monthly_assessment`
+  ADD CONSTRAINT `monthly_assessment_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monthly_assessment_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monthly_assessment_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monthly_assessment_ibfk_4` FOREIGN KEY (`monthly_chapter_id`) REFERENCES `monthly_chapters` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monthly_assessment_ibfk_5` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monthly_chapters`
+--
+ALTER TABLE `monthly_chapters`
+  ADD CONSTRAINT `monthly_chapters_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monthly_chapters_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `students`

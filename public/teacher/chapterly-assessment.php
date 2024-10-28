@@ -5,6 +5,109 @@ include('../components/header.php');
 
 use app\controllers\TeacherController;
 use app\controllers\StudentController;
+use app\controllers\SubjectController;
+use app\controllers\ChapterlyAssessmentController;
+use core\helpers\Helper;
+
+$teacherController = new TeacherController();
+$studentController = new StudentController();
+$subjectController = new SubjectController();
+$chapterlyAssessmentController = new ChapterlyAssessmentController();
+
+// Redirect to login page if not authenticated
+if (!$teacherController->isAuthenticated()) {
+    Helper::redirect("login.php");
+}
+
+$subject_id = $_GET["subject_id"]; // subject id
+$students = $studentController->getStudentsByClassId($_SESSION['class_id']); // get all students by class id
+$subjectName = $subjectController->getSubjectNameById($subject_id);
+$chapter_no = $_GET['chapter_no'] ?? 1;
+
+$checkAssessmentData = [
+    'subject_id' => $subject_id,
+    'class_id' => $_SESSION['class_id'],
+    'chapter_no' => $chapter_no,
+    'year' => date('Y')
+];
+// check if assessment is already created
+$checkAssessment = $chapterlyAssessmentController->checkAssessmentIsCreated($checkAssessmentData);
+if ($checkAssessment) {
+    $allAssessment = $chapterlyAssessmentController->getAllChapterlyAssessment($checkAssessmentData);
+} else {
+    // Prepare data array for all students
+    $assessmentData = [];
+    foreach ($students as $student) {
+        $assessmentData[] = [
+            'student_id' => $student['id'],
+            'teacher_id' => $_SESSION['teacher_id'],
+            'subject_id' => $subject_id,
+            'class_id' => $_SESSION['class_id'],
+            'chapter_no' => $chapter_no,
+            'year' => date('Y')
+        ];
+    }
+
+    // Bulk insert all assessments in one query
+    $chapterlyAssessmentController->createChapterlyAssessment($assessmentData);
+
+    // Get the newly created assessments
+    $allAssessment = $chapterlyAssessmentController->getAllChapterlyAssessment($checkAssessmentData);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
+    $updateSuccess = true;
+
+    // Update monthly chapter first
+    if (isset($_POST['chapter'])) {
+        $chapterData = [
+            'subject_id' => $subject_id,
+            'class_id' => $_SESSION['class_id'],
+            'chapter_no' => $chapter_no,
+            'year' => date('Y'),
+            'chapter' => $_POST['chapter']['chapter'],
+            'learning_outcomes' => $_POST['chapter']['learning_outcomes'],
+            'check_points' => $_POST['chapter']['check_points']
+        ];
+        // var_dump($chapterData);
+
+        $result = $chapterlyAssessmentController->updateChapterByConditions($chapterData);
+        if (!$result) {
+            $updateSuccess = false;
+        }
+    }
+
+    // Update assessments
+    // var_dump($_POST['assessment']);
+    if ($updateSuccess && isset($_POST['assessment']) && is_array($_POST['assessment'])) {
+        foreach ($_POST['assessment'] as $assessmentId => $data) {
+            $updateData = [
+                'id' => $data['id'],
+                'mark' => $data['mark'],
+                'remark' => $data['remark']
+            ];
+
+            $result = $chapterlyAssessmentController->updateChapterlyAssessment($updateData);
+            if (!$result) {
+                $updateSuccess = false;
+                break;
+            }
+        }
+    }
+
+    // Redirect with success or error message
+    $redirectUrl = $_SERVER['PHP_SELF'] . "?subject_id=" . $subject_id . "&chapter_no=" . $chapter_no;
+    $redirectUrl .= $updateSuccess ? "&success=1" : "&success=0";
+    Helper::redirect($redirectUrl);
+}
+
+// Get monthly chapter data first
+$monthlyChapter = $chapterlyAssessmentController->getChapter([
+    'subject_id' => $subject_id,
+    'class_id' => $_SESSION['class_id'],
+    'chapter_no' => $chapter_no,
+    'year' => date('Y')
+]);
 
 ?>
 
@@ -20,100 +123,174 @@ use app\controllers\StudentController;
         ?>
 
         <div class="page-content">
+            <!-- Month Selection Form -->
+            <div class="row justify-content-between">
+                <div class="col-sm-6">
+                    <h4 class="mb-3 mb-md-0">ဘာသာရပ်အလိုက်စစ်ဆေးအကဲဖြတ်မှတ်တမ်း (<span class="text-primary"><?= $subjectName ?></span>)</h4>
+                </div>
 
-            <div>
-                <h4 class="mb-3 mb-md-0">Assessment by Chapter</h4>
+                <div class="col-sm-6">
+                    <form action="" method="GET" class="d-flex justify-content-end">
+                        <input type="hidden" name="subject_id" value="<?= $subject_id ?>">
+                        <div class="d-flex align-items-center gap-2">
+                            <select class="form-select" name="chapter_no" id="chapter_no">
+                                <option value="1" <?php echo ($chapter_no == 1) ? 'selected' : ''; ?>>အခန်း ၁</option>
+                                <option value="2" <?php echo ($chapter_no == 2) ? 'selected' : ''; ?>>အခန်း ၂</option>
+                                <option value="3" <?php echo ($chapter_no == 3) ? 'selected' : ''; ?>>အခန်း ၃</option>
+                                <option value="4" <?php echo ($chapter_no == 4) ? 'selected' : ''; ?>>အခန်း ၄</option>
+                                <option value="5" <?php echo ($chapter_no == 5) ? 'selected' : ''; ?>>အခန်း ၅</option>
+                                <option value="6" <?php echo ($chapter_no == 6) ? 'selected' : ''; ?>>အခန်း ၆</option>
+                                <option value="7" <?php echo ($chapter_no == 7) ? 'selected' : ''; ?>>အခန်း ၇</option>
+                                <option value="8" <?php echo ($chapter_no == 8) ? 'selected' : ''; ?>>အခန်း ၈</option>
+                                <option value="9" <?php echo ($chapter_no == 9) ? 'selected' : ''; ?>>အခန်း ၉</option>
+                                <option value="10" <?php echo ($chapter_no == 10) ? 'selected' : ''; ?>>အခန်း ၁၀</option>
+                                <option value="11" <?php echo ($chapter_no == 11) ? 'selected' : ''; ?>>အခန်း ၁၁</option>
+                                <option value="12" <?php echo ($chapter_no == 12) ? 'selected' : ''; ?>>အခန်း ၁၂</option>
+                                <option value="13" <?php echo ($chapter_no == 13) ? 'selected' : ''; ?>>အခန်း ၁၃</option>
+                                <option value="14" <?php echo ($chapter_no == 14) ? 'selected' : ''; ?>>အခန်း ၁၄</option>
+                                <option value="15" <?php echo ($chapter_no == 15) ? 'selected' : ''; ?>>အခန်း ၁၅</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
             </div>
 
+            <!-- Assessment Form -->
             <div class="row">
-                <!-- Start Form -->
                 <div class="mt-3 col-lg grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">‌‌‌‌‌ကျောင်းသား/သူ၏ အချက်အလက်များဖြည့်သွင်းရန်</h4>
-                            <form id="signupForm" method="POST" action="">
-                                <input type="text" name="id" value="<?= $student->id ?>" hidden>
-                                <div class="row">
-
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="enrollment_no" class="form-label">‌ကျောင်းဝင်နံပါတ်</label>
-                                            <input id="enrollment_no" class="form-control" name="enrollment_no"
-                                                type="text" placeholder="၀၀၀၁" required value="<?= $student->enrollment_no ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="name_en" class="form-label">အမည်(အင်္ဂလိပ်)</label>
-                                            <input id="name_en" class="form-control" name="name_en" type="text"
-                                                placeholder="Mg/Ma..." required value="<?= $student->name_en ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="name_mm" class="form-label">အမည်(မြန်မာ)</label>
-                                            <input id="name_mm" class="form-control" name="name_mm" type="text"
-                                                placeholder="မောင်/မ..." required value="<?= $student->name_mm ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="father_name" class="form-label">အဘအမည်</label>
-                                            <input id="father_name" class="form-control" name="father_name" type="text"
-                                                placeholder="ဦး.." required value="<?= $student->father_name ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="mother_name" class="form-label">အမိအမည်</label>
-                                            <input id="mother_name" class="form-control" name="mother_name" type="text"
-                                                placeholder="ဒေါ်.." required value="<?= $student->mother_name ?>">
-                                        </div>
+                            <form id="assessmentForm" method="POST" action="">
+                                <!-- Success/Error Messages -->
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div>
+                                        <?php if (isset($_GET['success'])): ?>
+                                            <?php if ($_GET['success'] == '1'): ?>
+                                                <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                                    အချက်အလက်များ အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။
+                                                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='btn-close'></button>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                                    အချက်အလက်များ သိမ်းဆည်းရာတွင် အမှားအယွင်း ဖြစ်ပွားခဲ့ပါသည်။
+                                                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='btn-close'></button>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label for="guardian" class="form-label">အုပ်ထိန်းသူ</label>
-                                            <input id="guardian" class="form-control" name="guardian" type="text"
-                                                placeholder="ဦး/ဒေါ်.." required value="<?= $student->guardian ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="parent_job" class="form-label">အလုပ်အကိုင်</label>
-                                            <input id="parent_job" class="form-control" name="parent_job" type="text"
-                                                placeholder="ခြံ" required value="<?= $student->parent_job ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="address" class="form-label">နေရပ်လိပ်စာ</label>
-                                            <input id="address" class="form-control" name="address" type="text"
-                                                placeholder="" required value="<?= $student->address ?>">
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="phone" class="form-label">ဖုန်းနံပါတ်</label>
-                                                <input id="phone" class="form-control" name="phone"
-                                                    type="tel" placeholder="09xxxxxxxxx" maxlength="11"
-                                                    pattern="[0-9]{2}[0-9]{9}" required value="<?= $student->phone ?>">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="dob" class="form-label">မွေးသက္ကရာဇ်</label>
-                                                <input id="dob" class="form-control" name="dob" type="date" required
-                                                    value="<?= $student->dob ?>">
-                                            </div>
-                                        </div>
+                                    <div>
+                                        <input name="submit_btn" class="btn btn-primary" type="submit" value="သိမ်းမည်">
                                     </div>
                                 </div>
 
-                                <input name="submit_btn" class="btn btn-primary" type="submit" value="သိမ်းမည်">
+                                <!-- Chapter Information -->
+                                <div class="table-responsive mb-4">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr style="background-color: #f0f8ff;">
+                                                <th width="20%">အခန်း</th>
+                                                <td>
+                                                    <input type="text"
+                                                        name="chapter[chapter]"
+                                                        class="form-control"
+                                                        value="<?= $monthlyChapter['chapter'] ?? '' ?>"
+                                                        placeholder="အခန်းအမည်">
+                                                    <input type="hidden"
+                                                        name="chapter[id]"
+                                                        value="<?= $monthlyChapter['id'] ?? '' ?>">
+                                                </td>
+                                            </tr>
+                                            <tr style="background-color: #fff0f5;">
+                                                <th width="20%">သင်ယူမှုဦးတည်ချက်များ</th>
+                                                <td>
+                                                    <textarea name="chapter[learning_outcomes]"
+                                                        class="form-control"
+                                                        placeholder="သင်ယူမှုဦးတည်ချက်များ"><?= $monthlyChapter['learning_outcomes'] ?? '' ?></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr style="background-color: #f5f5f5;">
+                                                <th width="20%">စစ်ဆေးသည့်အချက်များ</th>
+                                                <td>
+                                                    <textarea name="chapter[check_points]"
+                                                        class="form-control"
+                                                        placeholder="စစ်ဆေးသည့်အချက်များ"><?= $monthlyChapter['check_points'] ?? '' ?></textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Student Assessment Table -->
+                                <div class="table-responsive">
+                                    <table id="studentsTable" class="table assessment-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="subject-no">စဉ်</th>
+                                                <th class="subject-name">ကျောင်းသားအမည်</th>
+                                                <th class="result-name">တတ်မြောက်မှုအဆင့်</th>
+                                                <th class="mark">မှတ်ချက်</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($allAssessment as $assessment): ?>
+                                                <?php $i = isset($i) ? $i + 1 : 1; ?>
+                                                <tr>
+                                                    <td><?= $i ?></td>
+                                                    <td>
+                                                        <?= $assessment['student_name'] ?>
+                                                        <input type="hidden"
+                                                            name="assessment[<?= $assessment['id'] ?>][id]"
+                                                            value="<?= $assessment['id'] ?>">
+                                                    </td>
+                                                    <td>
+                                                        <select name="assessment[<?= $assessment['id'] ?>][mark]" class="form-control">
+                                                            <option value="">ရွေးချယ်ပါ</option>
+                                                            <option value="A" <?= ($assessment['mark'] == 'A') ? 'selected' : '' ?>>အလွန်ကောင်း</option>
+                                                            <option value="S" <?= ($assessment['mark'] == 'S') ? 'selected' : '' ?>>ကောင်း</option>
+                                                            <option value="E" <?= ($assessment['mark'] == 'E') ? 'selected' : '' ?>>ထပ်မံကြိုးစားရန်လို</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <textarea name="assessment[<?= $assessment['id'] ?>][remark]"
+                                                            class="form-control"><?= $assessment['remark'] ?></textarea>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <!-- End Form -->
             </div>
-
-            </form>
         </div>
-    </div>
-    </div>
-    <!-- End Form -->
-    </div>
 
-    </div>
-    </div>
+    </div> <!-- main-wrapper end -->
+
+    <script>
+        document.getElementById('chapter_no').addEventListener('change', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Remove success parameter if it exists
+            urlParams.delete('success');
+            // Update chapter_no parameter
+            urlParams.set('chapter_no', this.value);
+            window.location.href = window.location.pathname + '?' + urlParams.toString();
+        });
+
+        // Auto hide success message after 3 seconds
+        setTimeout(function() {
+            const alert = document.querySelector('.alert');
+            if (alert) {
+                alert.remove();
+                const urlParams = new URLSearchParams(window.location.search);
+                // Remove success parameter if it exists
+                urlParams.delete('success');
+                window.location.href = window.location.pathname + '?' + urlParams.toString();
+            }
+        }, 3000);
+    </script>
+
 </body>
 
-<!--  JavaScript -->
-<?php
-include('../components/script.php');
-?>
+<?php include('../components/script.php'); ?>

@@ -6,7 +6,6 @@
 <script src="../assets/vendors/flatpickr/flatpickr.min.js"></script>
 <script src="../assets/vendors/apexcharts/apexcharts.min.js"></script>
 <script src="../assets/vendors/sweetalert2/sweetalert2.min.js"></script>
-<!-- <script src="../assets/vendors/jquery/jquery.min.js"></script> -->
 
 
 <!-- for datatable -->
