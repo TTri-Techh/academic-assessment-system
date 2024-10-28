@@ -79,6 +79,17 @@ class StudentModel
             return $e->getMessage();
         }
     }
+    public function getStudentsByClassId($class_id)
+    {
+        try {
+            $query = "SELECT * FROM {$this->table} WHERE class_id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$class_id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
     public function updateStudentById($data)
     {
         try {

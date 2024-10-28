@@ -44,17 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
 
 $g0Assessment = $g0AssessmentController->getG0AssessmentByStudentId($student->id);
 
-
-
-
-// if (isset($_GET['success']) && $_GET['success'] === '1') {
-//     AlertHelper::showAlert("", 'အချက်အလက်များ အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။',  'success');
-//     header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $_POST['id']);
-//     exit();
-// } elseif (isset($_GET['success']) && $_GET['success'] === '0') {
-//     AlertHelper::showAlert('', 'အချက်အလက်များ သိမ်းဆည်းရာတွင် အမှားအယွင်း ဖြစ်ပွားခဲ့ပါသည်။',  'error');
-//     header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $_POST['id']);
-// }
 ?>
 
 <body>
@@ -134,7 +123,9 @@ $g0Assessment = $g0AssessmentController->getG0AssessmentByStudentId($student->id
                                                 </tr>
                                                 <tr class="<?= $bgClass ?>">
                                                 <?php endif; ?>
-                                                <td class="result-name"><?= $subjectResult['result_name'] ?></td>
+                                                <td class="result-name">
+                                                    <?= $subjectResult['result_name'] ?>
+                                                </td>
                                                 <?php for ($i = 1; $i <= 4; $i++): ?>
                                                     <td class="mark">
                                                         <select name="mark_<?= $i ?>[<?= $subject['id'] ?>][<?= $subjectResult['id'] ?>]" class="form-control">

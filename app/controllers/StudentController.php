@@ -67,6 +67,10 @@ class StudentController
     {
         return $this->studentModel->getStudentById($id);
     }
+    public function getStudentsByClassId($class_id)
+    {
+        return $this->studentModel->getStudentsByClassId($class_id);
+    }
     public function updateStudentById($data)
     {
         $result = $this->studentModel->updateStudentById($data);

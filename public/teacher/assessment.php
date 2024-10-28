@@ -5,17 +5,21 @@ include('../components/header.php');
 
 use app\controllers\StudentController;
 use app\controllers\TeacherController;
-use core\helpers\AlertHelper;
-
 
 $teacherController = new TeacherController();
 $studentController = new StudentController();
+
 if (!$teacherController->isAuthenticated()) {
     header("Location:login.php");
     exit();
 }
+// only KG teacher can access this page
+else if ($_SESSION['class_id'] != 0) {
+    header("Location:view-students.php"); // only KG teacher can access this page
+    exit();
+}
 
-$students = $studentController->getAllStudents();
+$students = $studentController->getStudentsByClassId($_SESSION['class_id']); // get all students by class id
 
 // if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
 //     $studentController->updateStudentById($_POST);

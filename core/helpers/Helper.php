@@ -11,4 +11,9 @@ class Helper
         }
         return true; // If session is already active, return true
     }
+    public static function redirect($url)
+    {
+        header("Location:$url");
+        exit();
+    }
 }
