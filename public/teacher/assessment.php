@@ -21,16 +21,14 @@ else if ($_SESSION['class_id'] != 0) {
 
 $students = $studentController->getStudentsByClassId($_SESSION['class_id']); // get all students by class id
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
-//     $studentController->updateStudentById($_POST);
-// } elseif (isset($_GET['update']) && $_GET['update'] === 'success') {
-//     AlertHelper::showAlert('Updated!', 'Updated a student data successfully.', 'success');
-// } elseif (isset($_GET['update']) && $_GET['update'] === 'fail') {
-//     AlertHelper::showAlert('Failed to update.', 'Something went wrong.', 'error');
-// } elseif (isset($_GET['delete']) && $_GET['delete'] === 'true') {
-//     $id = (int) $_GET['id'];
-//     $studentController->deleteStudentById($id);
-// }
+if (empty($students)) {
+    $_SESSION['error'] = "ကျောင်းသား/သူများ ဦးစွာထည့်သွင်းပါ။";
+    echo "<script>
+        alert('ကျောင်းသား/သူများ ဦးစွာထည့်သွင်းပါ။');
+        window.location.href = 'register-students.php';
+    </script>";
+    exit;
+}
 ?>
 
 

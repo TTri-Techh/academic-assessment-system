@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Oct 28, 2024 at 07:25 AM
+-- Generation Time: Oct 28, 2024 at 10:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -308,6 +308,44 @@ INSERT INTO `monthly_chapters` (`id`, `subject_id`, `class_id`, `chapter`, `lear
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `monthly_test`
+--
+
+CREATE TABLE `monthly_test` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `myanmar_mark` int(11) DEFAULT NULL,
+  `myanmar_grade` varchar(11) DEFAULT NULL,
+  `english_mark` int(11) DEFAULT NULL,
+  `english_grade` varchar(11) DEFAULT NULL,
+  `math_mark` int(11) DEFAULT NULL,
+  `math_grade` varchar(11) DEFAULT NULL,
+  `science_mark` int(11) DEFAULT NULL,
+  `science_grade` varchar(11) DEFAULT NULL,
+  `social_mark` int(11) DEFAULT NULL,
+  `social_grade` varchar(11) DEFAULT NULL,
+  `total_mark` int(11) DEFAULT NULL,
+  `total_grade` varchar(11) DEFAULT NULL,
+  `result` varchar(255) DEFAULT NULL,
+  `month_no` int(11) DEFAULT NULL,
+  `year` year(4) NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `monthly_test`
+--
+
+INSERT INTO `monthly_test` (`id`, `student_id`, `class_id`, `teacher_id`, `myanmar_mark`, `myanmar_grade`, `english_mark`, `english_grade`, `math_mark`, `math_grade`, `science_mark`, `science_grade`, `social_mark`, `social_grade`, `total_mark`, `total_grade`, `result`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
+(19, 7, 4, 3, 67, 'B', 45, 'D', 55, 'C', 78, 'B', 60, 'C', 305, 'C', 'Pass', 1, '2024', '2024-10-28 14:50:34', '2024-10-28 14:50:34'),
+(20, 8, 4, 3, 80, 'A', 85, 'A', 76, 'B', 67, 'B', 90, 'A', 398, 'B', 'Pass', 1, '2024', '2024-10-28 14:50:34', '2024-10-28 14:50:34');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `students`
 --
 
@@ -337,7 +375,9 @@ CREATE TABLE `students` (
 INSERT INTO `students` (`id`, `class_id`, `enrollment_no`, `name_en`, `name_mm`, `username`, `password`, `password_status`, `dob`, `father_name`, `mother_name`, `guardian`, `parent_job`, `phone`, `address`, `created_at`) VALUES
 (4, 0, 'Qui nostrud acc', 'Dillon Benton', 'Evan Leach', 'dillonbenton', '123456', 0, '2016-04-03', 'Ina Chan', 'Daryl Murphy', 'Labore eum ipsa ill', 'Aspernatur alias cor', '09398475454', 'Cupiditate aut est ', '2024-10-26 16:41:04'),
 (5, 1, '0002', 'Kyaw Kyaw', 'ကျော်ကျော်', 'kyawkyaw', '123456', 0, '2017-08-28', 'Nayda Rose', 'Brett Farley', 'Rerum duis voluptas ', 'Quia et ex quam odio', '09398475454', 'Sit architecto ea s', '2024-10-28 00:01:50'),
-(6, 1, '0003', 'Khant Si Thu', 'Garrett Chan', 'khantsithu', '123456', 0, '2019-11-24', 'Bertha Nixon', 'Ayanna Strong', 'Ea tempore inventor', 'Neque suscipit offic', '09398475454', 'Maiores aliquid illo', '2024-10-28 01:29:52');
+(6, 1, '0003', 'Khant Si Thu', 'Garrett Chan', 'khantsithu', '123456', 0, '2019-11-24', 'Bertha Nixon', 'Ayanna Strong', 'Ea tempore inventor', 'Neque suscipit offic', '09398475454', 'Maiores aliquid illo', '2024-10-28 01:29:52'),
+(7, 4, '0004', 'Sein Sein', 'စိန်စိန်', 'seinsein', '123456', 0, '1976-10-18', 'Ira Coffey', 'Ethan Bridges', 'Aut quaerat mollit i', 'Et hic nisi iste con', '09398475454', 'Assumenda est culpa', '2024-10-28 14:49:46'),
+(8, 4, '0005', 'Olivia', 'အိုလစ်ဗျာ', 'olivia', '123456', 0, '2010-07-01', 'Clark Nguyen', 'Lester Mathis', 'Dolore voluptatem C', 'Aut non veritatis no', '09398475454', 'Ut quis est ut dolor', '2024-10-28 14:50:31');
 
 -- --------------------------------------------------------
 
@@ -400,7 +440,8 @@ CREATE TABLE `teachers` (
 INSERT INTO `teachers` (`id`, `name_eng`, `name_mm`, `username`, `father_name`, `mother_name`, `education`, `rank`, `class_id`, `dob`, `start_edu_at`, `start_current_rank_at`, `start_current_school_at`, `password`, `password_status`, `phone`, `status`, `address`, `bed_status`, `phaung_gyi_status`, `completed_course`, `created_at`, `updated_at`) VALUES
 (1, 'U KO KO Gyi', 'ဦးကိုကိုကြီး', 'ukokogyi', 'ဦးမောင်မောင်ကြီး', 'ဒေါ်ဒေါ်ကြီး', 'B.Sc(Phys)', 'မူပြ', 0, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$eRtzhx7oYsIIsdTfifmnQ.Ao72Xx1decj9X/hhn0/Y1Cdf8R55gVK', 1, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 14:01:12', '2024-10-23 14:01:12'),
 (2, 'Daw Phyu Phyu Win', 'ဒေါ်ဖြူဖြူဝင်း', 'dawphyuphyuwin', 'Desiree Bolton', 'Aladdin Gill', 'Veritatis id rerum e', 'Qui est sit commodo ', 1, '1995-02-09', '2001-06-15', '1991-03-15', '2005-01-28', '$2y$10$JsHoccDY0fNJMKOSYHS4LuJ4rTLbHgv9jeWzsYWo6kHEJqdAQ2kZG', 1, '09398475454', 'active', 'Qui ex officia elit', 'ပြီး', 'မပြီး', 'Dolorem laborum nost', '2024-10-23 14:01:28', '2024-10-23 14:01:28'),
-(3, 'south paw', 'Claudia Yates', 'cassandrablake1', 'Robin Gill', 'Rajah Morton', 'Minima corporis dele', 'Molestiae commodi ei', 0, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$riEGrhh2txP4e02VgXNMUuMd7mCX3SudY7AXWdF0Cbzvt/KLVLE8q', 1, '09398475454', 'inactive', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 16:35:12', '2024-10-23 16:35:12');
+(3, 'Ko Myo Min Ko', 'ကိုမျိုးမင်းကို', 'komyominko', 'Robin Gill', 'Rajah Morton', 'Minima corporis dele', 'Molestiae commodi ei', 4, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$EKUfkZwm.eQe6XasWX1dH.SLRbFiKBaqtf.69S1C8Gc71mcEb2FDK', 1, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 16:35:12', '2024-10-23 16:35:12'),
+(5, 'Cherokee Clemons', 'Karen Trevino', 'cherokeeclemons', 'Scarlet Alvarez', 'Yvonne Trevino', 'Maxime velit est est', 'Et qui aliquid labor', 5, '2001-07-23', '2003-11-13', '1982-11-27', '2003-08-25', '$2y$10$N8MNzZ3X/B.xXUf7MPqBION/iSpielRUETuZ9FqOn/GM16bTaZOba', 1, '09398475454', 'active', 'Magni eius dolor off', 'မပြီး', 'မပြီး', 'Repudiandae exercita', '2024-10-28 15:51:21', '2024-10-28 15:51:21');
 
 --
 -- Indexes for dumped tables
@@ -477,6 +518,15 @@ ALTER TABLE `monthly_assessment`
 ALTER TABLE `monthly_chapters`
   ADD PRIMARY KEY (`id`),
   ADD KEY `subject_id` (`subject_id`),
+  ADD KEY `class_id` (`class_id`);
+
+--
+-- Indexes for table `monthly_test`
+--
+ALTER TABLE `monthly_test`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `teacher_id` (`teacher_id`),
   ADD KEY `class_id` (`class_id`);
 
 --
@@ -560,10 +610,16 @@ ALTER TABLE `monthly_chapters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `monthly_test`
+--
+ALTER TABLE `monthly_test`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -575,7 +631,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -622,6 +678,14 @@ ALTER TABLE `monthly_assessment`
 ALTER TABLE `monthly_chapters`
   ADD CONSTRAINT `monthly_chapters_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monthly_chapters_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monthly_test`
+--
+ALTER TABLE `monthly_test`
+  ADD CONSTRAINT `monthly_test_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monthly_test_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monthly_test_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `students`

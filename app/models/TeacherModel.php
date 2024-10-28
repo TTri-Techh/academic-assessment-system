@@ -192,7 +192,7 @@ class TeacherModel
         try {
             $query = "SELECT id, name_mm, class_id
                 FROM {$this->table}
-                ";
+                WHERE status = 'active'";
             $stmt = $this->db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -17,6 +17,15 @@ if (!$adminAuthController->isAuthenticated()) {
 
 $teachers = $teacherController->getAllTeachers();
 
+if (empty($teachers)) {
+    $_SESSION['error'] = "ဆရာ/ဆရာမများ ဦးစွာထည့်သွင်းပါ။";
+    echo "<script>
+        alert('ဆရာ/ဆရာမများ ဦးစွာထည့်သွင်းပါ။');
+        window.location.href = 'register-teachers.php';
+    </script>";
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
     $teacherController->updateTeacherById($_POST);
 } elseif (isset($_GET['update']) && $_GET['update'] === 'success') {
