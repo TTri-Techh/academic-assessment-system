@@ -7,7 +7,6 @@ use app\controllers\StudentController;
 use app\controllers\TeacherController;
 use core\helpers\AlertHelper;
 
-
 $teacherController = new TeacherController();
 $studentController = new StudentController();
 if (!$teacherController->isAuthenticated()) {
@@ -15,7 +14,7 @@ if (!$teacherController->isAuthenticated()) {
     exit();
 }
 
-$students = $studentController->getAllStudents();
+$students = $studentController->getStudentsByClassId($_SESSION['class_id']); // get all students by class id
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
     $studentController->updateStudentById($_POST);
