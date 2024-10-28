@@ -127,49 +127,51 @@ $current_subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : nu
                     </div>
                 </li>
                 <!-- End For Assessment by Chapter -->
-                <!-- For Assessment by Month -->
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#monthly-assessment" role="button" aria-expanded="false"
-                        aria-controls="monthly-assessment">
-                        <i class="link-icon" data-feather="file-text"></i>
-                        <span class="link-title">Assessment by Month</span>
-                        <i class="link-arrow" data-feather="chevron-down"></i>
-                    </a>
-                    <div class="collapse" id="monthly-assessment">
-                        <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="monthly-assessment.php?subject_id=1&month_no=1"
-                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 1) ? 'active' : ''; ?>">
-                                    Myanmar
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="monthly-assessment.php?subject_id=2&month_no=1"
-                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 2) ? 'active' : ''; ?>">
-                                    English
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="monthly-assessment.php?subject_id=3&month_no=1"
-                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 3) ? 'active' : ''; ?>">
-                                    Mathematics
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="monthly-assessment.php?subject_id=4&month_no=1"
-                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 4) ? 'active' : ''; ?>">
-                                    Science
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="monthly-assessment.php?subject_id=5&month_no=1"
-                                    class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 5) ? 'active' : ''; ?>">
-                                    Social Studies
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                <?php if ($_SESSION['class_id'] == 1 || $_SESSION['class_id'] == 2 || $_SESSION['class_id'] == 3): ?>
+                    <!-- For Assessment by Month -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#monthly-assessment" role="button" aria-expanded="false"
+                            aria-controls="monthly-assessment">
+                            <i class="link-icon" data-feather="file-text"></i>
+                            <span class="link-title">Assessment by Month</span>
+                            <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse" id="monthly-assessment">
+                            <ul class="nav sub-menu">
+                                <li class="nav-item">
+                                    <a href="monthly-assessment.php?subject_id=1&month_no=1"
+                                        class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 1) ? 'active' : ''; ?>">
+                                        Myanmar
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="monthly-assessment.php?subject_id=2&month_no=1"
+                                        class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 2) ? 'active' : ''; ?>">
+                                        English
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="monthly-assessment.php?subject_id=3&month_no=1"
+                                        class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 3) ? 'active' : ''; ?>">
+                                        Mathematics
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="monthly-assessment.php?subject_id=4&month_no=1"
+                                        class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 4) ? 'active' : ''; ?>">
+                                        Science
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="monthly-assessment.php?subject_id=5&month_no=1"
+                                        class="nav-link <?php echo ($currentPage === 'monthly-assessment.php' && isset($_GET['subject_id']) && $_GET['subject_id'] == 5) ? 'active' : ''; ?>">
+                                        Social Studies
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                <?php endif; ?>
                 <!-- End For Monthly Test -->
                 <?php if ($_SESSION['class_id'] == 4 || $_SESSION['class_id'] == 5): ?>
                     <!-- For Monthly Test -->

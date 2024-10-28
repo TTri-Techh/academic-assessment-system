@@ -39,5 +39,5 @@
 
 ## Student
 
-- Login ❌
+- Login ✅
 - View QCPR ❌
