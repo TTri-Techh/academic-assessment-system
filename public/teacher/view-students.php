@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
                         <div class="card-body">
                             <h6 class="card-title">ကျောင်းသား/သူများ </h6>
                             <div class="table-responsive">
-                                <table id="studentsTable" class="table ">
+                                <table id="teachersTable" class="table ">
                                     <thead>
                                         <tr>
                                             <th>စဉ်</th>

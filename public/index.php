@@ -94,6 +94,7 @@ if ($isAuthenticated) {
               <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
               <li class="scroll-to-section"><a href="#qcpr">QCPR</a></li>
               <?php if ($studentController->isAuthenticated()) : ?>
+                <li class=""><a href="student/learning-resources.php">Learning Resources</a></li>
                 <li class=""><a href="student/logout.php">Logout</a></li>
               <?php else : ?>
                 <li class=""><a href="teacher/login.php">For Teachers</a></li>

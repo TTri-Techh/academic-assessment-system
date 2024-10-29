@@ -24,7 +24,7 @@
 
 - Register teachers ✅
 - View teachers information ✅
-- View students information & results ❌
+- View students information & results ✅
 - Manage classes (Assign classes for teachers) ✅
 
 ## Teacher

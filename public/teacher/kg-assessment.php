@@ -6,7 +6,6 @@ include('../components/header.php');
 use app\controllers\TeacherController;
 use app\controllers\StudentController;
 use app\controllers\G0AssessmentController;
-use core\helpers\AlertHelper;
 
 // Redirect to login page if not authenticated
 $teacherController = new TeacherController();
@@ -45,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
 $g0Assessment = $g0AssessmentController->getG0AssessmentByStudentId($student->id);
 
 ?>
+
+<head>
+    <link rel="stylesheet" href="../../assets/css/demo1/custom/kg-table.css">
+</head>
 
 <body>
 
@@ -188,61 +191,3 @@ $g0Assessment = $g0AssessmentController->getG0AssessmentByStudentId($student->id
 <?php
 include('../components/script.php');
 ?>
-<style>
-    .assessment-table {
-        width: 100%;
-        table-layout: fixed;
-    }
-
-    .assessment-table th,
-    .assessment-table td {
-        padding: 8px;
-        word-wrap: break-word;
-        white-space: normal;
-        vertical-align: middle;
-    }
-
-    .assessment-table .subject-no {
-        width: 5%;
-    }
-
-    .assessment-table .subject-name {
-        width: 15%;
-        white-space: normal;
-    }
-
-    .assessment-table .result-name {
-        width: 20%;
-        white-space: normal;
-    }
-
-    .assessment-table .mark {
-        width: 15%;
-    }
-
-    .assessment-table select.form-control {
-        width: 100%;
-    }
-
-    .subject-bg-1 {
-        background-color: #f0f8ff;
-    }
-
-    .subject-bg-2 {
-        background-color: #fff0f5;
-    }
-
-    .subject-bg-3 {
-        background-color: #f0fff0;
-    }
-
-    .subject-bg-4 {
-        background-color: #fff5e6;
-    }
-
-    .subject-bg-5 {
-        background-color: #f5f5f5;
-    }
-</style>
-
-<!-- Table HTML code remains the same as before -->
