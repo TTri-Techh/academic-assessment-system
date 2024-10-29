@@ -70,7 +70,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <li class="nav-item">
                             <a href="students-result.php"
                                 class="nav-link <?php echo ($currentPage == 'students-result.php') ? 'active' : ''; ?>">
-                                Students' Results
+                                Students' QCPR
                             </a>
                         </li>
 
