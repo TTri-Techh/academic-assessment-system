@@ -30,11 +30,10 @@ class AdminAuthController
     public function login($email, $password)
     {
         $admin = $this->admin->findByEmail($email, $password);
-        var_dump($admin);
         if ($admin && password_verify($password, $admin->password)) {
             $_SESSION['admin_id'] = $admin->id;
             $_SESSION['admin_email'] = $admin->email;
-            return true;
+            header("Location: register-teachers.php?login=success");
         }
         return false;
     }

@@ -163,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
                                         <thead>
                                             <tr>
                                                 <th>စဉ်</th>
-                                                <th>ကျောင်းဝင်ခွင့်အမှတ်</th>
+                                                <th>ကျောင်းဝင်နံပါတ်</th>
                                                 <th>ကျောင်းသားအမည်</th>
                                                 <th>အဘအမည်</th>
                                                 <th>မြန်မာ</th>
@@ -194,33 +194,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
                                                         <?= $assessment['father_name'] ?>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][myanmar_mark]" class="form-control" value="<?= $assessment['myanmar_mark'] ?>">
+                                                        <p style="display: none;"><?= $assessment['myanmar_mark'] ?></p>
+                                                        <input type="number" max="100" min="0" name="assessment[<?= $assessment['id'] ?>][myanmar_mark]" class="form-control" value="<?= $assessment['myanmar_mark'] ?>">
                                                         <input type="text" name="assessment[<?= $assessment['id'] ?>][myanmar_grade]" class="form-control" value="<?= $assessment['myanmar_grade'] ?>" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][english_mark]" class="form-control" value="<?= $assessment['english_mark'] ?>">
+                                                        <p style="display: none;"><?= $assessment['english_mark'] ?></p>
+                                                        <input type="number" max="100" min="0" name="assessment[<?= $assessment['id'] ?>][english_mark]" class="form-control" value="<?= $assessment['english_mark'] ?>">
                                                         <input type="text" name="assessment[<?= $assessment['id'] ?>][english_grade]" class="form-control" value="<?= $assessment['english_grade'] ?>" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][math_mark]" class="form-control" value="<?= $assessment['math_mark'] ?>">
+                                                        <p style="display: none;"><?= $assessment['math_mark'] ?></p>
+                                                        <input type="number" max="100" min="0" name="assessment[<?= $assessment['id'] ?>][math_mark]" class="form-control" value="<?= $assessment['math_mark'] ?>">
                                                         <input type="text" name="assessment[<?= $assessment['id'] ?>][math_grade]" class="form-control" value="<?= $assessment['math_grade'] ?>" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][science_mark]" class="form-control" value="<?= $assessment['science_mark'] ?>">
+                                                        <p style="display: none;"><?= $assessment['science_mark'] ?></p>
+                                                        <input type="number" max="100" min="0" name="assessment[<?= $assessment['id'] ?>][science_mark]" class="form-control" value="<?= $assessment['science_mark'] ?>">
                                                         <input type="text" name="assessment[<?= $assessment['id'] ?>][science_grade]" class="form-control" value="<?= $assessment['science_grade'] ?>" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][social_mark]" class="form-control" value="<?= $assessment['social_mark'] ?>">
-                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][social_grade]" class="form-control" value="<?= $assessment['social_grade'] ?>" readonly readonly>
+                                                        <p style="display: none;"><?= $assessment['social_mark'] ?></p>
+                                                        <input type="number" max="100" min="0" name="assessment[<?= $assessment['id'] ?>][social_mark]" class="form-control" value="<?= $assessment['social_mark'] ?>">
+                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][social_grade]" class="form-control" value="<?= $assessment['social_grade'] ?>" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][total_mark]" class="form-control" value="<?= $assessment['total_mark'] ?>">
+                                                        <p style="display: none;"><?= $assessment['total_mark'] ?></p>
+                                                        <input type="number" name="assessment[<?= $assessment['id'] ?>][total_mark]" class="form-control bg-light" style="cursor: default;" value="<?= $assessment['total_mark'] ?>" readonly>
                                                     </td>
                                                     <td>
+                                                        <p style="display: none;"><?= $assessment['total_grade'] ?></p>
                                                         <input type="text" name="assessment[<?= $assessment['id'] ?>][total_grade]" class="form-control" value="<?= $assessment['total_grade'] ?>" readonly>
                                                     </td>
                                                     <td>
-                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][result]" class="form-control" value="<?= $assessment['result'] ?>" readonly>
+
+                                                        <p style="display: none;"><?=
+                                                                                    // get first letter of result
+                                                                                    substr($assessment['result'], 0, 1) ?></p>
+                                                        <input type="text" name="assessment[<?= $assessment['id'] ?>][result]" class="form-control result-column" value="<?= $assessment['result'] ?>" readonly>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -236,54 +247,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
 
     </div> <!-- main-wrapper end -->
 
-    <!-- Add this script before closing body tag -->
+    <?php include('../components/script.php'); ?>
+    <script src="../assets/js/monthly-test-grade.js"></script>
+
     <script>
-        function calculateGrade(mark) {
-            if (mark >= 80) return 'A';
-            else if (mark >= 65) return 'B';
-            else if (mark >= 50) return 'C';
-            else if (mark >= 40) return 'D';
-            else return 'F';
-        }
-
-        // Add event listeners to all mark input fields
-        document.addEventListener('DOMContentLoaded', function() {
-            const table = document.getElementById('studentsTable');
-            const markInputs = table.querySelectorAll('input[type="text"][name$="[myanmar_mark]"], input[type="text"][name$="[english_mark]"], input[type="text"][name$="[math_mark]"], input[type="text"][name$="[science_mark]"], input[type="text"][name$="[social_mark]"]');
-
-            markInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    // Get the corresponding grade input
-                    const gradeInput = this.nextElementSibling;
-                    const mark = parseFloat(this.value) || 0;
-
-                    // Calculate and set grade
-                    gradeInput.value = calculateGrade(mark);
-
-                    // Calculate total marks and grade for this student
-                    const row = this.closest('tr');
-                    const marks = [
-                        parseFloat(row.querySelector('input[name$="[myanmar_mark]"]').value) || 0,
-                        parseFloat(row.querySelector('input[name$="[english_mark]"]').value) || 0,
-                        parseFloat(row.querySelector('input[name$="[math_mark]"]').value) || 0,
-                        parseFloat(row.querySelector('input[name$="[science_mark]"]').value) || 0,
-                        parseFloat(row.querySelector('input[name$="[social_mark]"]').value) || 0
-                    ];
-
-                    const totalMark = marks.reduce((a, b) => a + b, 0);
-                    const avgMark = totalMark / 5;
-
-                    // Set total mark
-                    row.querySelector('input[name$="[total_mark]"]').value = totalMark;
-                    // Set total grade
-                    row.querySelector('input[name$="[total_grade]"]').value = calculateGrade(avgMark);
-                    row.querySelector('input[name$="[total_grade]"]').value = calculateGrade(avgMark);
-                    // Set result (pass/fail)
-                    row.querySelector('input[name$="[result]"]').value = avgMark >= 40 ? 'Pass' : 'Fail';
-                });
-            });
-        });
-
         document.getElementById('month_no').addEventListener('change', function() {
             const urlParams = new URLSearchParams(window.location.search);
             // Remove success parameter if it exists
@@ -303,9 +270,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
                 urlParams.delete('success');
                 window.location.href = window.location.pathname + '?' + urlParams.toString();
             }
-        }, 3000);
+        }, 1000);
     </script>
+    <style>
+        input:not([type="submit"]) {
+            text-align: center;
+            width: 60px;
+        }
 
+        .grade-a,
+        .pass {
+            background-color: #4CAF50 !important;
+            /* စိမ်းနုရောင်သစ် - ကြည်လင်တဲ့အစိမ်းရောင် */
+            color: white;
+        }
+
+        .grade-b {
+            background-color: #2196F3 !important;
+            /* ပြာရောင်သစ် - Microsoft Blue နီးပါး */
+            color: white;
+        }
+
+        .grade-c {
+            background-color: #FF9800 !important;
+            /* လိမ္မော်ရောင်သစ် - Material Design Orange */
+            color: white;
+        }
+
+        .grade-d,
+        .fail {
+            background-color: #f44336 !important;
+            /* အနီရောင်သစ် - Material Design Red */
+            color: white;
+        }
+
+        /* Hide arrows in Chrome, Safari, Edge, and Opera */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Hide arrows in Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </body>
-
-<?php include('../components/script.php'); ?>

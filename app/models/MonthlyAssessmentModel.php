@@ -204,4 +204,20 @@ class MonthlyAssessmentModel
             return false;
         }
     }
+
+    public function getMonthlyAssessmentByStudentId($student_id, $class_id)
+    {
+        try {
+            // get subject id, mark, month_no, year
+            $query = "SELECT subject_id, mark, month_no, year FROM {$this->table} WHERE student_id = :student_id AND class_id = :class_id AND year = NOW() ORDER BY subject_id ASC";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':student_id', $student_id);
+            $stmt->bindParam(':class_id', $class_id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 }

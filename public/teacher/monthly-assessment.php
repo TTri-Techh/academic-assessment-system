@@ -265,9 +265,43 @@ $monthlyChapter = $monthlyAssessmentController->getMonthlyChapter([
         </div>
 
     </div> <!-- main-wrapper end -->
+    <?php include('../components/script.php'); ?>
 
-    <!-- Add this script before closing body tag -->
     <script>
+        // Custom sorting function for A, S, E grades
+        $.fn.dataTable.ext.type.order['grade-pre'] = function(data) {
+            // Extract the selected option value
+            const grade = $(data).find('option:selected').val();
+            switch (grade) {
+                case 'A':
+                    return 1;
+                case 'S':
+                    return 2;
+                case 'E':
+                    return 3;
+                default:
+                    return 4; // Empty values sorted last
+            }
+        };
+
+        $(document).ready(function() {
+            $('#studentsTable').DataTable({
+                "order": [
+                    [2, "asc"]
+                ], // Grade column (0-based index)
+                "pageLength": 25,
+                "columnDefs": [{
+                        "targets": 2, // Grade column index
+                        "type": "grade"
+                    },
+                    {
+                        "orderable": false, // Make 'Remark' column non-sortable
+                        "targets": [3]
+                    }
+                ]
+            });
+        });
+
         document.getElementById('month_no').addEventListener('change', function() {
             const urlParams = new URLSearchParams(window.location.search);
             // Remove success parameter if it exists
@@ -291,5 +325,3 @@ $monthlyChapter = $monthlyAssessmentController->getMonthlyChapter([
     </script>
 
 </body>
-
-<?php include('../components/script.php'); ?>

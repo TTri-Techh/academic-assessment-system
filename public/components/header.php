@@ -24,7 +24,7 @@
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="../assets/vendors/flatpickr/flatpickr.min.css">
     <link rel="stylesheet" href="../assets/vendors/sweetalert2/sweetalert2.min.css">
-    <link rel="stylesheet" href="../../../assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="../assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css">
 
     <!-- End plugin css for this page -->
 

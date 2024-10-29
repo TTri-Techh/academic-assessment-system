@@ -42,4 +42,9 @@ class MonthlyAssessmentController
     {
         return $this->monthlyAssessmentModel->updateMonthlyChapterByConditions($data);
     }
+
+    public function getMonthlyAssessmentByStudentId($student_id, $class_id)
+    {
+        return $this->monthlyAssessmentModel->getMonthlyAssessmentByStudentId($student_id, $class_id);
+    }
 }

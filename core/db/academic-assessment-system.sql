@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Oct 28, 2024 at 10:37 AM
+-- Generation Time: Oct 29, 2024 at 06:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,7 +75,9 @@ INSERT INTO `chapterly_assessment` (`id`, `student_id`, `teacher_id`, `subject_i
 (15, 5, 2, 2, 1, 3, 1, 'A', '', NULL, '2024', '2024-10-28 12:05:20', '2024-10-28 12:05:20'),
 (16, 6, 2, 2, 1, 3, 1, 'S', '', NULL, '2024', '2024-10-28 12:05:20', '2024-10-28 12:05:20'),
 (17, 5, 2, 2, 1, 4, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:06:03', '2024-10-28 12:06:03'),
-(18, 6, 2, 2, 1, 4, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:06:03', '2024-10-28 12:06:03');
+(18, 6, 2, 2, 1, 4, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:06:03', '2024-10-28 12:06:03'),
+(19, 7, 3, 1, 4, 5, 1, 'A', '', NULL, '2024', '2024-10-28 20:37:37', '2024-10-28 20:37:37'),
+(20, 8, 3, 1, 4, 5, 1, '', '', NULL, '2024', '2024-10-28 20:37:37', '2024-10-28 20:37:37');
 
 -- --------------------------------------------------------
 
@@ -102,10 +104,11 @@ CREATE TABLE `chapters` (
 --
 
 INSERT INTO `chapters` (`id`, `subject_id`, `class_id`, `chapter`, `chapter_no`, `learning_outcomes`, `check_points`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'အခန်း(၁)', 1, 'ချစ်တတ်ရန်', 'ချစ်သလား?', NULL, '2024', '2024-10-28 12:01:51', '2024-10-28 12:49:50'),
+(1, 1, 1, 'အချစ်', 1, 'ချစ်တတ်ရန်', 'ချစ်သလား?', NULL, '2024', '2024-10-28 12:01:51', '2024-10-29 13:21:21'),
 (2, 1, 1, NULL, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:05:03', '2024-10-28 12:05:03'),
 (3, 2, 1, 'Unit-1', 1, 'Fuck', 'knows how to fuck', NULL, '2024', '2024-10-28 12:05:20', '2024-10-28 12:10:23'),
-(4, 2, 1, NULL, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:06:03', '2024-10-28 12:06:03');
+(4, 2, 1, NULL, 2, NULL, NULL, NULL, '2024', '2024-10-28 12:06:03', '2024-10-28 12:06:03'),
+(5, 1, 4, '', 1, '', '', NULL, '2024', '2024-10-28 20:37:37', '2024-10-29 13:52:10');
 
 -- --------------------------------------------------------
 
@@ -266,14 +269,44 @@ CREATE TABLE `monthly_assessment` (
 INSERT INTO `monthly_assessment` (`id`, `student_id`, `teacher_id`, `subject_id`, `class_id`, `monthly_chapter_id`, `mark`, `remark`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
 (1, 5, 2, 1, 1, 1, 'A', 'sooo goat like me', '1', '2024', '2024-10-28 10:57:27', '2024-10-28 10:57:27'),
 (2, 6, 2, 1, 1, 1, 'E', 'so bad', '1', '2024', '2024-10-28 10:57:27', '2024-10-28 10:57:27'),
-(3, 5, 2, 1, 1, 2, NULL, NULL, '2', '2024', '2024-10-28 10:57:31', '2024-10-28 10:57:31'),
-(4, 6, 2, 1, 1, 2, NULL, NULL, '2', '2024', '2024-10-28 10:57:31', '2024-10-28 10:57:31'),
+(3, 5, 2, 1, 1, 2, 'S', '', '2', '2024', '2024-10-28 10:57:31', '2024-10-28 10:57:31'),
+(4, 6, 2, 1, 1, 2, '', '', '2', '2024', '2024-10-28 10:57:31', '2024-10-28 10:57:31'),
 (5, 5, 2, 1, 1, 3, 'A', '', '3', '2024', '2024-10-28 10:57:41', '2024-10-28 10:57:41'),
 (6, 6, 2, 1, 1, 3, '', '', '3', '2024', '2024-10-28 10:57:41', '2024-10-28 10:57:41'),
-(7, 5, 2, 1, 1, 4, NULL, NULL, '4', '2024', '2024-10-28 11:04:48', '2024-10-28 11:04:48'),
-(8, 6, 2, 1, 1, 4, NULL, NULL, '4', '2024', '2024-10-28 11:04:48', '2024-10-28 11:04:48'),
-(9, 5, 2, 2, 1, 5, NULL, NULL, '1', '2024', '2024-10-28 11:31:03', '2024-10-28 11:31:03'),
-(10, 6, 2, 2, 1, 5, NULL, NULL, '1', '2024', '2024-10-28 11:31:03', '2024-10-28 11:31:03');
+(7, 5, 2, 1, 1, 4, 'A', '', '4', '2024', '2024-10-28 11:04:48', '2024-10-28 11:04:48'),
+(8, 6, 2, 1, 1, 4, '', '', '4', '2024', '2024-10-28 11:04:48', '2024-10-28 11:04:48'),
+(9, 5, 2, 2, 1, 5, 'S', '', '1', '2024', '2024-10-28 11:31:03', '2024-10-28 11:31:03'),
+(10, 6, 2, 2, 1, 5, '', '', '1', '2024', '2024-10-28 11:31:03', '2024-10-28 11:31:03'),
+(11, 5, 2, 3, 1, 6, 'A', '', '1', '2024', '2024-10-29 22:57:13', '2024-10-29 22:57:13'),
+(12, 6, 2, 3, 1, 6, '', '', '1', '2024', '2024-10-29 22:57:13', '2024-10-29 22:57:13'),
+(13, 5, 2, 4, 1, 7, 'A', '', '1', '2024', '2024-10-29 22:57:19', '2024-10-29 22:57:19'),
+(14, 6, 2, 4, 1, 7, '', '', '1', '2024', '2024-10-29 22:57:19', '2024-10-29 22:57:19'),
+(15, 5, 2, 5, 1, 8, 'S', '', '1', '2024', '2024-10-29 22:57:24', '2024-10-29 22:57:24'),
+(16, 6, 2, 5, 1, 8, '', '', '1', '2024', '2024-10-29 22:57:25', '2024-10-29 22:57:25'),
+(17, 5, 2, 2, 1, 9, 'A', '', '2', '2024', '2024-10-30 00:16:52', '2024-10-30 00:16:52'),
+(18, 6, 2, 2, 1, 9, '', '', '2', '2024', '2024-10-30 00:16:53', '2024-10-30 00:16:53'),
+(19, 5, 2, 2, 1, 10, 'S', '', '3', '2024', '2024-10-30 00:17:00', '2024-10-30 00:17:00'),
+(20, 6, 2, 2, 1, 10, '', '', '3', '2024', '2024-10-30 00:17:00', '2024-10-30 00:17:00'),
+(21, 5, 2, 2, 1, 11, 'S', '', '4', '2024', '2024-10-30 00:17:07', '2024-10-30 00:17:07'),
+(22, 6, 2, 2, 1, 11, '', '', '4', '2024', '2024-10-30 00:17:07', '2024-10-30 00:17:07'),
+(23, 5, 2, 3, 1, 12, 'S', '', '3', '2024', '2024-10-30 00:17:21', '2024-10-30 00:17:21'),
+(24, 6, 2, 3, 1, 12, '', '', '3', '2024', '2024-10-30 00:17:21', '2024-10-30 00:17:21'),
+(25, 5, 2, 3, 1, 13, 'S', '', '2', '2024', '2024-10-30 00:17:23', '2024-10-30 00:17:23'),
+(26, 6, 2, 3, 1, 13, '', '', '2', '2024', '2024-10-30 00:17:23', '2024-10-30 00:17:23'),
+(27, 5, 2, 3, 1, 14, 'S', '', '4', '2024', '2024-10-30 00:17:36', '2024-10-30 00:17:36'),
+(28, 6, 2, 3, 1, 14, '', '', '4', '2024', '2024-10-30 00:17:36', '2024-10-30 00:17:36'),
+(29, 5, 2, 4, 1, 15, 'S', '', '2', '2024', '2024-10-30 00:17:54', '2024-10-30 00:17:54'),
+(30, 6, 2, 4, 1, 15, '', '', '2', '2024', '2024-10-30 00:17:54', '2024-10-30 00:17:54'),
+(31, 5, 2, 4, 1, 16, 'A', '', '3', '2024', '2024-10-30 00:18:00', '2024-10-30 00:18:00'),
+(32, 6, 2, 4, 1, 16, '', '', '3', '2024', '2024-10-30 00:18:00', '2024-10-30 00:18:00'),
+(33, 5, 2, 4, 1, 17, 'A', '', '4', '2024', '2024-10-30 00:18:05', '2024-10-30 00:18:05'),
+(34, 6, 2, 4, 1, 17, '', '', '4', '2024', '2024-10-30 00:18:05', '2024-10-30 00:18:05'),
+(35, 5, 2, 5, 1, 18, 'A', '', '2', '2024', '2024-10-30 00:18:49', '2024-10-30 00:18:49'),
+(36, 6, 2, 5, 1, 18, '', '', '2', '2024', '2024-10-30 00:18:49', '2024-10-30 00:18:49'),
+(37, 5, 2, 5, 1, 19, 'S', '', '3', '2024', '2024-10-30 00:18:54', '2024-10-30 00:18:54'),
+(38, 6, 2, 5, 1, 19, '', '', '3', '2024', '2024-10-30 00:18:54', '2024-10-30 00:18:54'),
+(39, 5, 2, 5, 1, 20, 'A', '', '4', '2024', '2024-10-30 00:19:01', '2024-10-30 00:19:01'),
+(40, 6, 2, 5, 1, 20, '', '', '4', '2024', '2024-10-30 00:19:02', '2024-10-30 00:19:02');
 
 -- --------------------------------------------------------
 
@@ -300,10 +333,25 @@ CREATE TABLE `monthly_chapters` (
 
 INSERT INTO `monthly_chapters` (`id`, `subject_id`, `class_id`, `chapter`, `learning_outcomes`, `check_points`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 'Ch-1', '', '', '1', '2024', '2024-10-28 10:57:27', '2024-10-28 12:11:01'),
-(2, 1, 1, NULL, NULL, NULL, '2', '2024', '2024-10-28 10:57:31', '2024-10-28 10:57:31'),
+(2, 1, 1, '', '', '', '2', '2024', '2024-10-28 10:57:31', '2024-10-30 00:16:24'),
 (3, 1, 1, 'Ch-13', '', '', '3', '2024', '2024-10-28 10:57:39', '2024-10-28 10:57:54'),
-(4, 1, 1, NULL, NULL, NULL, '4', '2024', '2024-10-28 11:04:48', '2024-10-28 11:04:48'),
-(5, 2, 1, NULL, NULL, NULL, '1', '2024', '2024-10-28 11:31:02', '2024-10-28 11:31:02');
+(4, 1, 1, '', '', '', '4', '2024', '2024-10-28 11:04:48', '2024-10-30 00:16:40'),
+(5, 2, 1, '', '', '', '1', '2024', '2024-10-28 11:31:02', '2024-10-29 22:58:40'),
+(6, 3, 1, '', '', '', '1', '2024', '2024-10-29 22:57:13', '2024-10-29 23:17:31'),
+(7, 4, 1, '', '', '', '1', '2024', '2024-10-29 22:57:19', '2024-10-29 22:57:23'),
+(8, 5, 1, '', '', '', '1', '2024', '2024-10-29 22:57:24', '2024-10-29 22:57:30'),
+(9, 2, 1, '', '', '', '2', '2024', '2024-10-30 00:16:52', '2024-10-30 00:16:58'),
+(10, 2, 1, '', '', '', '3', '2024', '2024-10-30 00:17:00', '2024-10-30 00:17:04'),
+(11, 2, 1, '', '', '', '4', '2024', '2024-10-30 00:17:07', '2024-10-30 00:17:11'),
+(12, 3, 1, '', '', '', '3', '2024', '2024-10-30 00:17:21', '2024-10-30 00:17:34'),
+(13, 3, 1, '', '', '', '2', '2024', '2024-10-30 00:17:22', '2024-10-30 00:17:27'),
+(14, 3, 1, '', '', '', '4', '2024', '2024-10-30 00:17:36', '2024-10-30 00:17:42'),
+(15, 4, 1, '', '', '', '2', '2024', '2024-10-30 00:17:54', '2024-10-30 00:17:57'),
+(16, 4, 1, '', '', '', '3', '2024', '2024-10-30 00:18:00', '2024-10-30 00:18:03'),
+(17, 4, 1, '', '', '', '4', '2024', '2024-10-30 00:18:05', '2024-10-30 00:18:12'),
+(18, 5, 1, '', '', '', '2', '2024', '2024-10-30 00:18:49', '2024-10-30 00:18:52'),
+(19, 5, 1, '', '', '', '3', '2024', '2024-10-30 00:18:54', '2024-10-30 00:18:58'),
+(20, 5, 1, '', '', '', '4', '2024', '2024-10-30 00:19:00', '2024-10-30 00:19:06');
 
 -- --------------------------------------------------------
 
@@ -340,8 +388,37 @@ CREATE TABLE `monthly_test` (
 --
 
 INSERT INTO `monthly_test` (`id`, `student_id`, `class_id`, `teacher_id`, `myanmar_mark`, `myanmar_grade`, `english_mark`, `english_grade`, `math_mark`, `math_grade`, `science_mark`, `science_grade`, `social_mark`, `social_grade`, `total_mark`, `total_grade`, `result`, `month_no`, `year`, `created_at`, `updated_at`) VALUES
-(19, 7, 4, 3, 67, 'B', 45, 'D', 55, 'C', 78, 'B', 60, 'C', 305, 'C', 'Pass', 1, '2024', '2024-10-28 14:50:34', '2024-10-28 14:50:34'),
-(20, 8, 4, 3, 80, 'A', 85, 'A', 76, 'B', 67, 'B', 90, 'A', 398, 'B', 'Pass', 1, '2024', '2024-10-28 14:50:34', '2024-10-28 14:50:34');
+(1, 7, 4, 3, 78, 'B', 67, 'B', 90, 'A', 100, 'A', 39, 'D', 374, 'B', 'Fail', 1, '2024', '2024-10-29 14:29:35', '2024-10-29 14:29:35'),
+(2, 8, 4, 3, 50, 'C', 60, 'B', 66, 'B', 80, 'A', 100, 'A', 356, 'B', 'Pass', 1, '2024', '2024-10-29 14:29:36', '2024-10-29 14:29:36'),
+(3, 7, 4, 3, 77, 'B', 54, 'C', 66, 'B', 80, 'A', 87, 'A', 364, 'B', 'Pass', 2, '2024', '2024-10-29 23:48:58', '2024-10-29 23:48:58'),
+(4, 8, 4, 3, 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', '', 2, '2024', '2024-10-29 23:48:58', '2024-10-29 23:48:58'),
+(5, 7, 4, 3, 45, 'C', 34, 'D', 34, 'D', 34, 'D', 23, 'D', 170, 'D', 'Fail', 3, '2024', '2024-10-30 00:11:06', '2024-10-30 00:11:06'),
+(6, 8, 4, 3, 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', '', 3, '2024', '2024-10-30 00:11:06', '2024-10-30 00:11:06'),
+(7, 7, 4, 3, 70, 'B', 54, 'C', 67, 'B', 80, 'A', 90, 'A', 361, 'B', 'Pass', 4, '2024', '2024-10-30 00:11:28', '2024-10-30 00:11:28'),
+(8, 8, 4, 3, 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', '', 4, '2024', '2024-10-30 00:11:28', '2024-10-30 00:11:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qcpr`
+--
+
+CREATE TABLE `qcpr` (
+  `id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `qcpr`
+--
+
+INSERT INTO `qcpr` (`id`, `class_id`, `teacher_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 2, 1, '2024-10-29 17:13:06', '2024-10-30 00:18:15'),
+(2, 4, 3, 1, '2024-10-29 23:33:20', '2024-10-29 23:34:48');
 
 -- --------------------------------------------------------
 
@@ -374,9 +451,9 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`id`, `class_id`, `enrollment_no`, `name_en`, `name_mm`, `username`, `password`, `password_status`, `dob`, `father_name`, `mother_name`, `guardian`, `parent_job`, `phone`, `address`, `created_at`) VALUES
 (4, 0, 'Qui nostrud acc', 'Dillon Benton', 'Evan Leach', 'dillonbenton', '123456', 0, '2016-04-03', 'Ina Chan', 'Daryl Murphy', 'Labore eum ipsa ill', 'Aspernatur alias cor', '09398475454', 'Cupiditate aut est ', '2024-10-26 16:41:04'),
-(5, 1, '0002', 'Kyaw Kyaw', 'ကျော်ကျော်', 'kyawkyaw', '123456', 0, '2017-08-28', 'Nayda Rose', 'Brett Farley', 'Rerum duis voluptas ', 'Quia et ex quam odio', '09398475454', 'Sit architecto ea s', '2024-10-28 00:01:50'),
+(5, 1, '0002', 'Kyaw Kyaw', 'ကျော်ကျော်', 'kyawkyaw', '$2y$10$kUbGTulDptVG5GuaHyz3kO1LfW3vkzV0xe5.PD8Ski/lkuUoDKQQ2', 1, '2017-08-28', 'Nayda Rose', 'Brett Farley', 'Rerum duis voluptas ', 'Quia et ex quam odio', '09398475454', 'Sit architecto ea s', '2024-10-28 00:01:50'),
 (6, 1, '0003', 'Khant Si Thu', 'Garrett Chan', 'khantsithu', '123456', 0, '2019-11-24', 'Bertha Nixon', 'Ayanna Strong', 'Ea tempore inventor', 'Neque suscipit offic', '09398475454', 'Maiores aliquid illo', '2024-10-28 01:29:52'),
-(7, 4, '0004', 'Sein Sein', 'စိန်စိန်', 'seinsein', '123456', 0, '1976-10-18', 'Ira Coffey', 'Ethan Bridges', 'Aut quaerat mollit i', 'Et hic nisi iste con', '09398475454', 'Assumenda est culpa', '2024-10-28 14:49:46'),
+(7, 4, '0004', 'Sein Sein', 'စိန်စိန်', 'seinsein', '$2y$10$Ly.2fkBZbS9rq/nydQ2hju55QMfTK6AXqIT90NcmdkbYx0QSa13DG', 1, '1976-10-18', 'Ira Coffey', 'Ethan Bridges', 'Aut quaerat mollit i', 'Et hic nisi iste con', '09398475454', 'Assumenda est culpa', '2024-10-28 14:49:46'),
 (8, 4, '0005', 'Olivia', 'အိုလစ်ဗျာ', 'olivia', '123456', 0, '2010-07-01', 'Clark Nguyen', 'Lester Mathis', 'Dolore voluptatem C', 'Aut non veritatis no', '09398475454', 'Ut quis est ut dolor', '2024-10-28 14:50:31');
 
 -- --------------------------------------------------------
@@ -438,10 +515,10 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `name_eng`, `name_mm`, `username`, `father_name`, `mother_name`, `education`, `rank`, `class_id`, `dob`, `start_edu_at`, `start_current_rank_at`, `start_current_school_at`, `password`, `password_status`, `phone`, `status`, `address`, `bed_status`, `phaung_gyi_status`, `completed_course`, `created_at`, `updated_at`) VALUES
-(1, 'U KO KO Gyi', 'ဦးကိုကိုကြီး', 'ukokogyi', 'ဦးမောင်မောင်ကြီး', 'ဒေါ်ဒေါ်ကြီး', 'B.Sc(Phys)', 'မူပြ', 0, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$eRtzhx7oYsIIsdTfifmnQ.Ao72Xx1decj9X/hhn0/Y1Cdf8R55gVK', 1, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 14:01:12', '2024-10-23 14:01:12'),
-(2, 'Daw Phyu Phyu Win', 'ဒေါ်ဖြူဖြူဝင်း', 'dawphyuphyuwin', 'Desiree Bolton', 'Aladdin Gill', 'Veritatis id rerum e', 'Qui est sit commodo ', 1, '1995-02-09', '2001-06-15', '1991-03-15', '2005-01-28', '$2y$10$JsHoccDY0fNJMKOSYHS4LuJ4rTLbHgv9jeWzsYWo6kHEJqdAQ2kZG', 1, '09398475454', 'active', 'Qui ex officia elit', 'ပြီး', 'မပြီး', 'Dolorem laborum nost', '2024-10-23 14:01:28', '2024-10-23 14:01:28'),
-(3, 'Ko Myo Min Ko', 'ကိုမျိုးမင်းကို', 'komyominko', 'Robin Gill', 'Rajah Morton', 'Minima corporis dele', 'Molestiae commodi ei', 4, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$EKUfkZwm.eQe6XasWX1dH.SLRbFiKBaqtf.69S1C8Gc71mcEb2FDK', 1, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 16:35:12', '2024-10-23 16:35:12'),
-(5, 'Cherokee Clemons', 'Karen Trevino', 'cherokeeclemons', 'Scarlet Alvarez', 'Yvonne Trevino', 'Maxime velit est est', 'Et qui aliquid labor', 5, '2001-07-23', '2003-11-13', '1982-11-27', '2003-08-25', '$2y$10$N8MNzZ3X/B.xXUf7MPqBION/iSpielRUETuZ9FqOn/GM16bTaZOba', 1, '09398475454', 'active', 'Magni eius dolor off', 'မပြီး', 'မပြီး', 'Repudiandae exercita', '2024-10-28 15:51:21', '2024-10-28 15:51:21');
+(1, 'U KO KO Gyi', 'ဦးကိုကိုကြီး', 'ukokogyi', 'ဦးမောင်မောင်ကြီး', 'ဒေါ်ဒေါ်ကြီး', 'B.Sc(Phys)', 'မူပြ', 0, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '123456', 0, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 14:01:12', '2024-10-23 14:01:12'),
+(2, 'Daw Phyu Phyu Win', 'ဒေါ်ဖြူဖြူဝင်း', 'dawphyuphyuwin', 'Desiree Bolton', 'Aladdin Gill', 'Veritatis id rerum e', 'Qui est sit commodo ', 1, '1995-02-09', '2001-06-15', '1991-03-15', '2005-01-28', '$2y$10$tPMSpEGDZkTXziWX9fYeuOVK4VoIBtbdrHhKMwqwfa04sHi07tJuW', 1, '09398475454', 'active', 'Qui ex officia elit', 'ပြီး', 'မပြီး', 'Dolorem laborum nost', '2024-10-23 14:01:28', '2024-10-23 14:01:28'),
+(3, 'Ko Myo Min Ko', 'ကိုမျိုးမင်းကို', 'komyominko', 'Robin Gill', 'Rajah Morton', 'Minima corporis dele', 'Molestiae commodi ei', 4, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$yrVF7udw.fnl49omZDHmv.71G0sLDQ/qAZYYn/nofJpuuO65s/05.', 1, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 16:35:12', '2024-10-23 16:35:12'),
+(5, 'Cherokee Clemons', 'Karen Trevino', 'cherokeeclemons', 'Scarlet Alvarez', 'Yvonne Trevino', 'Maxime velit est est', 'Et qui aliquid labor', 5, '2001-07-23', '2003-11-13', '1982-11-27', '2003-08-25', '123456', 0, '09398475454', 'active', 'Magni eius dolor off', 'မပြီး', 'မပြီး', 'Repudiandae exercita', '2024-10-28 15:51:21', '2024-10-28 15:51:21');
 
 --
 -- Indexes for dumped tables
@@ -530,6 +607,14 @@ ALTER TABLE `monthly_test`
   ADD KEY `class_id` (`class_id`);
 
 --
+-- Indexes for table `qcpr`
+--
+ALTER TABLE `qcpr`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `class_id` (`class_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
+
+--
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
@@ -565,13 +650,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `chapterly_assessment`
 --
 ALTER TABLE `chapterly_assessment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `chapters`
 --
 ALTER TABLE `chapters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `classes`
@@ -601,19 +686,25 @@ ALTER TABLE `g0_subject_results`
 -- AUTO_INCREMENT for table `monthly_assessment`
 --
 ALTER TABLE `monthly_assessment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `monthly_chapters`
 --
 ALTER TABLE `monthly_chapters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `monthly_test`
 --
 ALTER TABLE `monthly_test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `qcpr`
+--
+ALTER TABLE `qcpr`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -686,6 +777,13 @@ ALTER TABLE `monthly_test`
   ADD CONSTRAINT `monthly_test_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monthly_test_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monthly_test_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qcpr`
+--
+ALTER TABLE `qcpr`
+  ADD CONSTRAINT `qcpr_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `qcpr_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `students`

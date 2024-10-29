@@ -277,7 +277,44 @@ $monthlyChapter = $chapterlyAssessmentController->getChapter([
 
     </div> <!-- main-wrapper end -->
 
+    <?php include('../components/script.php'); ?>
     <script>
+        // Custom sorting function for A, S, E grades
+        $.fn.dataTable.ext.type.order['grade-pre'] = function(data) {
+            // Extract the selected option value
+            const grade = $(data).find('option:selected').val();
+            switch (grade) {
+                case 'A':
+                    return 1;
+                case 'S':
+                    return 2;
+                case 'E':
+                    return 3;
+                default:
+                    return 4; // Empty values sorted last
+            }
+        };
+
+        $(document).ready(function() {
+            $('#studentsTable').DataTable({
+                "order": [
+                    [2, "asc"]
+                ], // Grade column (0-based index)
+                "pageLength": 25,
+                "columnDefs": [{
+                        "targets": 2, // Grade column index
+                        "type": "grade"
+                    },
+                    {
+                        "orderable": false, // Make 'Remark' column non-sortable
+                        "targets": [3]
+                    }
+                ]
+            });
+        });
+
+
+        // Existing event listeners
         document.getElementById('chapter_no').addEventListener('change', function() {
             const urlParams = new URLSearchParams(window.location.search);
             // Remove success parameter if it exists
@@ -301,5 +338,3 @@ $monthlyChapter = $chapterlyAssessmentController->getChapter([
     </script>
 
 </body>
-
-<?php include('../components/script.php'); ?>

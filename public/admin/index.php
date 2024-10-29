@@ -8,17 +8,18 @@ use core\helpers\AlertHelper;
 
 // session_start();
 
+header("Location: register-teachers.php");
 // Redirect to login page if not authenticated
-$adminAuthController = new AdminAuthController();
-if (!$adminAuthController->isAuthenticated()) {
-  header("Location:login.php");
-  exit();
-}
+// $adminAuthController = new AdminAuthController();
+// if (!$adminAuthController->isAuthenticated()) {
+//   header("Location:login.php");
+//   exit();
+// }
 
-// Display success message if login is successful
-if ((isset($_GET['login']) && $_GET['login'] === 'success')) {
-  AlertHelper::showAlert('Congratulation', 'You are successfully logged in.', 'success');
-}
+// // Display success message if login is successful
+// if ((isset($_GET['login']) && $_GET['login'] === 'success')) {
+//   AlertHelper::showAlert('Congratulation', 'You are successfully logged in.', 'success');
+// }
 
 ?>
 

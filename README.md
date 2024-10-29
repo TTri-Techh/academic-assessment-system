@@ -35,9 +35,10 @@
 | View & update assessment by chapters | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 | View & update assessment by months   | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 | View & update monthly tests          | -   | -   | -   | -   | ✅  | ✅  |
-| Calculate & announce QCPR            | -   | ❌  | ❌  | ❌  | ❌  | ❌  |
+| Calculate & announce QCPR            | -   | ✅  | ✅  | ✅  | ✅  | ✅  |
+| CRUD Learning Resources              | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  |
 
 ## Student
 
 - Login ✅
-- View QCPR ❌
+- View QCPR ✅
