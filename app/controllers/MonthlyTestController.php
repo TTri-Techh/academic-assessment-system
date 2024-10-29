@@ -36,4 +36,9 @@ class MonthlyTestController
     // {
     //     return $this->monthlyTestModel->updateMonthlyTestByConditions($data);
     // }
+
+    public function getMonthlyTestByStudentId($student_id, $class_id)
+    {
+        return $this->monthlyTestModel->getMonthlyTestByStudentId($student_id, $class_id);
+    }
 }

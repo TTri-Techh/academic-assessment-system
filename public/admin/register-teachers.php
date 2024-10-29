@@ -20,7 +20,10 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['submit_btn'])) {
     $teacherController->register($_POST);
 }
 
-if (isset($_GET['register']) && $_GET['register'] === 'success') {
+// Display success message if login is successful
+if ((isset($_GET['login']) && $_GET['login'] === 'success')) {
+    AlertHelper::showAlert('Congratulation', 'You are successfully logged in.', 'success');
+} elseif (isset($_GET['register']) && $_GET['register'] === 'success') {
     AlertHelper::showAlert('Registration Succeed', $_SESSION['response'], 'success');
 } elseif (isset($_GET['register']) && $_GET['register'] === 'fail') {
     AlertHelper::showAlert('Failed to register.', $_SESSION['response'], 'error');

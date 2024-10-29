@@ -5,7 +5,6 @@ include('../components/header.php');
 use app\controllers\AdminAuthController;
 use core\helpers\AlertHelper;
 
-// session_start();
 
 $adminAuthController = new AdminAuthController();
 

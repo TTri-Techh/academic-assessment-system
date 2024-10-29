@@ -6,17 +6,19 @@ include('../components/header.php');
 use app\controllers\TeacherController;
 use core\helpers\AlertHelper;
 
-// Redirect to login page if not authenticated
-$teacherController = new TeacherController();
-if (!$teacherController->isAuthenticated()) {
-    header("Location:login.php");
-    exit();
-}
+header("Location: register-students.php");
 
-// Display success message if login is successful
-if ((isset($_GET['login']) && $_GET['login'] === 'success')) {
-    AlertHelper::showAlert('Congratulation', 'You are successfully logged in.', 'success');
-}
+// Redirect to login page if not authenticated
+// $teacherController = new TeacherController();
+// if (!$teacherController->isAuthenticated()) {
+//     header("Location:login.php");
+//     exit();
+// }
+
+// // Display success message if login is successful
+// if ((isset($_GET['login']) && $_GET['login'] === 'success')) {
+//     AlertHelper::showAlert('Congratulation', 'You are successfully logged in.', 'success');
+// }
 
 ?>
 

@@ -16,13 +16,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     </div>
     <div class="sidebar-body">
         <ul class="nav">
-            <li class="nav-item nav-category">Main</li>
+            <!-- <li class="nav-item nav-category">Main</li>
             <li class="nav-item">
                 <a href="index.php" class="nav-link">
                     <i class="link-icon" data-feather="home"></i>
                     <span class="link-title">Dashboard</span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav-item nav-category">Pages</li>
             <!-- For Teacher  -->

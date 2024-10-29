@@ -1,15 +1,6 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF']);
 $current_subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : null;
-
-// echo '<pre>';
-// var_dump([
-//     'currentPage' => $currentPage,
-//     'current_subject_id' => $current_subject_id,
-//     'type_current_subject_id' => gettype($current_subject_id),
-//     'REQUEST_URI' => $_SERVER['REQUEST_URI']
-// ]);
-// echo '</pre>';
 ?>
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar">
@@ -25,13 +16,13 @@ $current_subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : nu
     </div>
     <div class="sidebar-body">
         <ul class="nav">
-            <li class="nav-item nav-category">Main</li>
+            <!-- <li class="nav-item nav-category">Main</li>
             <li class="nav-item">
                 <a href="index.php" class="nav-link">
                     <i class="link-icon" data-feather="home"></i>
                     <span class="link-title">Dashboard</span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav-item nav-category">Pages</li>
             <!-- For Teacher  -->

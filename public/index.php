@@ -1,21 +1,37 @@
 <?php
 require '../vendor/autoload.php';
 
+use app\controllers\QcprController;
 use app\controllers\StudentController;
+use app\controllers\MonthlyAssessmentController;
+use app\controllers\MonthlyTestController;
 use core\helpers\AlertHelper;
+use core\helpers\Helper;
 
 $studentController = new StudentController();
-
+$qcprController = new QcprController();
+$monthlyAssessmentController = new MonthlyAssessmentController();
+$monthlyTestController = new MonthlyTestController();
 // Display success message if login is successful
 if ((isset($_GET['login']) && $_GET['login'] === 'success')) {
   AlertHelper::showAlert('Congratulation', 'You are successfully logged in.', 'success');
 } else if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
   AlertHelper::showAlert('Logout', 'You are successfully logged out.', 'success');
 }
-
-$isAnnounced = false;
+$student_id = $_SESSION['student_id'] ?? null;
+$class_id = $_SESSION['class_id'] ?? null;
 $isAuthenticated = $studentController->isAuthenticated();
-
+if ($isAuthenticated) {
+  $announcementStatus = $qcprController->getAnnouncementStatus($_SESSION['class_id']);
+  // get monthly assessment by student id and class id for grade 1, 2, 3
+  if ($_SESSION['class_id'] == 1 || $_SESSION['class_id'] == 2 || $_SESSION['class_id'] == 3) {
+    $monthlyAssessment = $monthlyAssessmentController->getMonthlyAssessmentByStudentId($_SESSION['student_id'], $_SESSION['class_id']);
+  }
+  // get monthly test by student id and class id for grade 4, 5, 6
+  if ($_SESSION['class_id'] == 4 || $_SESSION['class_id'] == 5) {
+    $monthlyTest = $monthlyTestController->getMonthlyTestByStudentId($_SESSION['student_id'], $_SESSION['class_id']);
+  }
+}
 
 ?>
 
@@ -42,6 +58,7 @@ $isAuthenticated = $studentController->isAuthenticated();
   <link rel="stylesheet" href="assets/css/animate.css">
   <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
   <link rel="stylesheet" href="assets/vendors/sweetalert2/sweetalert2.min.css">
+  <link rel="stylesheet" href="assets/fonts/feather-font/css/iconfont.css">
 
 
 </head>
@@ -131,14 +148,153 @@ $isAuthenticated = $studentController->isAuthenticated();
           </div>
         </div>
       </div>
-      <?php if ($isAuthenticated && $isAnnounced) : ?>
+      <?php if ($isAuthenticated && $announcementStatus) : ?>
+        <!-- start show qcpr -->
+        <div class="container position-relative">
+          <div class="row">
+            <div class="col-lg-12 card shadow-sm border-0 p-4 rounded-3 main-banner text-white">
+              <!-- Add blur wrapper -->
+              <div class="blur-wrapper " id="qcprContent">
+                <div class="col-lg-3 mb-3 bg-white p-3 rounded-3">
+                  <p><b class="text-dark">အမည်</b> : <?= $_SESSION['student_name'] ?></p>
+                  <p><b class="text-dark">အတန်း</b> : <?= $_SESSION['class_name'] ?></p>
+                </div>
+                <?php if ($_SESSION['class_id'] == 1 || $_SESSION['class_id'] == 2 || $_SESSION['class_id'] == 3) : ?>
+                  <!-- table start for Grade 1, 2, 3 -->
+                  <table class="table table-bordered table-hover text-white text-center">
+                    <thead>
+                      <tr>
+                        <th>ဘာသာရပ်</th>
+                        <th>ပထမအကြိမ်</th>
+                        <th>ဒုတိယအကြိမ်</th>
+                        <th>တတိယအကြိမ်</th>
+                        <th>စတုတ္တအကြိမ်</th>
+                        <th>ပျမ်းမျှအဆင့်</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>မြန်မာစာ</td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 1, 1) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 1, 2) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 1, 3) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 1, 4) ?></td>
+                        <td><?= Helper::calculateLowerAverageGrade($monthlyAssessment, 1) ?></td>
+                      </tr>
+                      <tr>
+                        <td>အင်္ဂလိပ်စာ</td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 2, 1) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 2, 2) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 2, 3) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 2, 4) ?></td>
+                        <td><?= Helper::calculateLowerAverageGrade($monthlyAssessment, 2) ?></td>
+                      </tr>
+                      <tr>
+                        <td>သင်္ချာ</td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 3, 1) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 3, 2) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 3, 3) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 3, 4) ?></td>
+                        <td><?= Helper::calculateLowerAverageGrade($monthlyAssessment, 3) ?></td>
+                      </tr>
+                      <tr>
+                        <td>သိပ္ပံ</td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 4, 1) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 4, 2) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 4, 3) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 4, 4) ?></td>
+                        <td><?= Helper::calculateLowerAverageGrade($monthlyAssessment, 4) ?></td>
+                      </tr>
+                      <tr>
+                        <td>လူမှုရေး</td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 5, 1) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 5, 2) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 5, 3) ?></td>
+                        <td><?= Helper::getLowerGradeBySubjectId($monthlyAssessment, 5, 4) ?></td>
+                        <td><?= Helper::calculateLowerAverageGrade($monthlyAssessment, 5) ?></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- table end for Grade 1, 2, 3 -->
+                <?php endif; ?>
 
-      <?php elseif ($isAuthenticated && !$isAnnounced) : ?>
+                <?php if ($_SESSION['class_id'] == 4 || $_SESSION['class_id'] == 5) : ?>
+                  <!-- table start for Grade 4, 5 -->
+                  <table class="table table-bordered table-hover text-white text-center">
+                    <thead>
+                      <tr>
+                        <th>ဘာသာရပ်</th>
+                        <th>အခန်းဆုံးတတ်မြောက်မှု <br> စစ်ဆေးခြင်း <br> (Chapter End Test) </th>
+                        <th>နှစ်ဝက်ဆုံးတတ်မြောက်မှု <br> စစ်ဆေးခြင်း <br> (Midterm Test) </th>
+                        <th>အခန်းဆုံးတတ်မြောက်မှု <br> စစ်ဆေးခြင်း <br> (Chapter End Test) </th>
+                        <th>နှစ်ဆုံးတတ်မြောက်မှု <br> စစ်ဆေးခြင်း <br> (Final End Test) </th>
+                        <th>ပျမ်းမျှအဆင့်</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>မြန်မာစာ</td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'myanmar', 1) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'myanmar', 2) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'myanmar', 3) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'myanmar', 4) ?></td>
+                        <td><?= Helper::calculateAverageGrade($monthlyTest, 'myanmar') ?></td>
+                      </tr>
+                      <tr>
+                        <td>အင်္ဂလိပ်စာ</td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'english', 1) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'english', 2) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'english', 3) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'english', 4) ?></td>
+                        <td><?= Helper::calculateAverageGrade($monthlyTest, 'english') ?></td>
+                      </tr>
+                      <tr>
+                        <td>သင်္ချာ</td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'math', 1) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'math', 2) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'math', 3) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'math', 4) ?></td>
+                        <td><?= Helper::calculateAverageGrade($monthlyTest, 'math') ?></td>
+                      </tr>
+                      <tr>
+                        <td>သိပ္ပံ</td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'science', 1) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'science', 2) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'science', 3) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'science', 4) ?></td>
+                        <td><?= Helper::calculateAverageGrade($monthlyTest, 'science') ?></td>
+                      </tr>
+                      <tr>
+                        <td>လူမှုရေး</td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'social', 1) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'social', 2) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'social', 3) ?></td>
+                        <td><?= Helper::getUpperGradeBySubject($monthlyTest, 'social', 4) ?></td>
+                        <td><?= Helper::calculateAverageGrade($monthlyTest, 'social') ?></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- table end for Grade 4, 5 -->
+                <?php endif; ?>
+              </div>
+
+              <!-- Add view button -->
+              <button id="viewBtn" class="btn btn-light position-absolute top-50 start-50 translate-middle">
+                <!-- <i class="link-icon" data-feather="eye"></i> 👀--> 👁‍🗨 ကြည့်ရှုရန်
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- end show qcpr -->
+
+      <?php elseif ($isAuthenticated && !$announcementStatus) : ?>
         <div class="container">
-          <div class="col-lg-12 text-center">
-            <div class="card shadow-sm border-0 p-4 rounded-3`">
-              <div class="card-title">
-                <p class="text-danger">QCPR အားစစ်ဆေးရန်အချိန်ကာလကို သက်ဆိုင်ရာ ဆရာ/မများမှ သတ်မှတ်ထားသည့် <br> အချိန်ကာလတွင်ကျောင်းသား/သူများအား အသိပေးသွားမည်ဖြစ်ပါသည်။</p>
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <div class="card shadow-sm border-0 p-4 rounded-3`">
+                <div class="card-title">
+                  <p class="text-danger">QCPR အားစစ်ဆေးရန်အချိန်ကာလကို သက်ဆိုင်ရာ ဆရာ/မများမှ သတ်မှတ်ထားသည့် <br> အချိန်ကာလတွင်ကျောင်းသား/သူများအား အသိပေးသွားမည်ဖြစ်ပါသည်။</p>
+                </div>
               </div>
             </div>
           </div>
@@ -184,3 +340,34 @@ $isAuthenticated = $studentController->isAuthenticated();
 </body>
 
 </html>
+
+<!-- Add CSS -->
+<style>
+  .blur-wrapper {
+    filter: blur(8px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .blur-wrapper.active {
+    filter: none;
+    pointer-events: auto;
+    user-select: auto;
+  }
+
+  #viewBtn {
+    z-index: 100;
+  }
+
+  #viewBtn.hidden {
+    display: none;
+  }
+</style>
+
+<!-- Add JavaScript -->
+<script>
+  document.getElementById('viewBtn').addEventListener('click', function() {
+    document.getElementById('qcprContent').classList.add('active');
+    this.classList.add('hidden');
+  });
+</script>

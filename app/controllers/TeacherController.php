@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\QcprModel;
 use app\models\TeacherModel;
 use core\db\MySQL;
 use core\helpers\Helper;
@@ -37,7 +38,7 @@ class TeacherController
             if (password_verify($password, $teacher->password)) {
                 $_SESSION['teacher_id'] = $teacher->id;
                 $_SESSION['teacher_username'] = $teacher->username;
-                header("Location: index.php?login=success");
+                header("Location: register-students.php?login=success");
                 exit();
             } else {
                 return false; // Password မှားနေတယ်
@@ -57,9 +58,12 @@ class TeacherController
     }
     public function updatePassword($username, $password)
     {
+        $db = new MySQL();
+        $announcementModel = new QcprModel($db->connect());
         $result = $this->teacherModel->updatePassword($username, $password);
         if ($result) {
             $_SESSION['teacher_password_status'] = 1;
+            $announcementModel->createAnnouncement($_SESSION['class_id'], $_SESSION['teacher_id']);
             return true;
         } else {
             return false;
