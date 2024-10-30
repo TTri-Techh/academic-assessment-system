@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Oct 29, 2024 at 06:50 PM
+-- Generation Time: Oct 30, 2024 at 07:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -129,12 +129,25 @@ CREATE TABLE `classes` (
 --
 
 INSERT INTO `classes` (`id`, `class_name_eng`, `class_name_mm`, `grade_level`, `created_at`) VALUES
-(0, 'Kindergarten', 'သူငယ်တန်း', 'KG', '2024-10-23 08:54:35'),
+(0, 'Kindergarten', 'KG', 'KG', '2024-10-23 08:54:35'),
 (1, 'Grade-1', 'ပထမတန်း', 'G-1', '2024-10-23 08:57:28'),
 (2, 'Grade-2', 'ဒုတိယတန်း', 'G-2', '2024-10-23 08:57:56'),
 (3, 'Grade-3', 'တတိယတန်း', 'G-3', '2024-10-23 08:57:56'),
 (4, 'Grade-4', 'စတုတ္ထတန်း', 'G-4', '2024-10-23 08:58:20'),
 (5, 'Grade-5', 'ပဥ္စမတန်း', 'G-5', '2024-10-23 08:58:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `files`
+--
+
+CREATE TABLE `files` (
+  `id` int(11) NOT NULL,
+  `resource_id` int(11) NOT NULL,
+  `file_path` varchar(255) DEFAULT NULL,
+  `file_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -417,8 +430,28 @@ CREATE TABLE `qcpr` (
 --
 
 INSERT INTO `qcpr` (`id`, `class_id`, `teacher_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 1, '2024-10-29 17:13:06', '2024-10-30 00:18:15'),
-(2, 4, 3, 1, '2024-10-29 23:33:20', '2024-10-29 23:34:48');
+(1, 1, 2, 1, '2024-10-29 17:13:06', '2024-10-30 00:56:20'),
+(2, 4, 3, 1, '2024-10-29 23:33:20', '2024-10-29 23:34:48'),
+(3, 0, 1, 0, '2024-10-31 01:25:37', '2024-10-31 01:25:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `resources`
+--
+
+CREATE TABLE `resources` (
+  `id` int(11) NOT NULL,
+  `chapter_no` varchar(255) DEFAULT NULL,
+  `chapter_name` varchar(255) DEFAULT NULL,
+  `title` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `year` year(4) NOT NULL DEFAULT current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -515,7 +548,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `name_eng`, `name_mm`, `username`, `father_name`, `mother_name`, `education`, `rank`, `class_id`, `dob`, `start_edu_at`, `start_current_rank_at`, `start_current_school_at`, `password`, `password_status`, `phone`, `status`, `address`, `bed_status`, `phaung_gyi_status`, `completed_course`, `created_at`, `updated_at`) VALUES
-(1, 'U KO KO Gyi', 'ဦးကိုကိုကြီး', 'ukokogyi', 'ဦးမောင်မောင်ကြီး', 'ဒေါ်ဒေါ်ကြီး', 'B.Sc(Phys)', 'မူပြ', 0, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '123456', 0, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 14:01:12', '2024-10-23 14:01:12'),
+(1, 'U KO KO Gyi', 'ဦးကိုကိုကြီး', 'ukokogyi', 'ဦးမောင်မောင်ကြီး', 'ဒေါ်ဒေါ်ကြီး', 'B.Sc(Phys)', 'မူပြ', 0, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$32HfsiZoWQV2ZgXoh0aE/OQRNFL.vOQ0WK0/g7tPhlWhWamHdfpzC', 1, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 14:01:12', '2024-10-23 14:01:12'),
 (2, 'Daw Phyu Phyu Win', 'ဒေါ်ဖြူဖြူဝင်း', 'dawphyuphyuwin', 'Desiree Bolton', 'Aladdin Gill', 'Veritatis id rerum e', 'Qui est sit commodo ', 1, '1995-02-09', '2001-06-15', '1991-03-15', '2005-01-28', '$2y$10$tPMSpEGDZkTXziWX9fYeuOVK4VoIBtbdrHhKMwqwfa04sHi07tJuW', 1, '09398475454', 'active', 'Qui ex officia elit', 'ပြီး', 'မပြီး', 'Dolorem laborum nost', '2024-10-23 14:01:28', '2024-10-23 14:01:28'),
 (3, 'Ko Myo Min Ko', 'ကိုမျိုးမင်းကို', 'komyominko', 'Robin Gill', 'Rajah Morton', 'Minima corporis dele', 'Molestiae commodi ei', 4, '1981-04-25', '1975-02-12', '1970-01-15', '1973-05-18', '$2y$10$yrVF7udw.fnl49omZDHmv.71G0sLDQ/qAZYYn/nofJpuuO65s/05.', 1, '09398475454', 'active', 'Voluptatem dicta fac', 'ပြီး', 'မပြီး', 'Non nemo proident n', '2024-10-23 16:35:12', '2024-10-23 16:35:12'),
 (5, 'Cherokee Clemons', 'Karen Trevino', 'cherokeeclemons', 'Scarlet Alvarez', 'Yvonne Trevino', 'Maxime velit est est', 'Et qui aliquid labor', 5, '2001-07-23', '2003-11-13', '1982-11-27', '2003-08-25', '123456', 0, '09398475454', 'active', 'Magni eius dolor off', 'မပြီး', 'မပြီး', 'Repudiandae exercita', '2024-10-28 15:51:21', '2024-10-28 15:51:21');
@@ -553,6 +586,12 @@ ALTER TABLE `chapters`
 -- Indexes for table `classes`
 --
 ALTER TABLE `classes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `files`
+--
+ALTER TABLE `files`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -615,6 +654,14 @@ ALTER TABLE `qcpr`
   ADD KEY `teacher_id` (`teacher_id`);
 
 --
+-- Indexes for table `resources`
+--
+ALTER TABLE `resources`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `class_id` (`class_id`),
+  ADD KEY `teacher_id` (`teacher_id`);
+
+--
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
@@ -665,6 +712,12 @@ ALTER TABLE `classes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `g0_students_assessment`
 --
 ALTER TABLE `g0_students_assessment`
@@ -704,7 +757,13 @@ ALTER TABLE `monthly_test`
 -- AUTO_INCREMENT for table `qcpr`
 --
 ALTER TABLE `qcpr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `resources`
+--
+ALTER TABLE `resources`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -784,6 +843,13 @@ ALTER TABLE `monthly_test`
 ALTER TABLE `qcpr`
   ADD CONSTRAINT `qcpr_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `qcpr_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `resources`
+--
+ALTER TABLE `resources`
+  ADD CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `resources_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `students`
