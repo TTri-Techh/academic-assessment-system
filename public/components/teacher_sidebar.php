@@ -163,7 +163,7 @@ $current_subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : nu
                         </div>
                     </li>
                 <?php endif; ?>
-                <!-- End For Monthly Test -->
+
                 <?php if ($_SESSION['class_id'] == 4 || $_SESSION['class_id'] == 5): ?>
                     <!-- For Monthly Test -->
                     <li class="nav-item">
@@ -177,6 +177,13 @@ $current_subject_id = isset($_GET['subject_id']) ? (int)$_GET['subject_id'] : nu
                 <?php endif; ?>
             <?php endif; ?>
             <!--End For Assessment -->
+            <li class="nav-item">
+                <a href="learning-resources.php"
+                    class="nav-link <?php echo ($currentPage == 'learning-resources.php') ? 'active' : ''; ?>">
+                    <i class="link-icon" data-feather="file-plus"></i>
+                    <span class="link-title">Learning Resources</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
