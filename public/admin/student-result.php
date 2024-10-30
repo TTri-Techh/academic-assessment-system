@@ -146,10 +146,10 @@ if ($student->class_id == 4 || $student->class_id == 5) {
                                     <thead>
                                         <tr>
                                             <th>ဘာသာရပ်</th>
-                                            <th>ပထမအကြိမ်</th>
-                                            <th>ဒုတိယအကြိမ်</th>
-                                            <th>တတိယအကြိမ်</th>
-                                            <th>စတုတ္တအကြိမ်</th>
+                                            <th>အခန်းဆုံးတတ်မြောက်မှု <br> စစ်ဆေးခြင်း <br> (Chapter End Test) </th>
+                                            <th>နှစ်ဝက်ဆုံးတတ်မြောက်မှု <br> စစ်ဆေးခြင်း <br> (Midterm Test) </th>
+                                            <th>အခန်းဆုံးတတ်မြောက်မှု <br> စစ်ဆေးခြင်း <br> (Chapter End Test) </th>
+                                            <th>နှစ်ဆုံးတတ်မြောက်မှု <br> စစ်ဆေးခြင်း <br> (Final End Test) </th>
                                             <th>ပျမ်းမျှအဆင့်</th>
                                         </tr>
                                     </thead>

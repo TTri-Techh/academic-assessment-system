@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['class_id'])) {
                         <div class="d-flex align-items-center gap-2">
 
                             <select class="form-select" name="class_id" id="class_id" onchange="this.form.submit()">
-                                <option value="0" <?php echo ($class_id == 0) ? 'selected' : ''; ?>>သူငယ်တန်း</option>
+                                <option value="0" <?php echo ($class_id == 0) ? 'selected' : ''; ?>>KG</option>
                                 <option value="1" <?php echo ($class_id == 1) ? 'selected' : ''; ?>>ပထမတန်း</option>
                                 <option value="2" <?php echo ($class_id == 2) ? 'selected' : ''; ?>>ဒုတိယတန်း</option>
                                 <option value="3" <?php echo ($class_id == 3) ? 'selected' : ''; ?>>တတိယတန်း</option>
