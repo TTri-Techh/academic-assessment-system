@@ -5,7 +5,11 @@ include('../components/header.php');
 
 use app\controllers\StudentController;
 use app\controllers\TeacherController;
+use app\controllers\MonthlyAssessmentController;
+use app\controllers\ChapterlyAssessmentController;
+use app\controllers\MonthlyTestController;
 use core\helpers\AlertHelper;
+use core\helpers\Helper;
 
 $teacherController = new TeacherController();
 $studentController = new StudentController();
@@ -33,6 +37,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
 } elseif (isset($_GET['delete']) && $_GET['delete'] === 'true') {
     $id = (int) $_GET['id'];
     $studentController->deleteStudentById($id);
+} elseif (isset($_GET['deleteAssessments']) && $_GET['deleteAssessments'] === 'true') {
+    AlertHelper::showAlert('Deleted!', 'Deleted all assessments successfully.', 'success');
+} elseif (isset($_GET['deleteAssessments']) && $_GET['deleteAssessments'] === 'fail') {
+    AlertHelper::showAlert('Failed to delete.', 'Something went wrong.', 'error');
+}
+
+$checkAssessmentData = [
+    'class_id' => $_SESSION['class_id'],
+    'year' => date('Y')
+];
+
+$monthlyAssessmentController = new MonthlyAssessmentController();
+$chapterlyAssessmentController = new ChapterlyAssessmentController();
+$monthlyTestController = new MonthlyTestController();
+// reset all assessment
+if (isset($_POST['reset'])) {
+    $monthlyAssessmentController->deleteAllMonthlyAssessment($checkAssessmentData);
+    $chapterlyAssessmentController->deleteAllChapterlyAssessment($checkAssessmentData);
+    $monthlyTestController->deleteAllMonthlyTest($checkAssessmentData);
+    Helper::redirect($_SERVER['PHP_SELF'] . '?deleteAssessments=true');
 }
 ?>
 
@@ -51,10 +75,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
         <div class="page-content">
 
             <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
-                <div>
+                <div class="col-sm-6 mb-3">
                     <h4 class="mb-3 mb-md-0">Students</h4>
                 </div>
+
+                <div class="col-sm-6 mb-3 d-flex justify-content-end">
+                    <form action="" method="POST" onsubmit="return confirm('အကဲဖြတ်မှတ်တမ်းအားလုံးကို ဖျက်ရန် သေချာပါသလား?');">
+                        <input type="hidden" name="subject_id" value="<?= $subject_id ?>">
+                        <input type="hidden" name="month_no" value="<?= $month_no ?>">
+                        <label for="reset">ဘာသာရပ်နှင့်လစဉ် အကဲဖြတ်မှတ်တမ်းအားလုံးကို
+                            <button type="submit" name="reset" class="btn btn-danger">
+                                <i class="link-icon" data-feather="trash-2"></i>
+                                ဖျက်မည်
+                            </button>
+                        </label>
+                    </form>
+                </div>
             </div>
+
+
 
             <!-- Start Data Table -->
 

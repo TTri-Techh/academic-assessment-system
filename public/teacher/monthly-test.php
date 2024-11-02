@@ -7,6 +7,7 @@ use app\controllers\TeacherController;
 use app\controllers\StudentController;
 use app\controllers\SubjectController;
 use app\controllers\MonthlyTestController;
+use core\helpers\AlertHelper;
 use core\helpers\Helper;
 
 $teacherController = new TeacherController();
@@ -98,7 +99,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
 // reset assessment
 if (isset($_POST['reset'])) {
     $monthlyTestController->deleteMonthlyTest($checkAssessmentData);
-    Helper::redirect($_SERVER['PHP_SELF'] . "?month_no=" . $month_no);
+    Helper::redirect($_SERVER['PHP_SELF'] . "?month_no=" . $month_no . "&deleteAssessments=true");
+}
+// alert message
+if (isset($_GET['deleteAssessments']) && $_GET['deleteAssessments'] === 'true') {
+    AlertHelper::showAlert('Deleted!', 'Deleted all assessments successfully.', 'success');
+} elseif (isset($_GET['deleteAssessments']) && $_GET['deleteAssessments'] === 'fail') {
+    AlertHelper::showAlert('Failed to delete.', 'Something went wrong.', 'error');
 }
 
 ?>

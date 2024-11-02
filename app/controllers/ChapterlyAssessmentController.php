@@ -46,4 +46,8 @@ class ChapterlyAssessmentController
     {
         return $this->chapterlyAssessmentModel->deleteChapterlyAssessment($data);
     }
+    public function deleteAllChapterlyAssessment($data)
+    {
+        return $this->chapterlyAssessmentModel->deleteAllChapterlyAssessment($data);
+    }
 }

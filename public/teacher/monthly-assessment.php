@@ -7,6 +7,7 @@ use app\controllers\TeacherController;
 use app\controllers\StudentController;
 use app\controllers\SubjectController;
 use app\controllers\MonthlyAssessmentController;
+use core\helpers\AlertHelper;
 use core\helpers\Helper;
 
 $teacherController = new TeacherController();
@@ -121,7 +122,13 @@ $monthlyChapter = $monthlyAssessmentController->getMonthlyChapter([
 // reset assessment
 if (isset($_POST['reset'])) {
     $monthlyAssessmentController->deleteMonthlyAssessment($checkAssessmentData);
-    Helper::redirect($_SERVER['PHP_SELF'] . "?subject_id=" . $subject_id . "&month_no=" . $month_no);
+    Helper::redirect($_SERVER['PHP_SELF'] . "?subject_id=" . $subject_id . "&month_no=" . $month_no . "&deleteAssessments=true");
+}
+// alert message
+if (isset($_GET['deleteAssessments']) && $_GET['deleteAssessments'] === 'true') {
+    AlertHelper::showAlert('Deleted!', 'Deleted all assessments successfully.', 'success');
+} elseif (isset($_GET['deleteAssessments']) && $_GET['deleteAssessments'] === 'fail') {
+    AlertHelper::showAlert('Failed to delete.', 'Something went wrong.', 'error');
 }
 
 ?>

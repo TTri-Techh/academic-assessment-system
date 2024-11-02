@@ -52,4 +52,8 @@ class MonthlyAssessmentController
     {
         return $this->monthlyAssessmentModel->deleteMonthlyAssessment($data);
     }
+    public function deleteAllMonthlyAssessment($data)
+    {
+        return $this->monthlyAssessmentModel->deleteAllMonthlyAssessment($data);
+    }
 }

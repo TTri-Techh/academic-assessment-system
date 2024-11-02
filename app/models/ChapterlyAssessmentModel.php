@@ -183,4 +183,17 @@ class ChapterlyAssessmentModel
             echo $e->getMessage();
         }
     }
+    public function deleteAllChapterlyAssessment($data)
+    {
+        try {
+            extract($data);
+            $query = "DELETE FROM {$this->table} WHERE class_id = :class_id AND year = :year";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':class_id', $class_id);
+            $stmt->bindParam(':year', $year);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }

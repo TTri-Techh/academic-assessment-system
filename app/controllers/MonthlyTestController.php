@@ -40,4 +40,8 @@ class MonthlyTestController
     {
         return $this->monthlyTestModel->deleteMonthlyTest($data);
     }
+    public function deleteAllMonthlyTest($data)
+    {
+        return $this->monthlyTestModel->deleteAllMonthlyTest($data);
+    }
 }
