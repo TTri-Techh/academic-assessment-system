@@ -247,4 +247,38 @@ class ResourcesModel
             return [];
         }
     }
+
+    public function getResourcesByTeacherAndSubject($teacherId, $subjectId = null)
+    {
+        try {
+            $query = "SELECT r.*, s.subject_name, 
+                            GROUP_CONCAT(f.file_path SEPARATOR ',') as files 
+                     FROM resources r
+                     LEFT JOIN subjects s ON r.subject_id = s.id
+                     LEFT JOIN files f ON r.id = f.resource_id
+                     WHERE r.teacher_id = :teacher_id";
+
+            // Add subject filter if provided
+            if ($subjectId) {
+                $query .= " AND r.subject_id = :subject_id";
+            }
+
+            $query .= " GROUP BY r.id, r.subject_id, r.chapter_no, r.chapter_name, 
+                                 r.title, r.description, s.subject_name
+                        ORDER BY s.subject_name, r.chapter_no";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':teacher_id', $teacherId, PDO::PARAM_INT);
+
+            if ($subjectId) {
+                $stmt->bindParam(':subject_id', $subjectId, PDO::PARAM_INT);
+            }
+
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return [];
+        }
+    }
 }
