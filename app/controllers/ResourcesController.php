@@ -51,4 +51,8 @@ class ResourcesController
     {
         return $this->resourcesModel->addNewFiles($resource_id, $filesArr);
     }
+    public function getResourcesByClassId($classId)
+    {
+        return $this->resourcesModel->getResourcesByClassId($classId);
+    }
 }
