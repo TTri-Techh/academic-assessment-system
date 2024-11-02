@@ -32,13 +32,16 @@ class MonthlyTestController
     {
         return $this->monthlyTestModel->updateMonthlyTest($data);
     }
-    // public function updateMonthlyTestByConditions($data)
-    // {
-    //     return $this->monthlyTestModel->updateMonthlyTestByConditions($data);
-    // }
-
     public function getMonthlyTestByStudentId($student_id, $class_id)
     {
         return $this->monthlyTestModel->getMonthlyTestByStudentId($student_id, $class_id);
+    }
+    public function deleteMonthlyTest($data)
+    {
+        return $this->monthlyTestModel->deleteMonthlyTest($data);
+    }
+    public function deleteAllMonthlyTest($data)
+    {
+        return $this->monthlyTestModel->deleteAllMonthlyTest($data);
     }
 }

@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update-btn'])) {
                                                         data-class-id="<?= $teacher['class_id'] ?>"
                                                         data-name="<?= htmlspecialchars($teacher['name_mm']) ?>"> <a
                                                             class="" href="javascript:;"><i data-feather="edit-2"
-                                                                class="icon-sm me-2"></i></a>
+                                                                class="icon-sm me-2"></i>Edit</a>
                                                     </button>
 
                                                 </td>

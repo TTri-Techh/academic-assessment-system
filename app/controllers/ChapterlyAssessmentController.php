@@ -42,4 +42,12 @@ class ChapterlyAssessmentController
     {
         return $this->chapterlyAssessmentModel->updateChapterByConditions($data);
     }
+    public function deleteChapterlyAssessment($data)
+    {
+        return $this->chapterlyAssessmentModel->deleteChapterlyAssessment($data);
+    }
+    public function deleteAllChapterlyAssessment($data)
+    {
+        return $this->chapterlyAssessmentModel->deleteAllChapterlyAssessment($data);
+    }
 }

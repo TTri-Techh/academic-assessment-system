@@ -7,6 +7,7 @@ use app\controllers\TeacherController;
 use app\controllers\StudentController;
 use app\controllers\SubjectController;
 use app\controllers\MonthlyTestController;
+use core\helpers\AlertHelper;
 use core\helpers\Helper;
 
 $teacherController = new TeacherController();
@@ -95,6 +96,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
     $redirectUrl .= $updateSuccess ? "&success=1" : "&success=0";
     Helper::redirect($redirectUrl);
 }
+// reset assessment
+if (isset($_POST['reset'])) {
+    $monthlyTestController->deleteMonthlyTest($checkAssessmentData);
+    Helper::redirect($_SERVER['PHP_SELF'] . "?month_no=" . $month_no . "&deleteAssessments=true");
+}
+// alert message
+if (isset($_GET['deleteAssessments']) && $_GET['deleteAssessments'] === 'true') {
+    AlertHelper::showAlert('Deleted!', 'Deleted all assessments successfully.', 'success');
+} elseif (isset($_GET['deleteAssessments']) && $_GET['deleteAssessments'] === 'fail') {
+    AlertHelper::showAlert('Failed to delete.', 'Something went wrong.', 'error');
+}
 
 ?>
 
@@ -112,11 +124,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_btn'])) {
         <div class="page-content">
             <!-- Month Selection Form -->
             <div class="row justify-content-between">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h4 class="mb-3 mb-md-0">လစဉ်ဘာသာစုံရမှတ်စာရင်း</h4>
                 </div>
+                <div class="col-sm-4 mb-3 d-flex justify-content-end">
+                    <form action="" method="POST" onsubmit="return confirm('ဘာသာစုံရမှတ်အားလုံးကို ဖျက်ရန် သေချာပါသလား?');">
+                        <input type="hidden" name="month_no" value="<?= $month_no ?>">
+                        <button type="submit" name="reset" class="btn btn-danger">
+                            <i class="link-icon" data-feather="trash-2"></i>
+                            ရမှတ်အားလုံးကို ဖျက်မည်
+                        </button>
+                    </form>
+                </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <form action="" method="GET" class="d-flex justify-content-end">
                         <div class="d-flex align-items-center gap-2">
                             <select class="form-select" name="month_no" id="month_no">
