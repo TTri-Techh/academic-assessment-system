@@ -23,4 +23,32 @@ class ResourcesController
     {
         return $this->resourcesModel->getAllResources($class_id, $chapter_no);
     }
+    public function getResourceById($id)
+    {
+        return $this->resourcesModel->getResourceById($id);
+    }
+    public function updateResource($data, $id)
+    {
+        return $this->resourcesModel->updateResource($data, $id);
+    }
+    public function deleteResource($id)
+    {
+        return $this->resourcesModel->deleteResource($id);
+    }
+    public function getResourceFiles($resource_id)
+    {
+        return $this->resourcesModel->getResourceFiles($resource_id);
+    }
+    public function getResourcesByTeacher($teacherId)
+    {
+        return $this->resourcesModel->getResourcesByTeacher($teacherId);
+    }
+    public function deleteFile($file_id)
+    {
+        return $this->resourcesModel->deleteFile($file_id);
+    }
+    public function addNewFiles($resource_id, $filesArr)
+    {
+        return $this->resourcesModel->addNewFiles($resource_id, $filesArr);
+    }
 }

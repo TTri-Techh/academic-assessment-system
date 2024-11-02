@@ -20,4 +20,8 @@ class SubjectController
     {
         return $this->subjectModel->getSubjectNameById($subject_id);
     }
+    public function getMainSubjects()
+    {
+        return $this->subjectModel->getMainSubjects();
+    }
 }

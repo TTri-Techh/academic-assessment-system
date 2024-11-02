@@ -42,3 +42,27 @@
 
 - Login ✅
 - View QCPR ✅
+
+## Grade Systems
+
+#### Upper Grades (Grade 4-11)
+
+- A, B, C, D grades
+- ပျမ်းမျှအဆင့် တွက်ချက်ပုံ:
+  - A = 4 points
+  - B = 3 points
+  - C = 2 points
+  - D = 1 point
+
+#### Lower Grades (Grade 1-3)
+
+- A, S, E grades
+- ပျမ်းမျှအဆင့် တွက်ချက်ပုံ:
+  - A = 3 points
+  - S = 2 points
+  - E = 1 point
+
+## Notes
+
+- လစဉ်စာမေးပွဲရမှတ်များ အားလုံးပြည့်စုံမှသာ ပျမ်းမျှအဆင့် တွက်ချက်ပေးမည်
+- Grade တွက်ချက်ရာတွင် သက်ဆိုင်ရာ အတန်းအလိုက် သတ်မှတ်ထားသော စနစ်အတိုင်း တွက်ချက်ပေးမည်

@@ -35,17 +35,17 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
             <div class="page-content d-flex align-items-center justify-content-center">
 
                 <div class="row w-100 mx-0 auth-page">
-                    <div class="col-md-8 col-xl-6 mx-auto">
-                        <div class="card">
+                    <div class="col-md-8 col-xl-4 mx-auto">
+                        <div class="card p-4">
                             <div class="row">
                                 <!-- Image div -->
-                                <div class="col-md-4 pe-md-0">
+                                <!-- <div class="col-md-4 pe-md-0">
                                     <div class="auth-side-wrapper">
 
                                     </div>
-                                </div>
-                                <div class="col-md-8 ps-md-0">
-                                    <div class="auth-form-wrapper px-4 py-5">
+                                </div> -->
+                                <div class="col-md-12 ps-md-0">
+                                    <div class="auth-form-wrapper px-4">
                                         <a href="#" class="noble-ui-logo d-block mb-2">Welcome</a>
                                         <h5 class="text-muted fw-normal mb-4">Log in to student account.</h5>
                                         <form class="forms-sample" method="POST">
@@ -75,7 +75,7 @@ if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
 
                                             <div>
                                                 <input type="submit" value="Login" name="login-btn"
-                                                    class="btn btn-primary me-2 mb-2 mb-md-0 text-white">
+                                                    class="btn btn-primary col-12 me-2 my-2 mb-md-0 text-white">
                                             </div>
                                         </form>
                                     </div>
