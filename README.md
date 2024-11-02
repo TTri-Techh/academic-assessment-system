@@ -36,7 +36,7 @@
 | View & update assessment by months   | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 | View & update monthly tests          | -   | -   | -   | -   | ✅  | ✅  |
 | Calculate & announce QCPR            | -   | ✅  | ✅  | ✅  | ✅  | ✅  |
-| CRUD Learning Resources              | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  |
+| CRUD Learning Resources              | ✅  | ✅  | ✅  | ✅  | ✅  | ✅  |
 
 ## Student
 
@@ -45,7 +45,7 @@
 
 ## Grade Systems
 
-#### Upper Grades (Grade 4-11)
+#### Upper Grades (Grade 4-5)
 
 - A, B, C, D grades
 - ပျမ်းမျှအဆင့် တွက်ချက်ပုံ:

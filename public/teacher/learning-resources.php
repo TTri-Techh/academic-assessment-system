@@ -106,6 +106,42 @@ if (isset($_SESSION['alert'])) {
                 </div>
             </div>
 
+            <!-- Add subject filter dropdown -->
+            <div class="mb-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h4>My Resources</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-select" id="subjectFilter">
+                            <option value="">All Subjects</option>
+                            <?php foreach ($subjects as $subject): ?>
+                                <option value="<?= $subject['id'] ?>"
+                                    <?= isset($_GET['subject']) && $_GET['subject'] == $subject['id'] ? 'selected' : '' ?>>
+                                    <?= $subject['subject_name'] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add JavaScript for filter functionality -->
+            <script>
+                document.getElementById('subjectFilter').addEventListener('change', function() {
+                    const subjectId = this.value;
+                    const currentUrl = new URL(window.location.href);
+
+                    if (subjectId) {
+                        currentUrl.searchParams.set('subject', subjectId);
+                    } else {
+                        currentUrl.searchParams.delete('subject');
+                    }
+
+                    window.location.href = currentUrl.toString();
+                });
+            </script>
+
             <!-- Display Resources Table -->
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
@@ -125,6 +161,9 @@ if (isset($_SESSION['alert'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                        // Update the resources query based on filter
+                                        $subjectId = isset($_GET['subject']) ? $_GET['subject'] : null;
+                                        $resources = $resourceController->getResourcesByTeacherAndSubject($_SESSION['teacher_id'], $subjectId);
                                         foreach ($resources as $resource): ?>
                                             <tr>
                                                 <td>

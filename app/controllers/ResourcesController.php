@@ -55,4 +55,8 @@ class ResourcesController
     {
         return $this->resourcesModel->getResourcesByClassId($classId);
     }
+    public function getResourcesByTeacherAndSubject($teacherId, $subjectId = null)
+    {
+        return $this->resourcesModel->getResourcesByTeacherAndSubject($teacherId, $subjectId);
+    }
 }
