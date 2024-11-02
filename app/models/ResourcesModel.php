@@ -20,10 +20,11 @@ class ResourcesModel
             $this->db->beginTransaction();
 
             extract($data);
-            $query = "INSERT INTO $this->table (chapter_no, chapter_name, title, description, teacher_id, class_id) 
-                    VALUES (:chapter_no, :chapter_name, :title, :description, :teacher_id, :class_id)";
+            $query = "INSERT INTO $this->table (subject_id, chapter_no, chapter_name, title, description, teacher_id, class_id) 
+                    VALUES (:subject_id, :chapter_no, :chapter_name, :title, :description, :teacher_id, :class_id)";
 
             $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':subject_id', $subject_id);
             $stmt->bindParam(':chapter_no', $chapter_no);
             $stmt->bindParam(':chapter_name', $chapter_name);
             $stmt->bindParam(':title', $title);
@@ -220,6 +221,30 @@ class ResourcesModel
             $this->db->rollBack();
             echo $e->getMessage();
             return false;
+        }
+    }
+
+    public function getResourcesByClassId($classId)
+    {
+        try {
+            $query = "SELECT r.*, s.subject_name as subject_name, 
+                            GROUP_CONCAT(f.file_path SEPARATOR ',') as files 
+                     FROM resources r
+                     LEFT JOIN subjects s ON r.subject_id = s.id
+                     LEFT JOIN files f ON r.id = f.resource_id
+                     WHERE r.class_id = :class_id
+                     GROUP BY r.id, r.subject_id, r.chapter_no, r.chapter_name, 
+                              r.title, r.description, s.subject_name
+                     ORDER BY s.subject_name, r.chapter_no";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':class_id', $classId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return [];
         }
     }
 }
