@@ -27,4 +27,15 @@ class SubjectModel
             echo "Error: " . $e->getMessage();
         }
     }
+    public function getMainSubjects()
+    {
+        try {
+            $query = "SELECT * FROM $this->table LIMIT 5";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 }
