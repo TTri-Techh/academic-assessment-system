@@ -155,4 +155,18 @@ class MonthlyTestModel
             return false;
         }
     }
+    public function deleteMonthlyTest($data)
+    {
+        try {
+            extract($data);
+            $query = "DELETE FROM {$this->table} WHERE class_id = :class_id AND month_no = :month_no AND year = :year";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':class_id', $class_id);
+            $stmt->bindParam(':month_no', $month_no);
+            $stmt->bindParam(':year', $year);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }

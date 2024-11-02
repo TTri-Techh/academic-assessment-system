@@ -113,8 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['class_id'])) {
                                             <td><?= htmlspecialchars($student['father_name']) ?> <br>
                                                 <?= htmlspecialchars($student['mother_name']) ?> </td>
                                             <td><?= htmlspecialchars($student['dob']) ?></td>
-                                            <td><?= htmlspecialchars($student['parent_job']) ?></td>
                                             <td><?= htmlspecialchars($student['guardian']) ?></td>
+                                            <td><?= htmlspecialchars($student['parent_job']) ?></td>
                                             <td><?= htmlspecialchars($student['phone']) ?> <br>
                                                 <?= htmlspecialchars($student['address']) ?></td>
                                         </tr>

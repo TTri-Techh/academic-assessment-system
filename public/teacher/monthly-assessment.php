@@ -118,6 +118,12 @@ $monthlyChapter = $monthlyAssessmentController->getMonthlyChapter([
     'year' => date('Y')
 ]);
 
+// reset assessment
+if (isset($_POST['reset'])) {
+    $monthlyAssessmentController->deleteMonthlyAssessment($checkAssessmentData);
+    Helper::redirect($_SERVER['PHP_SELF'] . "?subject_id=" . $subject_id . "&month_no=" . $month_no);
+}
+
 ?>
 
 <body>
@@ -134,11 +140,21 @@ $monthlyChapter = $monthlyAssessmentController->getMonthlyChapter([
         <div class="page-content">
             <!-- Month Selection Form -->
             <div class="row justify-content-between">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h4 class="mb-3 mb-md-0">လစဉ်ဘာသာရပ်အလိုက်စစ်ဆေးအကဲဖြတ်မှတ်တမ်း (<span class="text-primary"><?= $subjectName ?></span>)</h4>
                 </div>
+                <div class="col-sm-4 mb-3 d-flex justify-content-end">
+                    <form action="" method="POST" onsubmit="return confirm('အကဲဖြတ်မှတ်တမ်းအားလုံးကို ဖျက်ရန် သေချာပါသလား?');">
+                        <input type="hidden" name="subject_id" value="<?= $subject_id ?>">
+                        <input type="hidden" name="month_no" value="<?= $month_no ?>">
+                        <button type="submit" name="reset" class="btn btn-danger">
+                            <i class="link-icon" data-feather="trash-2"></i>
+                            အကဲဖြတ်မှတ်တမ်းအားလုံးကို ဖျက်မည်
+                        </button>
+                    </form>
+                </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <form action="" method="GET" class="d-flex justify-content-end">
                         <input type="hidden" name="subject_id" value="<?= $subject_id ?>">
                         <div class="d-flex align-items-center gap-2">

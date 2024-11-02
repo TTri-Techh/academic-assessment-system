@@ -40,15 +40,17 @@ if (isset($_POST['status'])) {
                         <a href="javascript:;" class="dropdown-item py-2"><i class="flag-icon flag-icon-mm" title="mm" id="mm"></i> <span class="ms-1"> Myanmar </span></a>
                     </div>
                 </li> -->
-                <li class="nav-item">
-                    <!-- change announcement status and submit form -->
-                    <form action="" method="POST">
-                        <select name="status" id="status" class="form-select <?= $status == 0 ? 'text-warning' : 'text-success' ?>" onchange="this.form.submit()">
-                            <option value="0" <?= $status == 0 ? 'selected' : '' ?>> <?= $status == 0 ? 'QCPR ရမှတ်များကို ပိတ်သိမ်းထားသည်' : 'QCPR ရမှတ်များကို ပိတ်သိမ်းမည်' ?> </option>
-                            <option value="1" <?= $status == 1 ? 'selected' : '' ?>> <?= $status == 1 ? 'ကျောင်းသားများ၏ QCPR ရမှတ်များကို ကြေညာထားသည်' : 'ကျောင်းသားများ၏ QCPR ရမှတ်များကို ကြေညာမည်' ?></option>
-                        </select>
-                    </form>
-                </li>
+                <?php if ($_SESSION['class_id'] != 0): ?>
+                    <li class="nav-item">
+                        <!-- change announcement status and submit form -->
+                        <form action="" method="POST">
+                            <select name="status" id="status" class="form-select <?= $status == 0 ? 'text-warning' : 'text-success' ?>" onchange="this.form.submit()">
+                                <option value="0" <?= $status == 0 ? 'selected' : '' ?>> <?= $status == 0 ? 'QCPR ရမှတ်များကို ပိတ်သိမ်းထားသည်' : 'QCPR ရမှတ်များကို ပိတ်သိမ်းမည်' ?> </option>
+                                <option value="1" <?= $status == 1 ? 'selected' : '' ?>> <?= $status == 1 ? 'ကျောင်းသားများ၏ QCPR ရမှတ်များကို ကြေညာထားသည်' : 'ကျောင်းသားများ၏ QCPR ရမှတ်များကို ကြေညာမည်' ?></option>
+                            </select>
+                        </form>
+                    </li>
+                <?php endif ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

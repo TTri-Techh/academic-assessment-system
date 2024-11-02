@@ -220,4 +220,20 @@ class MonthlyAssessmentModel
             return false;
         }
     }
+    public function deleteMonthlyAssessment($data)
+    {
+        try {
+            extract($data);
+            $query = "DELETE FROM {$this->table} WHERE subject_id = :subject_id AND month_no = :month_no AND class_id = :class_id AND year = :year";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':subject_id', $subject_id);
+            $stmt->bindParam(':month_no', $month_no);
+            $stmt->bindParam(':class_id', $class_id);
+            $stmt->bindParam(':year', $year);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 }

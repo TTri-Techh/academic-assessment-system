@@ -167,4 +167,20 @@ class ChapterlyAssessmentModel
             return false;
         }
     }
+
+    public function deleteChapterlyAssessment($data)
+    {
+        try {
+            extract($data);
+            $query = "DELETE FROM {$this->table} WHERE subject_id = :subject_id AND chapter_no = :chapter_no AND class_id = :class_id AND year = :year";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':subject_id', $subject_id);
+            $stmt->bindParam(':chapter_no', $chapter_no);
+            $stmt->bindParam(':class_id', $class_id);
+            $stmt->bindParam(':year', $year);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }

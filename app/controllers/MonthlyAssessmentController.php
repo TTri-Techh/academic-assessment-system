@@ -47,4 +47,9 @@ class MonthlyAssessmentController
     {
         return $this->monthlyAssessmentModel->getMonthlyAssessmentByStudentId($student_id, $class_id);
     }
+
+    public function deleteMonthlyAssessment($data)
+    {
+        return $this->monthlyAssessmentModel->deleteMonthlyAssessment($data);
+    }
 }
